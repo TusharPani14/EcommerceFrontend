@@ -21,7 +21,7 @@ const Series = () => {
   // Fetch all categories on component mount
   useEffect(() => {
     getAllCategories();
-  }, []);
+  }, []); 
 
   useEffect(() => {
     if (category && subcategory && seriesName && Products.length > 0) {
