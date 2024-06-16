@@ -16,7 +16,6 @@ const Series = () => {
   // Capture the category, subcategory, and series from URL
   const { category, subcategory, series: seriesName } = useParams();
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState(null);
 
   // Fetch all categories on component mount
@@ -42,7 +41,6 @@ const Series = () => {
         `${import.meta.env.VITE_SERVER_URL}/admin/category`
       );
       // console.log(response.data.categories);
-      setCategories(response.data?.categories);
       findSelectedSeries(response.data?.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -51,7 +49,6 @@ const Series = () => {
 
   // Find the selected series based on URL parameters
   const findSelectedSeries = (categories) => {
-    console.log(categories);
     for (const cat of categories) {
       if (cat.fileName === category) {
         for (const subcat of cat.subcategories) {
