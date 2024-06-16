@@ -68,11 +68,9 @@ const ProductPage = ({}) => {
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
-    console.log(userAgent);
     if (
       /iPhone|webOS|Android|iPad|iPod|BlackBerry|Windows Phone/i.test(userAgent)
     ) {
-      console.log("AR Supported");
       setARSupported(true);
     } else {
       console.log("AR Not Supported");
@@ -239,7 +237,6 @@ const ProductPage = ({}) => {
         `${import.meta.env.VITE_SERVER_URL}/product/all`
       );
       setProducts(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -541,19 +538,24 @@ const ProductPage = ({}) => {
                               <span className="text-black">
                                 {currency} {minprice}
                               </span>{" "}
-                              <span className="line-through text-[#484848] text-[1rem]">
-                                {currency} {price}
-                              </span>
-                              {product?.promotional && (
-                                <span className="label label-warning text-sm ml-1 raleway">
-                                  (
-                                  {(
-                                    (product?.price - product?.discountValue) /
-                                    product?.price
-                                  )?.toFixed(2) * 100}
-                                  %)
+                              {product?.price - product?.discountValue != 0 && (
+                                <span className="line-through text-[#484848] text-[1rem]">
+                                  {currency} {price}
                                 </span>
                               )}
+                              {product?.promotional &&
+                                product?.price - product?.discountValue !=
+                                  0 && (
+                                  <span className="label label-warning text-sm ml-1 raleway">
+                                    (
+                                    {(
+                                      (product?.price -
+                                        product?.discountValue) /
+                                      product?.price
+                                    )?.toFixed(2) * 100}
+                                    %)
+                                  </span>
+                                )}
                             </>
                           )}
                         </span>
@@ -569,10 +571,12 @@ const ProductPage = ({}) => {
                         {currency === "OMR"
                           ? (minprice * 0.1).toFixed(2)
                           : parseFloat(minprice).toFixed(2)}{" "}
-                        <span className="line-through text-[#484848] text-[1rem]">
-                          {currency} {price}
-                        </span>
-                        {product?.promotional && (
+                        {price - minprice !== 0 && (
+                          <span className="line-through text-[#484848] text-[1rem]">
+                            {currency} {price}
+                          </span>
+                        )}
+                        {product?.promotional && price - minprice !== 0 && (
                           <span className="label label-warning text-sm ml-1 raleway">
                             {(((price - minprice) / price) * 100).toFixed(2)}%
                           </span>
@@ -604,7 +608,6 @@ const ProductPage = ({}) => {
                     </div>
                   )}
 
-                  {/* {console.log(selectedAttribute)} */}
                   {sortedAttributes.map((item, index) => (
                     <div key={index} className=" flex flex-col mt-2">
                       <p className=" mt-3 mb-2 capitalize text-[12.3px] md:text-[13.6px] 2xl:text-[15px] font-bold raleway text-[#484848] text-[1rem]">
@@ -653,7 +656,6 @@ const ProductPage = ({}) => {
                                       }
                                     );
                                     setSelectedAttributes([...newArr, attr]);
-                                    console.log([...newArr, attr]);
                                   } else {
                                     setSelectedAttributes([
                                       ...selectedAttribute,
