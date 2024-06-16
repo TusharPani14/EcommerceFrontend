@@ -40,5 +40,5 @@ jobs:
         lftp -c "
         set ssl:verify-certificate false;
         open ftp://$FTP_USERNAME:$FTP_PASSWORD@$FTP_SERVER;
-        mirror -R -e dist/.;
+        mirror -R -e --ignore-errors dist/.;
         "
