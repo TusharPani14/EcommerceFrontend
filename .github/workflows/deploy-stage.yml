@@ -24,6 +24,12 @@ jobs:
     - name: Build project
       run: npm run build
 
+    - name: Copy .htaccess
+      run: cp .htaccess dist/.htaccess
+
+    - name: Verify build output
+      run: ls -la dist/
+
     - name: Deploy to cPanel
       env:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -34,5 +40,5 @@ jobs:
         lftp -c "
         set ssl:verify-certificate false;
         open ftp://$FTP_USERNAME:$FTP_PASSWORD@$FTP_SERVER;
-        mirror -R -e dist/ /public_html;
+        mirror -R -e dist/.;
         "
