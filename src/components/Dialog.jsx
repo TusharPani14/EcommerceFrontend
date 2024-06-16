@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -20,87 +20,6 @@ import { IoIosLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const NavList = [
-  {
-    id: 1,
-    name: "Home",
-    link: "/",
-  },
-  {
-    id: 2,
-    name: "OFFICE",
-    dropdownList: [
-      {
-        id: "2.1",
-        name: "link 1",
-        link: "/",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "HOSPITALITY",
-    dropdownList: [
-      {
-        id: "3.1",
-        name: "link 1",
-        link: "/",
-      },
-      {
-        id: "3.2",
-        name: "link 1",
-        link: "/",
-      },
-      {
-        id: "3.3",
-        name: "link 1",
-        link: "/",
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "OUTDOOR ",
-    dropdownList: [
-      {
-        id: "4.1",
-        name: "link 1",
-        link: "/",
-      },
-      {
-        id: "4.2",
-        name: "link 1",
-        link: "/",
-      },
-      {
-        id: "4.3",
-        name: "link 1",
-        link: "/",
-      },
-      {
-        id: "4.4",
-        name: "link 1",
-        link: "/",
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "UNIQUE",
-    link: "/",
-  },
-  {
-    id: 6,
-    name: "HOW IT WORKS",
-    link: "/",
-  },
-  {
-    id: 7,
-    name: "BECOME A PARTNER",
-    link: "/",
-  },
-];
-
 export default function DialogBar() {
   const {
     currency,
@@ -116,6 +35,16 @@ export default function DialogBar() {
   const [menu, setMenu] = useState([]);
   const [categories, setCategories] = useState([]);
   const { userLoggedIn, setUserLoggedIn } = useAuth();
+  const [openCategory, setOpenCategory] = useState(null);
+  const [openSubcategory, setOpenSubcategory] = useState(null);
+
+  const handleCategoryClick = (index) => {
+    setOpenCategory(openCategory === index ? null : index);
+  };
+
+  const handleSubcategoryClick = (index) => {
+    setOpenSubcategory(openSubcategory === index ? null : index);
+  };
   useEffect(() => {
     // Function to fetch the menu from the backend
     const fetchMenu = async () => {
@@ -293,56 +222,93 @@ export default function DialogBar() {
                             </div>
                           );
                         })}
-                        {categories?.map((item, index) => {
-                          return (
-                            <div className=" w-full relative " key={index}>
-                              {item?.subcategories ? (
-                                <Menu>
-                                  <Menu.Button className=" w-full flex items-center justify-between capitalize border-t-[1px] py-2.5 border-[#efefef] dark:text-gray-600 text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px] ">
-                                    {item.fileName}
-                                    <ChevronDownIcon className=" w-[15px]" />
-                                  </Menu.Button>
-                                  <Menu.Items className="   flex flex-col  text-[13px] md:text-[13px] 2xl:text-[16px]  dark:text-gray-600 bg-white pl-2 gap-2 w-full ">
-                                    {item?.subcategories?.map((e, index) => {
-                                      return (
-                                        <Link
-                                          autoFocus="off"
-                                          to={`/shop/${item?.fileName}/${e?.name}`}
-                                          onClick={() => {
-                                            SetIsMenuOpen(false);
-                                          }}
-                                          key={index}
-                                        >
-                                          <p
-                                            className=" border-t-[1px] py-2.5 border-gray-500 capitalize"
-                                            key={index}
-                                          >
-                                            {e?.name}
-                                          </p>
-                                        </Link>
-                                      );
-                                    })}
-                                  </Menu.Items>
-                                </Menu>
-                              ) : (
+                        {categories.map((item, index) => (
+                          <div className="w-full relative" key={index}>
+                            <Menu>
+                              <Menu.Button className="w-full flex items-center justify-between capitalize border-t-[1px] py-2.5 border-[#efefef] dark:text-gray-600 text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
                                 <Link
-                                  to={`/shop/${item?.fileName}/all`}
-                                  onClick={() => {
-                                    SetIsMenuOpen(false);
-                                  }}
-                                  style={{ outline: "none" }}
+                                  key={index}
+                                  to={`/shop/${item.fileName}/all`}
+                                  onClick={() => setOpenCategory(null)}
                                 >
-                                  <p
-                                    className=" outline-none border-t-[1px] py-2.5 dark:border-gray-600 border-[#EEEEEE] text-gray-800 dark:text-gray-600 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]"
-                                    key={index}
-                                  >
-                                    {item?.fileName}
-                                  </p>
+                                  {item.fileName}
                                 </Link>
-                              )}
-                            </div>
-                          );
-                        })}
+                                <ChevronDownIcon
+                                  className="w-[15px]"
+                                  onClick={() => handleCategoryClick(index)}
+                                />
+                              </Menu.Button>
+                              <Transition
+                                show={openCategory === index}
+                                as={React.Fragment}
+                                enter="transition ease-out duration-100 transform"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="transition ease-in duration-75 transform"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                              >
+                                <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white pl-2 gap-2 w-full">
+                                  {item.subcategories.map(
+                                    (subcategory, subIndex) => (
+                                      <div key={subIndex}>
+                                        <Menu>
+                                          <Menu.Button className="w-full flex items-center justify-between capitalize border-t-[1px] py-2.5 border-gray-500">
+                                            <Link
+                                              key={subIndex}
+                                              to={`/shop/${item.fileName}/${subcategory.name}`}
+                                              onClick={() =>
+                                                setOpenCategory(null)
+                                              }
+                                            >
+                                              {subcategory.name}
+                                            </Link>
+
+                                            <ChevronDownIcon
+                                              className="w-[15px]"
+                                              onClick={() =>
+                                                handleSubcategoryClick(subIndex)
+                                              }
+                                            />
+                                          </Menu.Button>
+                                          <Transition
+                                            show={openSubcategory === subIndex}
+                                            as={React.Fragment}
+                                            enter="transition ease-out duration-100 transform"
+                                            enterFrom="opacity-0 scale-95"
+                                            enterTo="opacity-100 scale-100"
+                                            leave="transition ease-in duration-75 transform"
+                                            leaveFrom="opacity-100 scale-100"
+                                            leaveTo="opacity-0 scale-95"
+                                          >
+                                            <Menu.Items className="pl-2 flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white">
+                                              {subcategory.series.map(
+                                                (seriesItem, seriesIndex) => (
+                                                  <Link
+                                                    key={seriesIndex}
+                                                    to={`/shop/${item.fileName}/${subcategory.name}/${seriesItem.name}`}
+                                                    onClick={() =>
+                                                      setOpenCategory(null)
+                                                    }
+                                                  >
+                                                    <p className="border-t-[1px] py-2.5 capitalize border-gray-500">
+                                                      {seriesItem.name}
+                                                    </p>
+                                                  </Link>
+                                                )
+                                              )}
+                                            </Menu.Items>
+                                          </Transition>
+                                        </Menu>
+                                      </div>
+                                    )
+                                  )}
+                                </Menu.Items>
+                              </Transition>
+                            </Menu>
+                          </div>
+                        ))}
+
                         <div className=" flex flex-col text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px] ">
                           {/* <select
                             value={language}

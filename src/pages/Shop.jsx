@@ -12,7 +12,7 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { MainAppContext } from "@/context/MainContext";
 import { FaStar } from "react-icons/fa";
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const sortMethods = [
@@ -83,11 +83,23 @@ const Shop = () => {
   const { category, subcategory } = useParams();
 
   const { SetIsMobileFilterOpen, currency, wishlist } = useContext(AppContext);
+  const [categories, setCategories] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openSubcategory, setOpenSubcategory] = useState(null);
+
+  // Handler to toggle main dropdown visibility
+  const handleDropdownToggle = (index) => {
+    setOpenDropdown(openDropdown === index ? null : index);
+  };
+
+  // Handler to toggle subcategory dropdown visibility
+  const handleSubcategoryToggle = (index) => {
+    setOpenSubcategory(openSubcategory === index ? null : index);
+  };
   const handleInput = (e) => {
     set_minValue(Number(e.minValue));
     set_maxValue(Number(e.maxValue));
   };
-  const [categories, setCategories] = useState([]);
   const getAllCategories = async () => {
     try {
       const response = await axios.get(
@@ -218,36 +230,79 @@ const Shop = () => {
                               ? "text-[#F9BA48] font-bold plus-jakarta"
                               : "text-[#363F4D] dark:text-gray-400"
                           } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
+                          onClick={() => handleDropdownToggle(index)}
                         >
-                          {i.fileName}
-                          <ChevronDownIcon className=" w-[15px]" />
+                          <Link key={index} to={`/shop/${i.fileName}/all`}>
+                            {i.fileName}
+                          </Link>
+                          <ChevronDownIcon className="w-[15px]" />
                         </Menu.Button>
-                        <Menu.Items className="   flex flex-col  text-[13px] md:text-[13px] 2xl:text-[16px]  dark:text-gray-600 bg-white pl-2 gap-2 w-full ">
-                          {i?.subcategories?.map((e, index) => {
-                            return (
-                              <Link
-                                autoFocus="off"
-                                to={`/shop/${i?.fileName}/${e?.name}`}
-                                onClick={() => {
-                                  SetIsMenuOpen(false);
-                                }}
-                                key={index}
-                              >
-                                <p
-                                  className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
+                        <Transition
+                          show={openDropdown === index}
+                          as={React.Fragment}
+                          enter="transition ease-out duration-100 transform"
+                          enterFrom="opacity-0 scale-95"
+                          enterTo="opacity-100 scale-100"
+                          leave="transition ease-in duration-75 transform"
+                          leaveFrom="opacity-100 scale-100"
+                          leaveTo="opacity-0 scale-95"
+                        >
+                          <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white pl-2 gap-2 w-full">
+                            {i?.subcategories.map((e, subIndex) => (
+                              <div key={subIndex}>
+                                <Menu.Button
+                                  className={`w-full justify-between capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
                                     i?.fileName?.toLowerCase() ===
                                     filterCategories
                                       ? "text-[#F9BA48] font-bold plus-jakarta"
                                       : "text-[#363F4D] dark:text-gray-400"
                                   } font-[400] text-[12px] md:text-[13px] 2xl:text-[15px] `}
-                                  key={index}
+                                  onClick={() =>
+                                    handleSubcategoryToggle(subIndex)
+                                  }
                                 >
-                                  {e?.name}
-                                </p>
-                              </Link>
-                            );
-                          })}
-                        </Menu.Items>
+                                  <Link
+                                    key={subIndex}
+                                    to={`/shop/${i.fileName}/${e.name}`}
+                                  >
+                                    {e?.name}
+                                  </Link>
+                                  <ChevronDownIcon className="w-[15px]" />
+                                </Menu.Button>
+                                <Transition
+                                  show={openSubcategory === subIndex}
+                                  as={React.Fragment}
+                                  enter="transition ease-out duration-100 transform"
+                                  enterFrom="opacity-0 scale-95"
+                                  enterTo="opacity-100 scale-100"
+                                  leave="transition ease-in duration-75 transform"
+                                  leaveFrom="opacity-100 scale-100"
+                                  leaveTo="opacity-0 scale-95"
+                                >
+                                  <Menu.Items className="pl-2 flex flex-col text-[12px] md:text-[13px] 2xl:text-[15px] dark:text-gray-600 bg-white">
+                                    {e?.series.map(
+                                      (seriesItem, seriesIndex) => (
+                                        <Link
+                                          key={seriesIndex}
+                                          to={`/shop/${i?.fileName}/${e?.name}/${seriesItem.name}`}
+                                          onClick={() => {
+                                            setFilterCategories(
+                                              i?.fileName?.toLowerCase()
+                                            );
+                                          }}
+                                        >
+                                          <p className="border-t-[1px] py-2.5 capitalize border-[#E5E5E5]">
+                                            {seriesItem.name}
+                                          </p>
+                                        </Link>
+                                      )
+                                    )}
+                                  </Menu.Items>
+                                </Transition>
+                              </div>
+                            ))}
+                          </Menu.Items>
+                        </Transition>
                       </Menu>
                     ) : (
                       <Link

@@ -16,6 +16,7 @@ import ProductPage from "@/pages/ProductPage";
 import Profile from "@/pages/Profile";
 import Register from "@/pages/Register";
 import SearchPage from "@/pages/Search";
+import Series from "@/pages/Series";
 import Shop from "@/pages/Shop";
 import SuccessTransactionPage from "@/pages/SuccessTransactionPage";
 import AddProduct from "@/pages/Vendordashboard/AddProduct";
@@ -167,6 +168,12 @@ export const userRoutes = [
     title: "privacy-policy",
     component: <PrivacyPol />,
     path: "/privacy-policy",
+  },
+  {
+    name: "Series",
+    title: "Series",
+    component: <Series />,
+    path: "/shop/:category/:subcategory/:series",
   },
 ];
 
