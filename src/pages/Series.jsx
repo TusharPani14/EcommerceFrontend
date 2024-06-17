@@ -84,7 +84,7 @@ const Series = () => {
     <div>
       <div className="px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7] dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between">
         <h2 className="uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400">
-          Series
+          Shop
         </h2>
         <div className="flex items-center font-[500] plus-jakarta text-[12px] md:text-[13.6px]">
           <Link to="/">
@@ -93,7 +93,13 @@ const Series = () => {
             </span>
           </Link>
           <span className="px-1">/</span>
-          <span className="uppercase">Series</span>
+          <span className="uppercase">Shop</span>
+          <span className="px-1">/</span>
+          <span className="uppercase">{category}</span>
+          <span className="px-1">/</span>
+          <span className="uppercase">{subcategory}</span>
+          <span className="px-1">/</span>
+          <span className="uppercase">{seriesName}</span>
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import Contact from "@/pages/Contact";
 import Error404 from "@/pages/Error404";
 import Faq from "@/pages/Faq";
 import ForgotPassword from "@/pages/ForgotPassword";
+import Gallery from "@/pages/Gallery";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import PrivacyPol from "@/pages/PrivacyPol";
@@ -174,6 +175,12 @@ export const userRoutes = [
     title: "Series",
     component: <Series />,
     path: "/shop/:category/:subcategory/:series",
+  },
+  {
+    name: "Gallery",
+    title: "Gallery",
+    component: <Gallery />,
+    path: "/gallery",
   },
 ];
 
