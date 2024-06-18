@@ -88,6 +88,7 @@ export const MainAppProvider = ({ children }) => {
             (acc, obj) => acc + obj.productId.price * obj.quantity,
             0
           );
+          console.log(total1);
           setTotal(total1);
         }
         // Handle success response, if needed

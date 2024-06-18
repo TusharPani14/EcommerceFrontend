@@ -425,7 +425,7 @@ export default function MobileCart({ userData }) {
                             No Items in Cart
                           </p>
                           <Link
-                            to="/shop"
+                            to="/shop/all/all"
                             onClick={() => {
                               SetIsCartOpen(false);
                             }}

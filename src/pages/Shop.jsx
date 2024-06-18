@@ -500,7 +500,6 @@ const Shop = () => {
                   <div className="w-full grid-cols-2 sm:grid-cols-3 grid lg:grid-cols-4 gap-5">
                     {sortedArray
                       .filter((product) => {
-                        console.log(product);
                         const isPriceInRange =
                           Number(product.price) > minValue &&
                           Number(product.price) < maxValue;

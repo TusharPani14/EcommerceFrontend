@@ -107,8 +107,14 @@ const Header = () => {
     SetIsCartOpen,
     SetIsMenuOpen,
   } = useContext(AppContext);
-  const { isDarkMode, SetIsDarkMode, cartCount, setCartCount, total } =
-    useContext(MainAppContext);
+  const {
+    isDarkMode,
+    SetIsDarkMode,
+    cartCount,
+    setCartCount,
+    total,
+    setTotal,
+  } = useContext(MainAppContext);
   const { userLoggedIn, setUserLoggedIn } = useAuth();
   const [userDetails, setUserDetails] = useState({});
   const [viewLogin, setViewLogin] = useState(false);
@@ -162,6 +168,14 @@ const Header = () => {
             ? response.data.cart.products?.length
             : 0
         );
+        if (response.data.cart.products?.length > 0) {
+          const total1 = response.data.cart.products.reduce(
+            (acc, obj) => acc + obj.productId.price * obj.quantity,
+            0
+          );
+          console.log(total1);
+          setTotal(total1);
+        }
         // // console.log(response.data.cart.products?.length);
       } catch (error) {
         console.error("Error Fetching Cart", error);

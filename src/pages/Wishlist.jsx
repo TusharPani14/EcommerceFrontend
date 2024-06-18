@@ -220,7 +220,7 @@ const WishList = () => {
               <p className=" text-sm font-semibold text-gray-600 ">
                 No Items in Wishlist
               </p>
-              <Link to="/shop" className=" underline text-orange-600">
+              <Link to="/shop/all/all" className=" underline text-orange-600">
                 Contine Shopping
               </Link>
             </div>
