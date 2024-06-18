@@ -413,3 +413,14 @@ ul.listing_disc li {
 .custom_width22 {
   max-width: 22rem !important;
 }
+
+.cart_floating {
+  position: fixed;
+  z-index: 999;
+  bottom: 20px !important;
+  padding: 10px 25px;
+  border: 1px solid #000 !important;
+  left: 25px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.4);
+}

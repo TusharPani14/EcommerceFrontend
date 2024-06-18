@@ -23,7 +23,7 @@ import parse from "html-react-parser";
 import AttributeSlider from "@/components/AttributeSlider";
 import { Tooltip } from "@material-tailwind/react";
 
-const ProductPage = ({}) => {
+const ProductPage = ({ }) => {
   const [activeImage, SetActiveImage] = useState(1);
   const [viewMainImg, SetViewMainImg] = useState(false);
   const [materialImage, SetMaterialImage] = useState("");
@@ -81,8 +81,7 @@ const ProductPage = ({}) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/product/${
-          productPageId || productId
+        `${import.meta.env.VITE_SERVER_URL}/product/${productPageId || productId
         }`
       );
       // if (response.data?.approved === false) {
@@ -389,11 +388,10 @@ const ProductPage = ({}) => {
                           }}
                           src={product?.mainImage}
                           alt={"mainImage"}
-                          className={`${
-                            activeImage === product?.mainImage
-                              ? "opacity-40 border-[2px] border-orange-400 "
-                              : " cursor-pointer"
-                          } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
+                          className={`${activeImage === product?.mainImage
+                            ? "opacity-40 border-[2px] border-orange-400 "
+                            : " cursor-pointer"
+                            } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
                         />{" "}
                       </>
                     )}
@@ -410,11 +408,10 @@ const ProductPage = ({}) => {
                                 }}
                                 src={image}
                                 alt={"product-pics"}
-                                className={`${
-                                  activeImage === image
-                                    ? "opacity-40 border-[2px] border-orange-400 "
-                                    : " cursor-pointer"
-                                } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
+                                className={`${activeImage === image
+                                  ? "opacity-40 border-[2px] border-orange-400 "
+                                  : " cursor-pointer"
+                                  } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
                               />
                             ))}
                       </>
@@ -442,7 +439,7 @@ const ProductPage = ({}) => {
                           ar-modes="webxr scene-viewer quick-look"
                           camera-controls
                           auto-rotate
-                          // style={modelViewerStyle}
+                        // style={modelViewerStyle}
                         >
                           <button
                             slot="ar-button"
@@ -545,7 +542,7 @@ const ProductPage = ({}) => {
                               )}
                               {product?.promotional &&
                                 product?.price - product?.discountValue !=
-                                  0 && (
+                                0 && (
                                   <span className="label label-warning text-sm ml-1 raleway">
                                     (
                                     {(
@@ -566,23 +563,23 @@ const ProductPage = ({}) => {
                       maxprice === 0 ||
                       minprice === Number.MAX_VALUE ||
                       maxprice === Number.MIN_VALUE) && (
-                      <>
-                        {currency}{" "}
-                        {currency === "OMR"
-                          ? (minprice * 0.1).toFixed(2)
-                          : parseFloat(minprice).toFixed(2)}{" "}
-                        {price - minprice !== 0 && (
-                          <span className="line-through text-[#484848] text-[1rem]">
-                            {currency} {price}
-                          </span>
-                        )}
-                        {product?.promotional && price - minprice !== 0 && (
-                          <span className="label label-warning text-sm ml-1 raleway">
-                            {(((price - minprice) / price) * 100).toFixed(2)}%
-                          </span>
-                        )}
-                      </>
-                    )}
+                        <>
+                          {currency}{" "}
+                          {currency === "OMR"
+                            ? (minprice * 0.1).toFixed(2)
+                            : parseFloat(minprice).toFixed(2)}{" "}
+                          {price - minprice !== 0 && (
+                            <span className="line-through text-[#484848] text-[1rem]">
+                              {currency} {price}
+                            </span>
+                          )}
+                          {product?.promotional && price - minprice !== 0 && (
+                            <span className="label label-warning text-sm ml-1 raleway">
+                              {(((price - minprice) / price) * 100).toFixed(2)}%
+                            </span>
+                          )}
+                        </>
+                      )}
 
                     {/* <span className=" bg-green-400 w-fit px-2 text-sm font-medium">
                       {product?.promotional}
@@ -601,6 +598,13 @@ const ProductPage = ({}) => {
                   <p className="  text-[10px] md:text-[12px] 2xl:text-[13px] -mt-2 raleway">
                     Tax Included
                   </p>
+
+                  <div className="text-[14px] mt-4 raleway font-[600] flex flex-col">
+                    <p className=" flex overflow-hidden gap-2 raleway mb-3">
+                      4 interest-free payments of {currency} {(minprice) / 4}
+                      <img src="../Images/postpay_logo.png" width="60px" />
+                    </p>
+                  </div>
 
                   {product?.description && (
                     <div className=" text-[12px] text-[#484848] md:text-sm flex items-center gap-2 border-t pt-[15px] mt-[15px] raleway">
@@ -663,25 +667,21 @@ const ProductPage = ({}) => {
                                     ]);
                                   }
                                 }}
-                                className={` h-full ${
-                                  selectedAttribute?.find(
-                                    (i) => i.value === attr.value
-                                  )
-                                    ? "bg-gray-300 text-gray-800"
-                                    : ""
-                                }cursor-pointer w-fit border border-gray-300 text-gray-600 ${
-                                  attr.type === "material" ? "" : "px-3 py-1"
-                                } text-sm ${
-                                  attr?.type === "color"
+                                className={` h-full ${selectedAttribute?.find(
+                                  (i) => i.value === attr.value
+                                )
+                                  ? "bg-gray-300 text-gray-800"
+                                  : ""
+                                  }cursor-pointer w-fit border border-gray-300 text-gray-600 ${attr.type === "material" ? "" : "px-3 py-1"
+                                  } text-sm ${attr?.type === "color"
                                     ? `bg-${attr.value} cursor-pointer `
                                     : ""
-                                } ${
-                                  selectedAttribute?.find(
+                                  } ${selectedAttribute?.find(
                                     (i) => i.value === attr.value
                                   ) && attr?.type === "color"
                                     ? " border-2 border-green-500 cursor-pointer"
                                     : ""
-                                } `}
+                                  } `}
                               >
                                 {attr.type === "material" ? (
                                   <Tooltip
@@ -695,13 +695,12 @@ const ProductPage = ({}) => {
                                         SetViewMaterialImg(true);
                                       }}
                                       alt="material-img"
-                                      className={`w-[40px] h-[40px] md:w-[60px] md:h-[60px] object-cover border cursor-pointer  ${
-                                        selectedAttribute?.find(
-                                          (i) => i.value === attr?.value
-                                        )
-                                          ? " border-black"
-                                          : ""
-                                      }`}
+                                      className={`w-[40px] h-[40px] md:w-[60px] md:h-[60px] object-cover border cursor-pointer  ${selectedAttribute?.find(
+                                        (i) => i.value === attr?.value
+                                      )
+                                        ? " border-black"
+                                        : ""
+                                        }`}
                                     />
                                   </Tooltip>
                                 ) : (
@@ -964,7 +963,7 @@ const ProductPage = ({}) => {
                                   </p>
                                   <div className=" flex ">
                                     {item?.discountValue > 0 &&
-                                    item?.discountValue !== null ? (
+                                      item?.discountValue !== null ? (
                                       <>
                                         <p className="font-[600] text-xs mr-0.5 dark:text-gray-400 text-[#A4A4A4]">
                                           {currency}{" "}
@@ -978,8 +977,8 @@ const ProductPage = ({}) => {
                                           <span>
                                             {currency === "OMR"
                                               ? (
-                                                  item.discountValue * 0.1
-                                                ).toFixed(2)
+                                                item.discountValue * 0.1
+                                              ).toFixed(2)
                                               : item.discountValue.toFixed(2)}
                                           </span>
                                         </p>
@@ -1032,9 +1031,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(1);
                     }}
-                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 1 && "bg-white dark:text-black"
-                    } `}
+                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 1 && "bg-white dark:text-black"
+                      } `}
                   >
                     Details
                   </p>
@@ -1042,9 +1040,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(2);
                     }}
-                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 2 && "bg-white dark:text-black"
-                    } `}
+                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 2 && "bg-white dark:text-black"
+                      } `}
                   >
                     Delivery & Returns
                   </p>
@@ -1052,9 +1049,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(3);
                     }}
-                    className={` raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 3 && "bg-white dark:text-black"
-                    } `}
+                    className={` raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 3 && "bg-white dark:text-black"
+                      } `}
                   >
                     Reviews ({reviews.length})
                   </p>
@@ -1197,7 +1193,7 @@ const ProductPage = ({}) => {
                               </p>
                               <div className=" flex items-center justify-center">
                                 {item?.discountValue > 0 &&
-                                item?.discountValue !== null ? (
+                                  item?.discountValue !== null ? (
                                   <>
                                     <p className="font-[600] text-xs md:text-base mr-0.5 dark:text-gray-400 text-[#A4A4A4]">
                                       {currency}{" "}
@@ -1212,8 +1208,8 @@ const ProductPage = ({}) => {
                                       <span>
                                         {currency === "OMR"
                                           ? (item.discountValue * 0.1).toFixed(
-                                              2
-                                            )
+                                            2
+                                          )
                                           : item.discountValue.toFixed(2)}
                                       </span>
                                     </p>
