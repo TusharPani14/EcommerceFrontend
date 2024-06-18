@@ -38,7 +38,7 @@ import PopupAdmin from "./pages/dashboard/Popup";
 import Transactions from "./pages/dashboard/Transaction";
 import { AiFillStar } from "react-icons/ai";
 import TestimonialPage from "./pages/dashboard/Testimonial";
-// import PrivacyPolicy from "./pages/dashboard/PrivacyPolicy";
+import Gallery from "./pages/dashboard/Gallery";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -156,62 +156,14 @@ export const routes = [
         path: "/popup-admin",
         element: <PopupAdmin />,
       },
-      // {
-      //   icon: <BsFilePdf {...icon} />,
-      //   name: "Privacy-Pol",
-      //   path: "/privacy-pol",
-      //   element: <PrivacyPolicy />,
-      // },
-      // {
-      //   icon: <UserCircleIcon {...icon} />,
-      //   name: "profile",
-      //   path: "/profile",
-      //   element: <Profile />,
-      // },
-      // {
-      //   icon: <TableCellsIcon {...icon} />,
-      //   name: "Vendors List",
-      //   path: "/tables",
-      //   element: <Tables />,
-      // },
-      // {
-      //   icon: <TableCellsIcon {...icon} />,
-      //   name: "Vendors List",
-      //   path: "/tables",
-      //   element: <Tables />,
-      // },
-      // {
-      //   icon: <InformationCircleIcon {...icon} />,
-      //   name: "notifications",
-      //   path: "/notifications",
-      //   element: <Notifications />,
-      // },
-      // {
-      //   icon: <IoLogOutOutline {...icon} />,
-      //   name: "Logout",
-      //   path: "/admin-logout",
-      //   element: <Notifications />,
-      // },
+      {
+        icon: <MdPhoto {...icon} />,
+        name: "Gallery",
+        path: "/gallery",
+        element: <Gallery />,
+      },
     ],
   },
-  // {
-  //   title: "auth pages",
-  //   layout: "auth",
-  //   pages: [
-  //     {
-  //       icon: <ServerStackIcon {...icon} />,
-  //       name: "sign in",
-  //       path: "/sign-in",
-  //       element: <SignIn />,
-  //     },
-  //     {
-  //       icon: <RectangleStackIcon {...icon} />,
-  //       name: "sign up",
-  //       path: "/sign-up",
-  //       element: <SignUp />,
-  //     },
-  //   ],
-  // },
 ];
 
 export default routes;

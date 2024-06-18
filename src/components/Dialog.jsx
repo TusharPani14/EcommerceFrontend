@@ -164,6 +164,19 @@ export default function DialogBar() {
                         </div>
                         <div className=" w-full relative ">
                           <Link
+                            to={`/gallery`}
+                            onClick={() => {
+                              SetIsMenuOpen(false);
+                            }}
+                            style={{ outline: "none" }}
+                          >
+                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-gray-800 dark:text-gray-600 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
+                              Gallery
+                            </p>
+                          </Link>
+                        </div>
+                        <div className=" w-full relative ">
+                          <Link
                             to={`/shop/all/all`}
                             onClick={() => {
                               SetIsMenuOpen(false);
