@@ -137,10 +137,10 @@ export default function DialogBar() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-md custom_width22">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                      <div className=" relative flex items-start justify-between">
+                      <div className=" relative flex items-start justify-between pt-5">
                         <RiCloseCircleFill
                           onClick={() => {
                             SetIsMenuOpen(false);

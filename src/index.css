@@ -409,3 +409,7 @@ ul.listing_disc li {
   color: #fff;
   font-size: 12px;
 }
+
+.custom_width22 {
+  max-width: 22rem !important;
+}

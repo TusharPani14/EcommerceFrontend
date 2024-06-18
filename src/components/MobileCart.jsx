@@ -53,8 +53,7 @@ export default function MobileCart({ userData }) {
     if (userLoggedIn) {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/cart/${
-            userDetails?._id || userId || userData?._id
+          `${import.meta.env.VITE_SERVER_URL}/cart/${userDetails?._id || userId || userData?._id
           }`
         );
         setCart(response.data.cart?.products);
@@ -183,7 +182,7 @@ export default function MobileCart({ userData }) {
             (acc, obj) => acc + obj?.updatedPrice * obj.quantity,
             0
           ) *
-            (response.data?.coupon?.discountAmount * 0.01)
+          (response.data?.coupon?.discountAmount * 0.01)
         );
         // // // console.log(total1);
         // setTotal(total1);
@@ -304,9 +303,9 @@ export default function MobileCart({ userData }) {
                                         )
                                           ? item.productId?.mainImage
                                           : `${server_url}/${item?.productId?.mainImage?.replace(
-                                              /\\/g,
-                                              "/"
-                                            )}`
+                                            /\\/g,
+                                            "/"
+                                          )}`
                                       }
                                       alt="product-img"
                                     />
@@ -318,8 +317,8 @@ export default function MobileCart({ userData }) {
                                         {currency}{" "}
                                         {currency === "OMR"
                                           ? (item?.updatedPrice * 0.1).toFixed(
-                                              2
-                                            )
+                                            2
+                                          )
                                           : item?.updatedPrice}
                                       </p>
                                       <div className=" flex items-center">
@@ -391,7 +390,7 @@ export default function MobileCart({ userData }) {
                                               (acc, obj) =>
                                                 acc +
                                                 obj.productId?.price *
-                                                  obj.quantity,
+                                                obj.quantity,
                                               0
                                             );
                                             setTotal(total1);
@@ -517,8 +516,8 @@ export default function MobileCart({ userData }) {
                               {currency}{" "}
                               {currency === "OMR"
                                 ? parseFloat(total - discountAmt * 0.1).toFixed(
-                                    2
-                                  )
+                                  2
+                                )
                                 : total - discountAmt}
                             </p>
                           </div>
@@ -526,11 +525,11 @@ export default function MobileCart({ userData }) {
 
                         <button
                           onClick={() => {
-                            if (userLoggedIn==true) {
+                            if (userLoggedIn == true) {
                               SetIsCartOpen(false);
                               return navigate("/checkout");
                             }
-                            else{
+                            else {
                               SetIsCartOpen(false);
                               toast.success("Please Login to continue...");
                               return navigate("/login");

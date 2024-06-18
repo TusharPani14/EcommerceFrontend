@@ -68,18 +68,18 @@ const Contact = () => {
 
       <div className=" w-full lg:mt-5">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.99640996094!2d-122.52000182048364!3d37.75780703819833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2sin!4v1711962914723!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d230900.04949362183!2d55.14947876837494!3d25.276866106628052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f21c020eb25%3A0x27ce0724f8ccc720!2sCreative%20Furniture!5e0!3m2!1sen!2sae!4v1718616766869!5m2!1sen!2sae"
           className=" w-full h-[200px] lg:h-[400px]"
-          allowFullScreen=""
+          allowfullscreen=""
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
+          referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
       <div className=" md:px-[2%] xl:px-[8%] flex flex-col lg:items-start lg:grid grid-cols-2 md:mx-8 mb-14 ">
         <div className=" m-8 md:m-8 ">
           <div className=" flex flex-col ">
-            <h4 className=" text-[18px] md:text-[27px] 2xl:text-[32px] font-[700] plus-jakarta text-[#363F4D] dark:text-gray-400 mb-2 ">
-              Tell Us Your Message
+            <h4 className=" text-[18px] md:text-[27px] 2xl:text-[32px] font-[500] plus-jakarta text-[#FF7004] dark:text-gray-400 mb-4 ">
+              Let's make something unique together
             </h4>
 
             <div className=" flex-col flex mb-4">
@@ -168,7 +168,7 @@ const Contact = () => {
                   Address
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
-                  123 Main Street, Anytown, CA 12345 – USA
+                  Al Raihan Tower - Office No J512, 5th Floor - 46th St - next to Movenpick Hotel - Deira - The Town square - Dubai - United Arab Emirates
                 </span>
               </div>
               <div className=" mt-3 py-6 border-t border-b border-gray-300 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400 text-[15px] md:text-[19px] 2xl:text-[20px]">
@@ -176,9 +176,8 @@ const Contact = () => {
                   <HiPhone className=" text-[15px]" /> Phone
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
-                  Mobile: (08) 123 456 789
-                  <br />
-                  Hotline: 1009 678 456
+                  Toll Free: 600 505253<br />
+                  Mobile: +971 56 673 6852
                 </span>
               </div>
               <div className=" mt-3 py-1 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400 text-[15px] md:text-[19px] 2xl:text-[20px]">
@@ -186,9 +185,9 @@ const Contact = () => {
                   <MdEmail className=" text-[17px]" /> Email
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
-                  yourmail@domain.com
+                  info@creativefurniture.ae
                   <br />
-                  support@hastech.company
+                  support@creativefurniture.ae
                 </span>
               </div>
             </div>
