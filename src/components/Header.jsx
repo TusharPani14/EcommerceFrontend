@@ -170,10 +170,9 @@ const Header = () => {
         );
         if (response.data.cart.products?.length > 0) {
           const total1 = response.data.cart.products.reduce(
-            (acc, obj) => acc + obj.productId.price * obj.quantity,
+            (acc, obj) => acc + obj?.updatedPrice * obj.quantity,
             0
           );
-          console.log(total1);
           setTotal(total1);
         }
         // // console.log(response.data.cart.products?.length);
