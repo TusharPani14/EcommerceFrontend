@@ -6,7 +6,13 @@ import { Link } from "react-router-dom";
 import { RiMenu3Fill, RiMenuSearchFill } from "react-icons/ri";
 import { AppContext } from "../context/AppContext";
 import { MdOutlineWbSunny } from "react-icons/md";
-import { IoHeart, IoHeartOutline, IoMoonSharp, IoCall, IoCartOutline } from "react-icons/io5";
+import {
+  IoHeart,
+  IoHeartOutline,
+  IoMoonSharp,
+  IoCall,
+  IoCartOutline,
+} from "react-icons/io5";
 import { MainAppContext } from "@/context/MainContext";
 import { useAuth } from "@/context/AuthContext";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -101,7 +107,7 @@ const Header = () => {
     SetIsCartOpen,
     SetIsMenuOpen,
   } = useContext(AppContext);
-  const { isDarkMode, SetIsDarkMode, cartCount, setCartCount } =
+  const { isDarkMode, SetIsDarkMode, cartCount, setCartCount, total } =
     useContext(MainAppContext);
   const { userLoggedIn, setUserLoggedIn } = useAuth();
   const [userDetails, setUserDetails] = useState({});
@@ -146,7 +152,8 @@ const Header = () => {
     if (userLoggedIn) {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/cart/${userDetails?._id || userId
+          `${import.meta.env.VITE_SERVER_URL}/cart/${
+            userDetails?._id || userId
           }`
         );
         console.log(response.data.cart);
@@ -197,10 +204,22 @@ const Header = () => {
         <span className="font-[600] plus-jakarta plus-jakarta w-full pt-[1%]">
           <marquee direction="left" loop="true">
             <ul>
-              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">Every piece of furniture in one location with Customizable options</li>
-              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">Every piece of furniture in one location with Customizable options</li>
-              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">Every piece of furniture in one location with Customizable options</li>
-              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">Every piece of furniture in one location with Customizable options</li>
+              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">
+                Every piece of furniture in one location with Customizable
+                options
+              </li>
+              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">
+                Every piece of furniture in one location with Customizable
+                options
+              </li>
+              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">
+                Every piece of furniture in one location with Customizable
+                options
+              </li>
+              <li className="pr-[10%] font-[500] text-[14px] text-[#484848]">
+                Every piece of furniture in one location with Customizable
+                options
+              </li>
             </ul>
           </marquee>
         </span>
@@ -226,7 +245,6 @@ const Header = () => {
             Currency:
           </span>
 
-
           <select
             value={currency}
             onChange={(e) => {
@@ -245,7 +263,6 @@ const Header = () => {
             {/* ); */}
             {/* })} */}
           </select>
-
 
           {!userLoggedIn && (
             <>
@@ -293,7 +310,10 @@ const Header = () => {
               Search
             </span>
           </Link>
-          <Link className=" hidden md:flex items-center gap-1" to="/shop/all/all">
+          <Link
+            className=" hidden md:flex items-center gap-1"
+            to="/shop/all/all"
+          >
             <span className=" hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535]">
               Products
             </span>
@@ -337,7 +357,9 @@ const Header = () => {
         <div className=" flex items-center pt-[4%]">
           <span className="pr-3">
             <Link to="tel:600 505253" className="flex justify-center">
-              <span className="pr-2 text-[#353535]"><IoCall className="text-[20px] text-[#353535]" /></span>
+              <span className="pr-2 text-[#353535]">
+                <IoCall className="text-[20px] text-[#353535]" />
+              </span>
               <span className="text-[#353535]">600 505253</span>
             </Link>
           </span>
@@ -599,8 +621,9 @@ const Header = () => {
       )}
 
       <div className="cart_floating">
-        {currency}{" "}
-
+        <span className="text-lg font-bold">
+          {currency} {total.toFixed(2)}
+        </span>
         <Link to="/cart" className=" relative pl-4">
           <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#353535]">
             {cartCount ? cartCount : 0}
