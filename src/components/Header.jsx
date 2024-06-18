@@ -114,6 +114,8 @@ const Header = () => {
     setCartCount,
     total,
     setTotal,
+    cartTotal,
+    setCartTotal,
   } = useContext(MainAppContext);
   const { userLoggedIn, setUserLoggedIn } = useAuth();
   const [userDetails, setUserDetails] = useState({});
@@ -158,8 +160,7 @@ const Header = () => {
     if (userLoggedIn) {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/cart/${
-            userDetails?._id || userId
+          `${import.meta.env.VITE_SERVER_URL}/cart/${userDetails?._id || userId
           }`
         );
         console.log(response.data.cart);
@@ -174,6 +175,7 @@ const Header = () => {
             0
           );
           setTotal(total1);
+          setCartTotal(total1);
         }
         // // console.log(response.data.cart.products?.length);
       } catch (error) {
@@ -424,17 +426,33 @@ const Header = () => {
             </>
           )} */}
           {/* <span className=" hidden md:inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}
-          <Link to="/cart" className=" relative pl-4">
+          {/* <Link to="/cart" className=" relative pl-4">
             <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#353535]">
               {cartCount ? cartCount : 0}
-            </span>
-            {/* <img
+            </span> */}
+          {/* <img
               className="hidden lg:block  w-[15.8px] md:w-[18px] h-[18px] object-contain cursor-pointer "
               src="/logos/bag.svg"
               alt="search"
             /> */}
-            <IoCartOutline className="hidden lg:block  object-contain cursor-pointer text-[22px] text-[#353535]" />
-          </Link>
+          {/* <IoCartOutline className="hidden lg:block  object-contain cursor-pointer text-[22px] text-[#353535]" />
+          </Link> */}
+          <div
+            onClick={() => {
+              SetIsCartOpen(true);
+            }}
+            className=" relative  pl-4"
+          >
+            <span className=" absolute -top-2 -right-1 bg-orange-500 text-sm z-20 h-3.5 w-3.5 font-medium flex items-center justify-center rounded-full">
+              {cartCount ? cartCount : 0}
+            </span>
+            {/* <img
+              className=" lg:hidden w-[15.8px] md:w-[18px] h-[18px] object-contain cursor-pointer "
+              src="/logos/bag.svg"
+              alt="search"
+            /> */}
+            <IoCartOutline className=" w-[15.8px] md:w-[18px] h-[18px] object-contain cursor-pointer  text-[20px] text-[#353535]" />
+          </div>
           {userLoggedIn ? (
             <>
               {/* <span className=" hidden  lg:inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}

@@ -419,8 +419,25 @@ ul.listing_disc li {
   z-index: 999;
   bottom: 20px !important;
   padding: 10px 25px;
-  border: 1px solid #000 !important;
+  border: 1px solid #ccc !important;
   left: 25px;
   display: flex;
   background: rgba(255, 255, 255, 0.4);
+}
+
+.multi-range-slider .bar-inner,
+.multi-range-slider .bar-right {
+  border: 1px solid #ff9800;
+  box-shadow: 0px 0px 0px #e78c02;
+}
+
+.multi-range-slider .thumb::before {
+  border: 1px solid #e78c02;
+  box-shadow: 0px 0px 3px #ff9800;
+}
+
+.multi-range-slider .thumb .caption * {
+  background: #e78c02;
+  padding: 0px 20px 5px 20px;
+  box-shadow: 0 0 0;
 }

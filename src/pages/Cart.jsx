@@ -288,8 +288,8 @@ const Cart = () => {
         </div>
         {cart?.length !== 0 ? (
           <section className=" px-[2%] xl:px-[8%] mt-4 md:mt-14 ">
-            <div className="w-full xl:px-[8%] flex items-center justify-center">
-              <table className=" w-full xl:w-[90%] hidden md:table">
+            <div className="w-full flex items-center justify-center">
+              <table className=" w-full xl:w-[100%] hidden md:table">
                 <thead className="w-full">
                   <tr className="w-full text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[15px] 2xl:text-[16px] bg-[#F2F2F2]">
                     <th className="py-2">Image</th>
@@ -301,11 +301,11 @@ const Cart = () => {
                     <th className="py-2">Remove</th>
                   </tr>
                 </thead>
-                <tbody className="w-full">
+                <tbody className="w-full my-3">
                   {cart?.map((item, index) => {
                     return (
                       <tr key={index} className="">
-                        <td className="flex items-center justify-center">
+                        <td className="flex items-center justify-center py-3">
                           {/* {// // console.log(item.productId?.mainImage)} */}
                           <img
                             className="h-[100px] md:h-[90px] 2xl:w-[110px] object-cover mt-1"
@@ -324,9 +324,9 @@ const Cart = () => {
                           {item.productId?.title?.slice(0, 50)}
                         </td>
                         <td className="text-center">
-                          {item?.productId?.price}
+                          {currency} {item?.productId?.price}
                         </td>
-                        <td className="text-center">{item?.updatedPrice}</td>
+                        <td className="text-center">{currency} {item?.updatedPrice}</td>
                         <td className="">
                           <div className=" w-full flex justify-center">
                             <span
@@ -375,7 +375,7 @@ const Cart = () => {
                           </div>
                         </td>
                         <td className="text-center">
-                          {parseFloat(item?.updatedPrice) *
+                          {currency} {parseFloat(item?.updatedPrice) *
                             (item?.quantity ? item?.quantity : 1) ||
                             item?.productId?.price * item?.quantity}
                         </td>
@@ -476,7 +476,7 @@ const Cart = () => {
               </div>
             </div>
 
-            <div className="md:px-[8%] flex flex-col md:grid grid-cols-2 gap-10 m-3 md:m-8 mb-14 ">
+            <div className="md:px-[0%] flex flex-col md:grid grid-cols-2 gap-10 my-3 md:my-8 mb-14 py-10 ">
               <div>
                 <div className=" flex flex-col">
                   <h4 className=" text-[16px] md:text-[18px] 2xl:text-[20px] font-[700] plus-jakarta text-[#363F4D] dark:text-gray-400 underline underline-offset-3 mb-3 ">
@@ -609,7 +609,7 @@ const Cart = () => {
                     </p>
                   </div>
                 </div>
-                <div className=" flex items-center justify-around mt-3 ">
+                <div className=" flex items-center justify-between mt-3 ">
                   <Link to="/shop/all/all">
                     <button className=" px-4 py-2.5 font-medium uppercase text-[11.2px] md:text-[13px] border-[1.4px] border-[#999999] text-[#7A7A7A] ">
                       Update Cart
