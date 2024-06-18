@@ -214,8 +214,8 @@ const Shop = () => {
           </div>
         ) : (
           <section className=" px-[3%] w-full mb-14 flex gap-10 mt-4 lg:mt-12 ">
-            <div className=" hidden lg:block w-[23%] h-full border-[2px] p-2.5 border-[#E5E5E5] dark:border-gray-700 ">
-              <p className="  border-b-[1px] py-2.5 border-[#E5E5E5]  dark:text-gray-400 text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
+            <div className=" hidden lg:block w-[18%] h-full p-2.5 ">
+              <p className=" py-2.5 dark:text-gray-400 text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
                 CATEGORIES
               </p>
 
@@ -225,11 +225,10 @@ const Shop = () => {
                     {i?.subcategories ? (
                       <Menu>
                         <Menu.Button
-                          className={`w-full justify-between capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
-                            i?.fileName?.toLowerCase() === filterCategories
-                              ? "text-[#F9BA48] font-bold plus-jakarta"
-                              : "text-[#363F4D] dark:text-gray-400"
-                          } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
+                          className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${i?.fileName?.toLowerCase() === filterCategories
+                            ? "text-[#F9BA48] font-bold plus-jakarta"
+                            : "text-[#363F4D] dark:text-gray-400"
+                            } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
                           onClick={() => handleDropdownToggle(index)}
                         >
                           <Link key={index} to={`/shop/${i.fileName}/all`}>
@@ -247,16 +246,15 @@ const Shop = () => {
                           leaveFrom="opacity-100 scale-100"
                           leaveTo="opacity-0 scale-95"
                         >
-                          <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white pl-2 gap-2 w-full">
+                          <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 pl-2 gap-2 w-full">
                             {i?.subcategories.map((e, subIndex) => (
                               <div key={subIndex}>
                                 <Menu.Button
-                                  className={`w-full justify-between capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
-                                    i?.fileName?.toLowerCase() ===
+                                  className={`w-full justify-between capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${i?.fileName?.toLowerCase() ===
                                     filterCategories
-                                      ? "text-[#F9BA48] font-bold plus-jakarta"
-                                      : "text-[#363F4D] dark:text-gray-400"
-                                  } font-[400] text-[12px] md:text-[13px] 2xl:text-[15px] `}
+                                    ? "text-[#F9BA48] font-bold plus-jakarta"
+                                    : "text-[#363F4D] dark:text-gray-400"
+                                    } font-[400] text-[12px] md:text-[13px] 2xl:text-[15px] `}
                                   onClick={() =>
                                     handleSubcategoryToggle(subIndex)
                                   }
@@ -279,7 +277,7 @@ const Shop = () => {
                                   leaveFrom="opacity-100 scale-100"
                                   leaveTo="opacity-0 scale-95"
                                 >
-                                  <Menu.Items className="pl-2 flex flex-col text-[12px] md:text-[13px] 2xl:text-[15px] dark:text-gray-600 bg-white">
+                                  <Menu.Items className="pl-2 flex flex-col text-[12px] md:text-[13px] 2xl:text-[15px] dark:text-gray-600">
                                     {e?.series.map(
                                       (seriesItem, seriesIndex) => (
                                         <Link
@@ -310,11 +308,10 @@ const Shop = () => {
                         onClick={() => {
                           setFilterCategories(i?.fileName?.toLowerCase());
                         }}
-                        className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
-                          i?.fileName?.toLowerCase() === filterCategories
-                            ? "text-[#F9BA48] font-bold plus-jakarta"
-                            : "text-[#363F4D] dark:text-gray-400"
-                        } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
+                        className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${i?.fileName?.toLowerCase() === filterCategories
+                          ? "text-[#F9BA48] font-bold plus-jakarta"
+                          : "text-[#363F4D] dark:text-gray-400"
+                          } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
                       >
                         {i?.fileName}
                       </Link>
@@ -322,7 +319,7 @@ const Shop = () => {
                   </div>
                 );
               })}
-              <div className=" bg-[#E5E5E5] p-3 ">
+              <div className=" py-5">
                 <p className="  border-b-[1px] pt-2.5 border-[#E5E5E5] text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
                   FILTER BY PRICE
                 </p>
@@ -333,11 +330,11 @@ const Shop = () => {
                   label="false"
                   ruler="false"
                   style={{ border: "none", outline: "none", boxShadow: "none" }}
-                  barInnerColor="#F9BA48"
-                  barRightColor="#000"
-                  barLeftColor="#000"
-                  thumbLeftColor="#F9BA48"
-                  thumbRightColor="#F9BA48"
+                  barInnerColor="#ff9800"
+                  barRightColor="#ff9800"
+                  barLeftColor="#ff9800"
+                  thumbLeftColor="#ff9800"
+                  thumbRightColor="#ff9800"
                   minValue={minValue}
                   maxValue={maxValue}
                   onInput={(e) => {
@@ -364,7 +361,7 @@ const Shop = () => {
                 Clear Filters
               </button>
             </div>
-            <div className="w-full lg:w-[77%] h-full">
+            <div className="w-full lg:w-[82%] h-full">
               <div className="max-w-screen-lg mx-auto h-[150px] relative">
                 <div className="relative w-full flex justify-center items-center">
                   <img
@@ -373,8 +370,8 @@ const Shop = () => {
                       banners.find((banner) => banner.fileName === "Banner2")
                         ?.filePath
                         ? banners.find(
-                            (banner) => banner.fileName === "Banner2"
-                          ).filePath
+                          (banner) => banner.fileName === "Banner2"
+                        ).filePath
                         : "/Images/shop-banner.png"
                     }
                     alt="product-img"
@@ -384,74 +381,71 @@ const Shop = () => {
                       <div className="p-2">
                         {banners.find((banner) => banner.fileName === "Banner2")
                           .title && (
-                          <h2 className="text-xl md:text-2xl font-bold text-black">
-                            {
-                              banners.find(
-                                (banner) => banner.fileName === "Banner2"
-                              ).title
-                            }
-                          </h2>
-                        )}
+                            <h2 className="text-xl md:text-2xl font-bold text-black">
+                              {
+                                banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).title
+                              }
+                            </h2>
+                          )}
                         {banners.find((banner) => banner.fileName === "Banner2")
                           .description && (
-                          <p className="text-sm md:text-base text-black">
-                            {
-                              banners.find(
-                                (banner) => banner.fileName === "Banner2"
-                              ).description
-                            }
-                          </p>
-                        )}
+                            <p className="text-sm md:text-base text-black">
+                              {
+                                banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).description
+                              }
+                            </p>
+                          )}
                       </div>
                       {banners.find((banner) => banner.fileName === "Banner2")
                         .buttonContent && (
-                        <a
-                          href={
-                            banners
-                              .find((banner) => banner.fileName === "Banner2")
-                              .redirectUrl.startsWith("http")
-                              ? banners.find(
+                          <a
+                            href={
+                              banners
+                                .find((banner) => banner.fileName === "Banner2")
+                                .redirectUrl.startsWith("http")
+                                ? banners.find(
                                   (banner) => banner.fileName === "Banner2"
                                 ).redirectUrl
-                              : `${
-                                  banners.find(
-                                    (banner) => banner.fileName === "Banner2"
-                                  ).redirectUrl
+                                : `${banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).redirectUrl
                                 }`
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
-                        >
-                          {
-                            banners.find(
-                              (banner) => banner.fileName === "Banner2"
-                            ).buttonContent
-                          }
-                        </a>
-                      )}
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
+                          >
+                            {
+                              banners.find(
+                                (banner) => banner.fileName === "Banner2"
+                              ).buttonContent
+                            }
+                          </a>
+                        )}
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className=" w-full flex lg:grid grid-cols-3 gap-2 items-center justify-between ">
+              <div className=" w-full flex lg:grid grid-cols-2 gap-2 items-center justify-between py-4">
                 <div className=" w-full hidden lg:flex gap-2 items-center">
                   <HiMiniSquares2X2
                     onClick={() => {
                       setIsCard(true);
                     }}
-                    className={` text-[19px] cursor-pointer ${
-                      isCard && "text-[#F9BA48]"
-                    } `}
+                    className={` text-[19px] cursor-pointer ${isCard && "text-[#F9BA48]"
+                      } `}
                   />
                   <AiOutlineBars
                     onClick={() => {
                       setIsCard(false);
                     }}
-                    className={` text-[19px] cursor-pointer pointer ${
-                      !isCard && "text-[#F9BA48]"
-                    } `}
+                    className={` text-[19px] cursor-pointer pointer ${!isCard && "text-[#F9BA48]"
+                      } `}
                   />
                 </div>
                 <div className=" flex items-center pr-3 py-2.5 text-[#7A7A7A] font-[400] text-[12px] md:text-[13.5px] 2xl:text-[14px] ">
@@ -530,11 +524,10 @@ const Shop = () => {
                       .map((item, index) => (
                         <div
                           key={index}
-                          className={`relative ${
-                            isCard
-                              ? "flex flex-col items-center justify-between"
-                              : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
-                          } shadow shadow-black/30`}
+                          className={`relative ${isCard
+                            ? "flex flex-col items-center justify-between"
+                            : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
+                            } pb-7`}
                         >
                           {wishlistedProducts.find(
                             (i) => i?.productId?._id === item._id
@@ -561,21 +554,19 @@ const Shop = () => {
                             className="w-full h-full"
                           >
                             <img
-                              className={`object-cover object-center w-full ${
-                                isCard
-                                  ? "w-full h-[200px]"
-                                  : "h-[150px] row-span-2 col-span-1"
-                              }`}
+                              className={`object-cover object-center w-full ${isCard
+                                ? "w-full h-[200px]"
+                                : "h-[150px] row-span-2 col-span-1"
+                                }`}
                               src={item.mainImage}
                               alt="product-img"
                             />
                           </Link>
                           <div
-                            className={`w-full ${
-                              isCard
-                                ? "text-center"
-                                : "flex flex-col justify-between"
-                            }`}
+                            className={`w-full ${isCard
+                              ? "text-center"
+                              : "flex flex-col justify-between"
+                              }`}
                           >
                             <Link
                               to={`/product/${item?.title.replace(
@@ -591,18 +582,16 @@ const Shop = () => {
                               }}
                             >
                               <p
-                                className={`dark:text-gray-400 text-[#363F4D] ${
-                                  isCard
-                                    ? "font-[600] plus-jakarta my-1 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
-                                    : "font-[700] plus-jakarta my-1 text-[13px] md:text-[19px] 2xl:text-[16px]"
-                                }`}
+                                className={`dark:text-gray-400 text-[#363F4D] ${isCard
+                                  ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
+                                  : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
+                                  }`}
                               >
                                 {item.title?.slice(0, 50)}
                               </p>
                               <div
-                                className={`w-full flex ${
-                                  isCard ? "items-center justify-center" : ""
-                                }`}
+                                className={`w-full flex ${isCard ? "items-center justify-center" : ""
+                                  }`}
                               >
                                 <Stars
                                   stars={
@@ -613,11 +602,10 @@ const Shop = () => {
                                 />
                               </div>
                               <div
-                                className={`flex items-center ${
-                                  isCard ? "justify-center" : ""
-                                } text-[13px] md:text-[14.5px] 2xl:text-[15px]`}
+                                className={`flex items-center ${isCard ? "justify-center" : ""
+                                  } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
                               >
-                                <p className="font-[600] plus-jakarta dark:text-gray-400 text-[#A4A4A4]">
+                                <p className="font-[500] plus-jakarta dark:text-gray-400 text-[#A4A4A4]">
                                   {currency}{" "}
                                   <span className="line-through">
                                     {currency === "OMR"
@@ -645,15 +633,14 @@ const Shop = () => {
                                 setProductPageId(item?._id);
                               }}
                             >
-                              <button
-                                className={`text-sm dark:text-black font-semibold bg-[#efefef] ${
-                                  isCard
-                                    ? "py-2 w-full"
-                                    : "h-fit py-2 w-full px-6"
-                                }`}
+                              {/* <button
+                                className={`text-sm dark:text-black font-semibold bg-[#efefef] ${isCard
+                                  ? "py-2 w-full"
+                                  : "h-fit py-2 w-full px-6"
+                                  }`}
                               >
                                 View Product
-                              </button>
+                              </button> */}
                             </Link>
                           </div>
                         </div>

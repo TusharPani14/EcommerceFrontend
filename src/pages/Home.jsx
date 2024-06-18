@@ -300,9 +300,8 @@ const Home = () => {
           </p>
           <div className=" flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "New Arrivals" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "New Arrivals" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("New Arrivals");
               }}
@@ -310,9 +309,8 @@ const Home = () => {
               New Arrivals
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Featured" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Featured" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Featured");
               }}
@@ -320,9 +318,8 @@ const Home = () => {
               Featured
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Best Sellers" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Best Sellers" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Best Sellers");
               }}
@@ -330,9 +327,8 @@ const Home = () => {
               Best Sellers
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Sale Items" && "text-[#FF7004]"
-              } `}
+              className={`cursor-pointer ${filteredCategory === "Sale Items" && "text-[#FF7004]"
+                } `}
               onClick={() => {
                 setFilteredCategory("Sale Items");
               }}
@@ -340,9 +336,8 @@ const Home = () => {
               Sale Items
             </span>
             <span
-              className={`${
-                filteredCategory === "On Sales" && "text-[#FF7004]"
-              } cursor-pointer`}
+              className={`${filteredCategory === "On Sales" && "text-[#FF7004]"
+                } cursor-pointer`}
               onClick={() => {
                 setFilteredCategory("On Sales");
               }}
@@ -368,8 +363,8 @@ const Home = () => {
               products={
                 filteredCategory === "New Arrivals"
                   ? [...filteredProducts].sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    )
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
                   : filteredProducts
               }
               newProducts={newProducts}
@@ -379,7 +374,7 @@ const Home = () => {
           </div>
         </>
       )}
-      <div className=" dark:text-gray-400 flex flex-col items-center lg:grid xl:grid-cols-4 gap-6 px-[4%] xl:px-[8%] py-4 mt-2 ">
+      {/* <div className=" dark:text-gray-400 flex flex-col items-center lg:grid xl:grid-cols-4 gap-6 px-[4%] xl:px-[8%] py-4 mt-2 ">
         <div className=" flex flex-col items-center py-10 col-span-4">
           <p className=" text-[24px] plus-jakarta md:text-[28px] 2xl:text-[35px] font-[700] text-[#212121] dark:text-gray-400 ">
             The Process
@@ -409,7 +404,7 @@ const Home = () => {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="dark:text-gray-400 bg-gray-100 flex flex-col items-center">
         <p className=" text-[24px] plus-jakarta py-10 md:text-[28px] 2xl:text-[35px] font-[700] text-[#212121] dark:text-gray-400 ">
@@ -534,7 +529,7 @@ const Home = () => {
                 banners.find((banner) => banner.fileName === "Banner1")
                   ?.filePath
                   ? banners.find((banner) => banner.fileName === "Banner1")
-                      .filePath
+                    .filePath
                   : "/main/discount_banner.jpg"
               }
               alt="slide-Image"
@@ -559,12 +554,11 @@ const Home = () => {
                       .find((banner) => banner.fileName === "Banner1")
                       .redirectUrl.startsWith("http")
                       ? banners.find((banner) => banner.fileName === "Banner1")
-                          .redirectUrl
-                      : `${
-                          banners.find(
-                            (banner) => banner.fileName === "Banner1"
-                          ).redirectUrl
-                        }`
+                        .redirectUrl
+                      : `${banners.find(
+                        (banner) => banner.fileName === "Banner1"
+                      ).redirectUrl
+                      }`
                   }
                   target="_blank"
                   rel="noopener noreferrer"
