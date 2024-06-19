@@ -205,18 +205,18 @@ const Checkout = () => {
 
   return (
     <div className=" w-full">
-      <div className=" px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7]    dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
-        <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
+      <div className="px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
+        {/* <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
           Checkout
-        </h2>
-        <div className=" flex items-center font-[500] plus-jakarta plus-jakarta text-[12px] md:text-[13.6px] ">
+        </h2> */}
+        <div className="flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
           <Link to="/">
-            <span className=" uppercase text-[#FF7004] cursor-pointer ">
+            <span className="text-[#858585] cursor-pointer raleway ">
               Home
             </span>
           </Link>
           <span className=" px-1 ">/</span>
-          <span className=" uppercase">Checkout</span>
+          <span className=" capitalize">Checkout</span>
         </div>
       </div>
 
@@ -680,6 +680,13 @@ const Checkout = () => {
                   I’ve read and accept the terms & conditions
                 </label>
               </div>
+              <div className="w-100 items-center pt-2">
+                <p className="text-[14px] text-[#7A7A7A] pb-2">
+                  <span className="text-[red] text-[20px]">*</span> Access to the delivery location, service elevator, and gate passes are the responsibility of the customer.</p>
+                <p className="text-[14px] text-[#7A7A7A]">
+                  <span className="text-[red] text-[20px]">*</span> In order to save the delivery crew time, the customer should obtain any installation authorization that may be needed from the local administration before the team arrives.
+                </p>
+              </div>
             </div>
             {loading ? (
               <div className=" w-full flex items-center justify-center py-3">
@@ -715,7 +722,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

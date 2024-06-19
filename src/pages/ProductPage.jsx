@@ -366,7 +366,7 @@ const ProductPage = ({ }) => {
                         onClick={() => {
                           SetViewMainImg(true);
                         }}
-                        className="h-[200px]  lg:h-full w-full lg:max-h-[450px] object-cover cursor-pointer border border-black"
+                        className="h-[200px]  lg:h-full w-full lg:max-h-[450px] object-cover cursor-pointer"
                       />
                     ) : (
                       <>

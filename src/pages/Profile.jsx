@@ -163,16 +163,15 @@ const Orders = ({ userData }) => {
                   import.meta.env.VITE_SERVER_URL
                 )
                   ? product.product.mainImage
-                  : `${
-                      import.meta.env.VITE_SERVER_URL
-                    }/${product.product.mainImage.replace(/\\/g, "/")}`;
+                  : `${import.meta.env.VITE_SERVER_URL
+                  }/${product.product.mainImage.replace(/\\/g, "/")}`;
                 return (
                   <div
                     className="flex flex-col md:flex-row md:justify-between w-full dark:bg-white/40 bg-gray-100 p-2 border-b border-gray-300"
                     key={productIndex}
                   >
                     <div className="flex items-center">
-                      {}
+                      { }
                       {isRatingFormOpen && <RatingForm2 order={product} />}
                       {isOrdersTrackForm && (
                         <OrdersTrack
@@ -334,18 +333,18 @@ const Profile = () => {
   }, []);
   return (
     <div className=" ">
-      <div className=" px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7] dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
-        <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400">
+      <div className=" px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
+        {/* <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400">
           My Account
-        </h2>
-        <div className=" flex items-center font-[500] plus-jakarta text-[12px] md:text-[13.6px] ">
+        </h2> */}
+        <div className=" flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
           <Link to="/">
-            <span className=" uppercase text-[#FF7004] cursor-pointer ">
+            <span className=" text-[#858585] cursor-pointer raleway ">
               Home
             </span>
           </Link>
           <span className=" px-1 ">/</span>
-          <span className=" uppercase">My Account</span>
+          <span className=" capitalize">My Account</span>
         </div>
       </div>
 
@@ -362,9 +361,8 @@ const Profile = () => {
       <section className=" px-[4%] xl:px-[8%] mt-4 md:mt-10 mb-10 ">
         <div className=" relative w-full flex gap-3">
           <div
-            className={`${
-              isMobileMenu ? "block absolute bg-white " : " hidden lg:block"
-            } lg:w-[22%] border border-gray-300`}
+            className={`${isMobileMenu ? "block absolute bg-white " : " hidden lg:block"
+              } lg:w-[22%] border border-gray-300`}
           >
             {ProfileTabs.map((tab, index) => {
               return (
@@ -377,11 +375,10 @@ const Profile = () => {
                     }
                     setIsMobileMenu(false);
                   }}
-                  className={`flex items-center gap-2 ${
-                    tab.id === activeTab.id
+                  className={`flex items-center gap-2 ${tab.id === activeTab.id
                       ? "bg-[#FF7004] text-white"
                       : "text-[#7A7A7A] cursor-pointer hover:bg-gray-100 "
-                  }  font-[600] plus-jakarta p-3 px-5 text-[13px] md:text-[15.5px] 2xl:text-[16.5px] `}
+                    }  font-[600] plus-jakarta p-3 px-5 text-[13px] md:text-[15.5px] 2xl:text-[16.5px] `}
                 >
                   {tab.icon}
                   {tab.name}

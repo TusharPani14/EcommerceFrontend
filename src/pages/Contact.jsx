@@ -51,22 +51,22 @@ const Contact = () => {
   }, []);
   return (
     <div className=" ">
-      <div className=" px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7]    dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
-        <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
+      <div className="px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
+        {/* <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
           Contact Us
-        </h2>
-        <div className=" flex items-center font-[500] plus-jakarta text-[12px] md:text-[13.6px] ">
+        </h2> */}
+        <div className=" flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem] ">
           <Link to="/">
-            <span className=" uppercase text-[#FF7004] cursor-pointer ">
+            <span className=" text-[#858585] cursor-pointer raleway ">
               Home
             </span>
           </Link>
           <span className=" px-1 ">/</span>
-          <span className=" uppercase">Contact Us</span>
+          <span className=" capitalize">Contact Us</span>
         </div>
       </div>
 
-      <div className=" w-full lg:mt-5">
+      <div className=" w-full lg:mb-10">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d230900.04949362183!2d55.14947876837494!3d25.276866106628052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f21c020eb25%3A0x27ce0724f8ccc720!2sCreative%20Furniture!5e0!3m2!1sen!2sae!4v1718616766869!5m2!1sen!2sae"
           className=" w-full h-[200px] lg:h-[400px]"
@@ -194,6 +194,25 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      <div className="relative factory_image">
+
+        <img
+          className=" w-full h-[280px] md:h-[280px]  2xl:w-[100%] object-cover"
+          src="/Images/ab1.png"
+          alt="ab1"
+        />
+        <div className="absolute inset-0 bg-black opacity-25"></div>
+        <div className=" w-full absolute top-12 right-0 md:px-[2%] xl:px-[8%] flex flex-col lg:items-start lg:grid grid-cols-2 md:mx-8 mb-14">
+          <div className="justify-between p-[10%]">
+            <h2 className="text-[28px] font-[600] text-dark">Book your visit to our factory now</h2>
+          </div>
+          <div className="flex justify-end  p-[10%]">
+            <Link className="btn btn-outline text-[15px] text-white border border-[#ffffff] px-8 py-3 hover:bg-[#222222] hover:border-[#222222]" to="https://maps.app.goo.gl/Do9wvxt4myf6mdBx9" target="_blank">Click Here to See Direction</Link>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };

@@ -157,8 +157,21 @@ export default function DialogBar() {
                             }}
                             style={{ outline: "none" }}
                           >
-                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-gray-800 dark:text-gray-600 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
+                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                               Home
+                            </p>
+                          </Link>
+                        </div>
+                        <div className=" w-full relative ">
+                          <Link
+                            to={`/about`}
+                            onClick={() => {
+                              SetIsMenuOpen(false);
+                            }}
+                            style={{ outline: "none" }}
+                          >
+                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
+                              About Us
                             </p>
                           </Link>
                         </div>
@@ -170,7 +183,7 @@ export default function DialogBar() {
                             }}
                             style={{ outline: "none" }}
                           >
-                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-gray-800 dark:text-gray-600 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
+                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                               Gallery
                             </p>
                           </Link>
@@ -183,7 +196,7 @@ export default function DialogBar() {
                             }}
                             style={{ outline: "none" }}
                           >
-                            <p className=" outline-none border-t-[1px] py-2.5 border-[#efefef] text-gray-800 dark:text-gray-600 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
+                            <p className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                               All Products
                             </p>
                           </Link>
@@ -200,7 +213,7 @@ export default function DialogBar() {
                                   style={{ outline: "none" }}
                                 >
                                   <p
-                                    className=" outline-none border-t-[1px] py-2.5 border-[#efefef] text-gray-800 dark:text-gray-600 font-[600] capitalize plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]"
+                                    className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]"
                                     key={index}
                                   >
                                     {item.title}
@@ -208,11 +221,11 @@ export default function DialogBar() {
                                 </Link>
                               ) : (
                                 <Menu>
-                                  <Menu.Button className=" w-full flex items-center justify-between border-t-[1px] py-2.5  border-[#efefef] capitalize dark:text-gray-600 text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px] ">
+                                  <Menu.Button className=" w-full flex items-center justify-between border-t-[1px] py-2.5  border-[#efefef] capitalize dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px] ">
                                     {item.title}
                                     <ChevronDownIcon className=" w-[15px]" />
                                   </Menu.Button>
-                                  <Menu.Items className="  flex flex-col  text-[13px] md:text-[13px] 2xl:text-[16px]  dark:text-gray-600 bg-white pl-2 gap-2 w-full ">
+                                  <Menu.Items className="  flex flex-col  text-[13px] md:text-[13px] 2xl:text-[14px]  dark:text-dark-500 bg-white pl-2 gap-2 w-full ">
                                     {item?.subItems?.map((e, index) => {
                                       return (
                                         <Link
@@ -238,7 +251,7 @@ export default function DialogBar() {
                         {categories.map((item, index) => (
                           <div className="w-full relative" key={index}>
                             <Menu>
-                              <Menu.Button className="w-full flex items-center justify-between capitalize border-t-[1px] py-2.5 border-[#efefef] dark:text-gray-600 text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px]">
+                              <Menu.Button className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                                 <Link
                                   key={index}
                                   to={`/shop/${item.fileName}/all`}
@@ -261,12 +274,12 @@ export default function DialogBar() {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                               >
-                                <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white pl-2 gap-2 w-full">
+                                <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
                                   {item.subcategories.map(
                                     (subcategory, subIndex) => (
                                       <div key={subIndex}>
                                         <Menu>
-                                          <Menu.Button className="w-full flex items-center justify-between capitalize border-t-[1px] py-2.5 border-gray-500">
+                                          <Menu.Button className="w-full flex items-center justify-between capitalize  py-2.5">
                                             <Link
                                               key={subIndex}
                                               to={`/shop/${item.fileName}/${subcategory.name}`}
@@ -294,7 +307,7 @@ export default function DialogBar() {
                                             leaveFrom="opacity-100 scale-100"
                                             leaveTo="opacity-0 scale-95"
                                           >
-                                            <Menu.Items className="pl-2 flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 bg-white">
+                                            <Menu.Items className="pl-2 flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-500 bg-white">
                                               {subcategory.series.map(
                                                 (seriesItem, seriesIndex) => (
                                                   <Link
@@ -304,7 +317,7 @@ export default function DialogBar() {
                                                       setOpenCategory(null)
                                                     }
                                                   >
-                                                    <p className="border-t-[1px] py-2.5 capitalize border-gray-500">
+                                                    <p className="py-2.5 capitalize dark:text-dark-500 text-[13px] md:text-[13px] 2xl:text-[14px]">
                                                       {seriesItem.name}
                                                     </p>
                                                   </Link>
@@ -339,12 +352,12 @@ export default function DialogBar() {
                               setCurrency(e.target.value);
                             }}
                             autoFocus="off"
-                            className=" border-t-[1px] py-2.5 dark:border-gray-700 border-[#EEEEEE] dark:text-gray-600  bg-transparent "
+                            className="  py-2.5  dark:text-dark-500  bg-transparent "
                           >
-                            <option className=" text-black  " value={"AED"}>
+                            <option className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] " value={"AED"}>
                               AED
                             </option>
-                            <option className=" text-black  " value={"OMR"}>
+                            <option className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] " value={"OMR"}>
                               OMR
                             </option>
                           </select>
@@ -355,7 +368,7 @@ export default function DialogBar() {
                               onClick={() => {
                                 SetIsMenuOpen(false);
                               }}
-                              className=" bg-orange-400  w-full  text-sm font-semibold py-1.5 rounded-sm px-4  mt-2"
+                              className=" w-full text-dark  text-sm font-semibold py-1.5 rounded-sm px-0  mt-2"
                             >
                               Login
                             </button>
@@ -366,8 +379,8 @@ export default function DialogBar() {
                               SetIsMenuOpen(false);
                               handleLogout();
                             }}
-                            className={`flex items-center gap-2 bg-[#FF7004] text-white  cursor-pointer 
-                        font-[600] plus-jakarta p-3 px-5 text-[13px] md:text-[15.5px] 2xl:text-[16.5px] `}
+                            className={`flex items-center gap-2  text-dark  cursor-pointer 
+                        font-[600] plus-jakarta p-3 px-0 text-[13px] md:text-[15px] 2xl:text-[15px] `}
                           >
                             <IoIosLogOut />
                             Log Out

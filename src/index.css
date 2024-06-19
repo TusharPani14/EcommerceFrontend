@@ -411,7 +411,7 @@ ul.listing_disc li {
 }
 
 .custom_width22 {
-  max-width: 22rem !important;
+  max-width: 20rem !important;
 }
 
 .cart_floating {
@@ -427,8 +427,8 @@ ul.listing_disc li {
 
 .multi-range-slider .bar-inner,
 .multi-range-slider .bar-right {
-  border: 1px solid #ff9800;
-  box-shadow: 0px 0px 0px #e78c02;
+  border: 0px solid #222222;
+  box-shadow: 0px 0px 0px #222222;
 }
 
 .multi-range-slider .thumb::before {
@@ -440,4 +440,16 @@ ul.listing_disc li {
   background: #e78c02;
   padding: 0px 20px 5px 20px;
   box-shadow: 0 0 0;
+}
+
+.series_products .swiper-button-prev {
+  left: -3% !important;
+}
+
+.series_products .swiper-button-next {
+  right: -3% !important;
+}
+
+.multi-range-slider .bar-left {
+  box-shadow: 0px 0px 0px #ff9800 !important;
 }

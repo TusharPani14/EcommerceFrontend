@@ -158,8 +158,7 @@ const Header = () => {
     if (userLoggedIn) {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/cart/${
-            userDetails?._id || userId
+          `${import.meta.env.VITE_SERVER_URL}/cart/${userDetails?._id || userId
           }`
         );
         console.log(response.data.cart);
@@ -328,7 +327,12 @@ const Header = () => {
             to="/shop/all/all"
           >
             <span className=" hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535]">
-              Products
+              Collection
+            </span>
+          </Link>
+          <Link className=" hidden md:flex items-center gap-1" to="/about">
+            <span className=" hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535]">
+              About Us
             </span>
           </Link>
           <Link className=" hidden md:flex items-center gap-1" to="/gallery">
@@ -424,7 +428,10 @@ const Header = () => {
             </>
           )} */}
           {/* <span className=" hidden md:inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}
-          <Link to="/cart" className=" relative pl-4">
+          <div onClick={() => {
+            SetIsCartOpen(true);
+          }}
+            className=" relative pl-4">
             <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#353535]">
               {cartCount ? cartCount : 0}
             </span>
@@ -434,7 +441,7 @@ const Header = () => {
               alt="search"
             /> */}
             <IoCartOutline className="hidden lg:block  object-contain cursor-pointer text-[22px] text-[#353535]" />
-          </Link>
+          </div>
           {userLoggedIn ? (
             <>
               {/* <span className=" hidden  lg:inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}

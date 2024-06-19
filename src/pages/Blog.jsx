@@ -42,16 +42,16 @@ const Blogs = () => {
         <title>{blog?.metaTitle || "Blog Page"}</title>
         <meta name="description" content={blog?.metaDescription || "Blog description"} />
       </Helmet>
-      <div className="px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7] dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between">
-        <h2 className="uppercase text-[14px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400">
+      <div className="px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between">
+        {/* <h2 className="uppercase text-[14px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400">
           {blog?.title?.slice(0, 50)}
-        </h2>
-        <div className="flex items-center font-[500] text-[12px] md:text-[13.6px]">
+        </h2> */}
+        <div className="flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
           <Link to="/">
-            <span className="uppercase text-[#FF7004] cursor-pointer">Home</span>
+            <span className="text-[#858585] cursor-pointer raleway">Home</span>
           </Link>
           <span className="px-1">/</span>
-          <span className="uppercase">Blogs</span>
+          <span className="capitalize">Blogs</span>
         </div>
       </div>
       {loading || !blog ? (

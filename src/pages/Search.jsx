@@ -9,7 +9,7 @@ import { FaStar } from "react-icons/fa";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 
-const SearchPage = ({}) => {
+const SearchPage = ({ }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -83,18 +83,18 @@ const SearchPage = ({}) => {
   };
   return (
     <div className=" w-full min-h-screen bg-white  dark:bg-black flex flex-col  pb-10  ">
-      <div className=" px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7] dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600  flex items-center justify-between ">
-        <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
+      <div className=" px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
+        {/* <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
           Search
-        </h2>
-        <div className=" flex items-center font-[500] text-[12px] md:text-[13.6px] ">
+        </h2> */}
+        <div className=" flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem] ">
           <Link to="/">
-            <span className=" uppercase text-[#FF7004] cursor-pointer ">
+            <span className=" text-[#858585] cursor-pointer raleway ">
               Home
             </span>
           </Link>
           <span className=" px-1 ">/</span>
-          <span className=" uppercase">Search</span>
+          <span className=" capitalize">Search</span>
         </div>
       </div>
       <div className=" w-full pt-2  px-[4%] md:px-[8%] xl:px-[10%]">
@@ -137,11 +137,10 @@ const SearchPage = ({}) => {
                 return (
                   <div
                     key={index}
-                    className={` relative ${
-                      isCard
-                        ? "flex flex-col items-center justify-between"
-                        : " col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3 "
-                    }  shadow shadow-black/30 `}
+                    className={` relative ${isCard
+                      ? "flex flex-col items-center justify-between"
+                      : " col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3 "
+                      }  shadow shadow-black/30 `}
                   >
                     {wishlistedProducts.find((i) => {
                       return i?.productId?._id === item._id;
@@ -173,11 +172,10 @@ const SearchPage = ({}) => {
                       }}
                     >
                       <img
-                        className={` object-cover object-center w-full ${
-                          isCard
-                            ? "w-full h-[200px]"
-                            : " h-[150px] row-span-2 col-span-1"
-                        } object-cover `}
+                        className={` object-cover object-center w-full ${isCard
+                          ? "w-full h-[200px]"
+                          : " h-[150px] row-span-2 col-span-1"
+                          } object-cover `}
                         src={item.mainImage}
                         // src={"/Images/armchair.png"}
                         alt="product-img"
@@ -198,11 +196,10 @@ const SearchPage = ({}) => {
                         item
                       >
                         <p
-                          className={` dark:text-gray-400 text-[#363F4D] ${
-                            isCard
-                              ? " font-[600] plus-jakarta my-1 text-[12px] md:text-[15px] 2xl:text-[16px]"
-                              : "font-[700] plus-jakarta my-1 text-[13px] md:text-[19px] 2xl:text-[21px] "
-                          }`}
+                          className={` dark:text-gray-400 text-[#363F4D] ${isCard
+                            ? " font-[600] plus-jakarta my-1 text-[12px] md:text-[15px] 2xl:text-[16px]"
+                            : "font-[700] plus-jakarta my-1 text-[13px] md:text-[19px] 2xl:text-[21px] "
+                            }`}
                         >
                           {item.title?.slice(0, 50)}
                         </p>
@@ -216,9 +213,8 @@ const SearchPage = ({}) => {
                           />
                         </div>
                         <div
-                          className={` flex items-center  ${
-                            isCard ? "justify-center" : ""
-                          } text-[13px] md:text[15px] 2xl:text-[16px] `}
+                          className={` flex items-center  ${isCard ? "justify-center" : ""
+                            } text-[13px] md:text[15px] 2xl:text-[16px] `}
                         >
                           <p className=" font-[600] plus-jakarta dark:text-gray-400 text-[#A4A4A4]  ">
                             {currency}{" "}
@@ -248,9 +244,8 @@ const SearchPage = ({}) => {
                         }}
                       >
                         <button
-                          className={` text-sm dark:text-black font-semibold bg-[#efefef]  ${
-                            isCard ? "py-2 w-full" : " h-fit py-2 px-6"
-                          }`}
+                          className={` text-sm dark:text-black font-semibold bg-[#efefef]  ${isCard ? "py-2 w-full" : " h-fit py-2 px-6"
+                            }`}
                         >
                           View Product
                         </button>

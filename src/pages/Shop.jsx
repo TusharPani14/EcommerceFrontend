@@ -5,7 +5,7 @@ import MultiRangeSlider from "multi-range-slider-react";
 import { AiOutlineBars } from "react-icons/ai";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
 import { AppContext } from "../context/AppContext";
-import { IoHeartCircle, IoStarOutline } from "react-icons/io5";
+import { IoHeartCircle, IoStarOutline, IoHeartOutline, IoHeart } from "react-icons/io5";
 import { array, number } from "prop-types";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -160,20 +160,20 @@ const Shop = () => {
     setSortedArray(sortProducts(sortMethod));
   }, [Products, sortMethod]);
 
-  const Stars = ({ stars }) => {
-    const ratingStars = Array.from({ length: 5 }, (elem, index) => {
-      return (
-        <div key={index}>
-          {stars >= index + 1 ? (
-            <FaStar className=" dark:text-yellow-400 text-black" />
-          ) : (
-            <IoStarOutline className=" text-black dark:text-yellow-400 " />
-          )}
-        </div>
-      );
-    });
-    return <div className=" flex items-center gap-0.5">{ratingStars}</div>;
-  };
+  // const Stars = ({ stars }) => {
+  //   const ratingStars = Array.from({ length: 5 }, (elem, index) => {
+  //     return (
+  //       <div key={index}>
+  //         {stars >= index + 1 ? (
+  //           <FaStar className=" dark:text-yellow-400 text-black" />
+  //         ) : (
+  //           <IoStarOutline className=" text-black dark:text-yellow-400 " />
+  //         )}
+  //       </div>
+  //     );
+  //   });
+  //   return <div className=" flex items-center gap-0.5">{ratingStars}</div>;
+  // };
 
   const getAllBanners = async () => {
     try {
@@ -190,18 +190,18 @@ const Shop = () => {
   return (
     <>
       <div className=" ">
-        <div className=" px-[4%] md:px-[8%] py-3.5 md:py-7 bg-[#F4F5F7] dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600  flex items-center justify-between ">
-          <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
+        <div className=" px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
+          {/* <h2 className=" uppercase text-[17px] md:text-[24px] font-[700] plus-jakarta text-[#212121] dark:text-gray-400 ">
             Shop
-          </h2>
-          <div className=" flex items-center font-[500] plus-jakarta text-[12px] md:text-[13.6px] ">
+          </h2> */}
+          <div className="flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
             <Link to="/">
-              <span className=" uppercase text-[#FF7004] cursor-pointer ">
+              <span className="text-[#858585] cursor-pointer raleway">
                 Home
               </span>
             </Link>
             <span className=" px-1 ">/</span>
-            <span className=" uppercase">Shop</span>
+            <span className="capitalize">Shop</span>
           </div>
         </div>
         {loading ? (
@@ -214,8 +214,8 @@ const Shop = () => {
           </div>
         ) : (
           <section className=" px-[3%] w-full mb-14 flex gap-10 mt-4 lg:mt-12 ">
-            <div className=" hidden lg:block w-[18%] h-full p-2.5 ">
-              <p className=" py-2.5 dark:text-gray-400 text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
+            <div className=" hidden lg:block w-[18%] h-full px-2.5 pb-2.5 ">
+              <p className=" pb-2.5 dark:text-gray-400 text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
                 CATEGORIES
               </p>
 
@@ -331,8 +331,8 @@ const Shop = () => {
                   ruler="false"
                   style={{ border: "none", outline: "none", boxShadow: "none" }}
                   barInnerColor="#ff9800"
-                  barRightColor="#ff9800"
-                  barLeftColor="#ff9800"
+                  barRightColor="#cccccc"
+                  barLeftColor="#cccccc"
                   thumbLeftColor="#ff9800"
                   thumbRightColor="#ff9800"
                   minValue={minValue}
@@ -448,7 +448,7 @@ const Shop = () => {
                       } `}
                   />
                 </div>
-                <div className=" flex items-center pr-3 py-2.5 text-[#7A7A7A] font-[400] text-[12px] md:text-[13.5px] 2xl:text-[14px] ">
+                <div className=" flex items-center justify-end pr-3 py-2.5 text-[#7A7A7A] font-[400] text-[12px] md:text-[13.5px] 2xl:text-[14px] ">
                   <label htmlFor="sort-method">Sort By: </label>
                   <select
                     name="sort-method"
@@ -532,14 +532,14 @@ const Shop = () => {
                           {wishlistedProducts.find(
                             (i) => i?.productId?._id === item._id
                           ) ? (
-                            <IoHeartCircle
+                            <IoHeart
                               onClick={() => handleRemoveWishlist(item?._id)}
                               className="absolute top-3 right-3 cursor-pointer hover:text-red-500 text-[25px] text-red-500"
                             />
                           ) : (
-                            <IoHeartCircle
+                            <IoHeartOutline
                               onClick={() => handleAddToWishlist(item?._id)}
-                              className="absolute top-3 right-3 cursor-pointer hover:text-red-500 text-[25px] text-gray-600"
+                              className="absolute top-3 right-3 cursor-pointer hover:text-red-500 text-[25px] text-red-600"
                             />
                           )}
                           <Link
@@ -589,7 +589,7 @@ const Shop = () => {
                               >
                                 {item.title?.slice(0, 50)}
                               </p>
-                              <div
+                              {/* <div
                                 className={`w-full flex ${isCard ? "items-center justify-center" : ""
                                   }`}
                               >
@@ -600,7 +600,7 @@ const Shop = () => {
                                       : Math.floor(Math.random() * 6)
                                   }
                                 />
-                              </div>
+                              </div> */}
                               <div
                                 className={`flex items-center ${isCard ? "justify-center" : ""
                                   } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
@@ -618,6 +618,11 @@ const Shop = () => {
                                     ? (item.discountValue * 0.1).toFixed(2)
                                     : item.discountValue}
                                 </span>
+
+                                <p className=" bg-[#F9BA48] w-fit text-dark px-2 text-sm font-medium absolute top-3 left-3">
+                                  {item.promotional}
+                                </p>
+
                               </div>
                             </Link>
                             <Link

@@ -220,7 +220,7 @@ const Footer = () => {
         <div className=" py-4 md:py-6 border-t border-gray-400 flex flex-col-reverse md:flex-row items-center justify-between text-[12.2px] md:text-[13.4px] dark:text-gray-400 text-[#292929] ">
           <p className=" mt-3 md:mt-0 ">
             Copyright ©2024{" "}
-            <span className=" text-[#EE3333]">Your Company Name</span> All
+            <span className=" text-[#EE3333]">Creative Furniture LLC</span> All
             rights reserved.
           </p>
           <div className="flex items-center gap-6">
