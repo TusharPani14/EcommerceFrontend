@@ -614,7 +614,7 @@ const ProductPage = ({ }) => {
 
                   {sortedAttributes.map((item, index) => (
                     <div key={index} className=" flex flex-col mt-2">
-                      <p className=" mt-3 mb-2 capitalize text-[12.3px] md:text-[13.6px] 2xl:text-[15px] font-bold raleway text-[#484848] text-[1rem]">
+                      <p className=" mt-3 mb-2 capitalize text-[11px] md:text-[12px] 2xl:text-[13px] font-bold raleway text-[#484848] text-[1rem]">
                         {item?.type?.toLowerCase() === "size"
                           ? "Dimensions"
                           : "Finish"}
@@ -672,7 +672,7 @@ const ProductPage = ({ }) => {
                                 )
                                   ? "bg-gray-300 text-gray-800"
                                   : ""
-                                  }cursor-pointer w-fit border border-gray-300 text-gray-600 ${attr.type === "material" ? "" : "px-3 py-1"
+                                  }cursor-pointer w-fit border border-gray-300 text-gray-600 ${attr.type === "material" ? "" : "px-1 py-1"
                                   } text-sm ${attr?.type === "color"
                                     ? `bg-${attr.value} cursor-pointer `
                                     : ""

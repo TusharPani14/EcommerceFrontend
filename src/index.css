@@ -444,12 +444,22 @@ ul.listing_disc li {
 
 .series_products .swiper-button-prev {
   left: -3% !important;
+  top: 33% !important;
 }
 
 .series_products .swiper-button-next {
   right: -3% !important;
+  top: 33% !important;
 }
 
 .multi-range-slider .bar-left {
   box-shadow: 0px 0px 0px #ff9800 !important;
+}
+
+.border-gray {
+  border: 1px solid #ccc;
+}
+
+.table_striped tbody tr:nth-child(even) {
+  background-color: #f4f4f4;
 }

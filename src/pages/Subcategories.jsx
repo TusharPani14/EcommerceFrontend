@@ -96,11 +96,11 @@ const Subcategory = () => {
           className=" px-[3%] w-full mb-14 flex gap-10 mt-4 lg:mt-12 "
         >
           <div className=" hidden lg:block w-[40%] h-full p-2 ">
-            <div className="p-4 text-left">
+            <div className="p-4 pr-0 pt-0 text-left">
               <img
                 src={series.seriesLink}
                 alt={series.name}
-                className="w-full h-auto max-w-md mx-auto"
+                className="w-full h-auto mx-auto"
               />
             </div>
           </div>
@@ -109,11 +109,11 @@ const Subcategory = () => {
               <div className="pb-4 text-left">
                 <Link
                   to={`/shop/${category}/${subcategory}/${series.name}`}
-                  className="text-[24px] font-bold mt-4 cursor-pointer"
+                  className="text-[34px] text-[#484848] raleway font-bold mt-4 cursor-pointer"
                 >
                   {series.name}
                 </Link>
-                <h3 className="text-[18px] mt-4">
+                <h3 className="text-[17px] w-[100%] raleway font-[400] mt-4">
                   {convertHtmlToText(series.description)}
                 </h3>
               </div>
@@ -150,7 +150,7 @@ const Subcategory = () => {
                             />
                           )}
 
-                          <p className=" bg-[#F9BA48] w-fit text-dark px-2 text-sm font-medium absolute top-5 left-5">
+                          <p className=" bg-[#F9BA48] w-fit text-dark px-2 raleway text-[13px] font-medium absolute top-5 left-5">
                             {product.promotional}
                           </p>
                           <Link
@@ -185,7 +185,7 @@ const Subcategory = () => {
                                 );
                               }}
                             >
-                              <p className="dark:text-dark-400 text-[#363F4D] font-[500] my-1 text-[12px] md:text-[14px] 2xl:text-[14.5px]">
+                              <p className="dark:text-dark-400 text-[#363F4D] font-[500] raleway my-1 text-[12px] md:text-[14px] 2xl:text-[14.5px]">
                                 {product.title?.slice(0, 50)}
                               </p>
                               <div className="flex items-center justify-center text-[13px] md:text-[14.5px] 2xl:text-[15px]">

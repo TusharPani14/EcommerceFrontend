@@ -282,7 +282,7 @@ export default function DialogBar() {
                                           <Menu.Button className="w-full flex items-center justify-between capitalize  py-2.5">
                                             <Link
                                               key={subIndex}
-                                              to={`/shop/${item.fileName}/${subcategory.name}`}
+                                              to={`/shop/${(item.fileName)}/${(subcategory.name)}`}
                                               onClick={() =>
                                                 setOpenCategory(null)
                                               }

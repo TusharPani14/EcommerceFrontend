@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
+import { IoTrash } from "react-icons/io5";
+
 import axios from "axios";
 import { MainAppContext } from "@/context/MainContext";
 
@@ -82,16 +84,16 @@ const WishList = () => {
           </div>
         </div>
 
-        <section className=" px-[2%] xl:px-[8%] mt-4 md:mt-14 mb-7 lg:mb-14 ">
+        <section className="  px-[2%] xl:px-[8%] mt-4 md:mt-14 pb-10">
           {wishlistedProducts?.length !== 0 ? (
-            <div className="w-full xl:px-[8%] flex items-center justify-center">
-              <table className=" w-full xl:w-[90%] hidden md:table">
+            <div className="w-full flex items-center justify-center">
+              <table className=" w-full xl:w-[100%] hidden md:table table_striped">
                 <thead className="w-full">
                   <tr className="w-full text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[15px] 2xl:text-[16px] bg-[#F2F2F2]">
-                    <th className="py-2">Image</th>
-                    <th className="py-2">Product</th>
-                    <th className="py-2">Price</th>
-                    <th className="py-2">Remove</th>
+                    <th className="py-2" width="20%">Image</th>
+                    <th className="py-2" width="60%">Product</th>
+                    {/* <th className="py-2" width="10%">Price</th> */}
+                    <th className="py-2" width="20%">Remove</th>
                   </tr>
                 </thead>
                 {/* {// console.log(wishlistedProducts)} */}
@@ -99,16 +101,18 @@ const WishList = () => {
                   {wishlistedProducts?.map((item, index) => {
                     return (
                       <tr key={index} className="">
-                        <td className="flex items-center mt-1 justify-center">
+                        <td className="flex items-center mt-1 justify-center py-4">
                           <Link
                             key={index}
-                            to={`/product/${item?.title}`}
+                            to={`/product/${item?.productId?.title
+                              ?.replace(/\//g, "")
+                              .replace(/\s+/g, "-")}`}
                             onClick={() => {
                               setProductPageId(item?.productId?._id);
                             }}
                           >
                             <img
-                              className="h-[70px] d:h-[90px] 2xl:w-[110px] object-cover"
+                              className="h-[70px] d:h-[90px]  2xl:w-[110px] object-cover"
                               src={`${import.meta.env.VITE_SERVER_URL
                                 }/${item.productId?.mainImage.replace(
                                   /\\/g,
@@ -118,10 +122,12 @@ const WishList = () => {
                             />
                           </Link>
                         </td>
-                        <td className="text-center">
+                        <td className="text-left text-[14px]">
                           <Link
                             key={index}
-                            to={`/product/${item?.title}`}
+                            to={`/product/${item?.productId?.title
+                              ?.replace(/\//g, "")
+                              .replace(/\s+/g, "-")}`}
                             onClick={() => {
                               sessionStorage.setItem(
                                 "productPageId",
@@ -131,11 +137,12 @@ const WishList = () => {
                             }}
                           >
                             {item.productId?.title}
+                            <p className="text-[#F9BA48]">{item?.productId?.currency} {item?.productId?.price}</p>
                           </Link>
                         </td>
-                        <td className="text-center">
-                          {item?.productId?.price}
-                        </td>
+                        {/* <td className="text-center text-[14px]">
+
+                        </td> */}
                         {/* <td className="text-center">
                           <input
                             className="text-center w-[40px] dark:bg-transparent"
@@ -157,9 +164,11 @@ const WishList = () => {
                             // setWishlistedProducts(newArray);
                             // toast.error("Product Removed from Wishlist");
                           }}
-                          className="text-center cursor-pointer"
+                          className="text-center cursor-pointer flex items-center justify-center"
                         >
-                          Remove
+                          <IoTrash
+                            className=" hover:text-red-500 text-[25px] text-red-500"
+                          />
                         </td>
                       </tr>
                     );

@@ -154,7 +154,7 @@ export default function AttributeSlider({
                   console.log([...newArr, attr]);
                 }
               }}
-              className={` h-full text-[12.3px] md:text-[13.6px] 2xl:text-[15px]  ${selectedAttribute?.find((i) => i.value === attr.value)
+              className={` h-full text-[11px] md:text-[11px] 2xl:text-[12px]  ${selectedAttribute?.find((i) => i.value === attr.value)
                 ? "bg-gray-300 text-gray-800"
                 : ""
                 }cursor-pointer w-fit border border-gray-300 text-gray-600 ${attr.type === "material" ? "" : "px-3 py-1"
@@ -166,7 +166,7 @@ export default function AttributeSlider({
                 } `}
             >
               {attr.type === "material" ? (
-                <Tooltip className="z-20" content={attr?.value}>
+                <Tooltip className="z-20 text-[12px] bg-[#484848] raleway" content={attr?.value}>
                   <img
                     src={attr?.attributeImage}
                     onClick={() => {
