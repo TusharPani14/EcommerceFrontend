@@ -69,7 +69,7 @@ export default function CategorySlider({ data }) {
               onClick={() => {
                 setSelectedCategory(index);
               }}
-              to={`/shop/${item?.fileName}/all`}
+              to={`/shop/${item?.fileName}`}
             >
               <div
                 className={` relative flex items-end justify-center w-[70px] h-[70px] md:w-[150px] md:h-[150px] ${

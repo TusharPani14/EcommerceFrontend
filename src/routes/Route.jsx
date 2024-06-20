@@ -19,6 +19,7 @@ import Register from "@/pages/Register";
 import SearchPage from "@/pages/Search";
 import Series from "@/pages/Series";
 import Shop from "@/pages/Shop";
+import Subcategory from "@/pages/Subcategories";
 import SuccessTransactionPage from "@/pages/SuccessTransactionPage";
 import AddProduct from "@/pages/Vendordashboard/AddProduct";
 import Dashboard from "@/pages/Vendordashboard/Dashboard";
@@ -108,7 +109,19 @@ export const userRoutes = [
     name: "shop",
     title: "Shop",
     component: <Shop />,
+    path: "/shop/:category",
+  },
+  {
+    name: "Subcategory",
+    title: "Subcategory",
+    component: <Subcategory />,
     path: "/shop/:category/:subcategory",
+  },
+  {
+    name: "Series",
+    title: "Series",
+    component: <Series />,
+    path: "/shop/:category/:subcategory/:series",
   },
   {
     name: "blogs",
@@ -169,12 +182,6 @@ export const userRoutes = [
     title: "privacy-policy",
     component: <PrivacyPol />,
     path: "/privacy-policy",
-  },
-  {
-    name: "Series",
-    title: "Series",
-    component: <Series />,
-    path: "/shop/:category/:subcategory/:series",
   },
   {
     name: "Gallery",

@@ -610,7 +610,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className=" flex items-center justify-between mt-3 ">
-                  <Link to="/shop/all/all">
+                  <Link to="/shop/all">
                     <button className=" px-4 py-2.5 font-medium uppercase text-[11.2px] md:text-[13px] border-[1.4px] border-[#999999] text-[#7A7A7A] ">
                       Update Cart
                     </button>
@@ -640,7 +640,7 @@ const Cart = () => {
             <p className=" text-sm font-semibold text-gray-600 ">
               No Items in Cart
             </p>
-            <Link to="/shop/all/all" className=" underline text-orange-600">
+            <Link to="/shop/all" className=" underline text-orange-600">
               Contine Shopping
             </Link>
           </div>

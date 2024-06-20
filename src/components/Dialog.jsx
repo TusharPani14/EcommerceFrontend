@@ -190,7 +190,7 @@ export default function DialogBar() {
                         </div>
                         <div className=" w-full relative ">
                           <Link
-                            to={`/shop/all/all`}
+                            to={`/shop/all`}
                             onClick={() => {
                               SetIsMenuOpen(false);
                             }}
@@ -254,7 +254,7 @@ export default function DialogBar() {
                               <Menu.Button className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                                 <Link
                                   key={index}
-                                  to={`/shop/${item.fileName}/all`}
+                                  to={`/shop/${item.fileName}`}
                                   onClick={() => setOpenCategory(null)}
                                 >
                                   {item.fileName}
@@ -289,42 +289,7 @@ export default function DialogBar() {
                                             >
                                               {subcategory.name}
                                             </Link>
-
-                                            <ChevronDownIcon
-                                              className="w-[15px]"
-                                              onClick={() =>
-                                                handleSubcategoryClick(subIndex)
-                                              }
-                                            />
                                           </Menu.Button>
-                                          <Transition
-                                            show={openSubcategory === subIndex}
-                                            as={React.Fragment}
-                                            enter="transition ease-out duration-100 transform"
-                                            enterFrom="opacity-0 scale-95"
-                                            enterTo="opacity-100 scale-100"
-                                            leave="transition ease-in duration-75 transform"
-                                            leaveFrom="opacity-100 scale-100"
-                                            leaveTo="opacity-0 scale-95"
-                                          >
-                                            <Menu.Items className="pl-2 flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-500 bg-white">
-                                              {subcategory.series.map(
-                                                (seriesItem, seriesIndex) => (
-                                                  <Link
-                                                    key={seriesIndex}
-                                                    to={`/shop/${item.fileName}/${subcategory.name}/${seriesItem.name}`}
-                                                    onClick={() =>
-                                                      setOpenCategory(null)
-                                                    }
-                                                  >
-                                                    <p className="py-2.5 capitalize dark:text-dark-500 text-[13px] md:text-[13px] 2xl:text-[14px]">
-                                                      {seriesItem.name}
-                                                    </p>
-                                                  </Link>
-                                                )
-                                              )}
-                                            </Menu.Items>
-                                          </Transition>
                                         </Menu>
                                       </div>
                                     )

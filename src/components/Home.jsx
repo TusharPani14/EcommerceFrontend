@@ -10,6 +10,7 @@ import { MainAppContext } from "@/context/MainContext";
 import Featured from "@/components/Featured";
 import { TiTick, TiWorld } from "react-icons/ti";
 import { BsBellFill, BsClock } from "react-icons/bs";
+import Featured2 from "./Featured2";
 
 const Process = [
   {
@@ -160,7 +161,7 @@ const Home = () => {
           .slice(0, 6)
           ?.map((item, index) => {
             return (
-              <Link to={`/shop/${item?.fileName}/all`} key={index}>
+              <Link to={`/shop/${item?.fileName}`} key={index}>
                 <div className=" pl-5 md:pl-10">
                   <div className=" relative">
                     <p
@@ -344,95 +345,7 @@ const Home = () => {
               On Sales
             </span>
           </div>
-          {/* <div className=" w-full py-1 flex items-center justify-end px-[4%] xl:px-[8%] ">
-            <Link
-              to={`/shop/${filteredCategory}`}
-              className=" text-sm font-semibold text-gray-500 flex items-center justify-end w-full"
-            >
-              See More <MdArrowRight className=" text-[19px]" />
-            </Link>
-          </div> */}
         </div>
-        {/*  */}
-        {/* 
-        {filteredProducts
-          ?.filter((e) => {
-            return (
-              e?.approved &&
-              (e.superCategory || e.mainCategory === filteredCategory)
-            );
-          })
-          .slice(0, 8)?.length > 0 ? (
-          <>
-            {filteredProducts
-              ?.filter((e) => {
-                return (
-                  e?.approved &&
-                  (e.superCategory || e.mainCategory === filteredCategory)
-                );
-              })
-              .slice(0, 8)
-              .map((pro, index) => (
-                <div
-                  key={index}
-                  className=" relative 2xl:flex 2xl:flex-col 2xl:items-center 2xl:justify-center w-fit mx-auto "
-                >
-                  <div className=" absolute top-3  left-3  flex flex-col gap-2 ">
-                    {pro?.dis && (
-                      <div className="  px-2 py-0.5 text-sm bg-[#FF7004] text-white ">
-                        {pro?.dis}
-                      </div>
-                    )}
-                    {pro?.tag && (
-                      <div className="  px-2 py-0.5 text-sm bg-[#007A58] text-white ">
-                        {pro.tag}
-                      </div>
-                    )}
-                  </div>
-                  <div className="absolute top-3 right-3 ">
-                    {wishlistedProducts.find((i) => {
-                      return i?.productId?._id === pro?._id;
-                    }) ? (
-                      <IoHeartCircle
-                        onClick={() => {
-                          handleRemoveWishlist(pro?._id);
-                        }}
-                        className={` cursor-pointer hover:text-red-500 text-[25px] text-red-500`}
-                      />
-                    ) : (
-                      <IoHeartCircle
-                        onClick={() => {
-                          handleAddToWishlist(pro?._id);
-                        }}
-                        className={` cursor-pointer hover:text-red-500 text-[25px] text-gray-600`}
-                      />
-                    )}
-                  </div>
-
-                  <Link
-                    to={`/product/${pro?._id}`}
-                    className=" flex items-center "
-                  >
-                    <img
-                      className=" h-[220px] w-full lg:h-[250px] xl:h-[310px] "
-                      src={pro.mainImage}
-                      alt="product-img"
-                    />
-                  </Link>
-                  <p className=" text-center  font-[500] mt-2 mb-1">
-                    {pro.title}
-                  </p>
-                  <p className=" text-sm md:text-base text-center">
-                    {pro.currency} {pro.price}
-                  </p>
-                </div>
-              ))}
-          </>
-        ) : (
-          <p className=" text-center text-xs w-full sm:text-sm">
-            No products available in this category
-          </p>
-        )} */}
       </div>
       <div className="w-full col-span-4">
         <Featured2
