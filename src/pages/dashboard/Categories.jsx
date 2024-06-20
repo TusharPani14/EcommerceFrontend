@@ -11,7 +11,7 @@ import {
   IoStarOutline,
 } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
-import { RiSubtractLine } from "react-icons/ri";
+import ReactQuill from "react-quill";
 
 const Categories = () => {
   const [CategoriesName, setCategoriesName] = useState("");
@@ -21,19 +21,29 @@ const Categories = () => {
   const [inputText, setInputText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([
-    {
-      name: "",
-      subCategories: [""],
-    },
-  ]);
   const [isCategory, setIsCategory] = useState(true);
   const [subCategoryLogoFile, setSubCategoryLogoFile] = useState(null);
   const [seriesName, setSeriesName] = useState("");
+  const [seriesDescription, setSeriesDescription] = useState("");
   const [seriesLogoFile, setSeriesLogoFile] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const { user } = useContext(MainAppContext);
   const navigate = useNavigate();
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "color",
+    "clean",
+  ];
 
   const handleCategoriesUpload = async () => {
     const formData = new FormData();
@@ -105,11 +115,11 @@ const Categories = () => {
   };
 
   const handleAddSeries = async () => {
-    console.log(selectedSubcategory, seriesName);
     try {
       const formData = new FormData();
       formData.append("subcategoryId", selectedSubcategory);
       formData.append("name", seriesName);
+      formData.append("description", seriesDescription);
       formData.append("seriesLogo", seriesLogoFile);
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/admin/series`,
@@ -342,7 +352,7 @@ const Categories = () => {
                 ))}
               </select>
             </div>
-            <div className="w-full flex flex-col items-center justify-center mb-1.5">
+            <div className="w-full flex flex-col space-y-2 items-center justify-center mb-1.5">
               <select
                 name="subCategory"
                 id="sub-Category"
@@ -376,7 +386,15 @@ const Categories = () => {
                 setSeriesName(e.target.value);
               }}
             />
-            <label className="text-xs md:text-sm w-[50%] text-left mt-2">
+            <ReactQuill
+              className="w-[50%] dark:text-gray-400 text-[#4F5D77] text-[14.4px] dark:bg-white/10 mt-2"
+              theme="snow"
+              value={seriesDescription}
+              formats={formats}
+              onChange={(textValue) => setSeriesDescription(textValue)}
+              style={{ height: '150px' }}
+            />
+            <label className="text-xs md:text-sm w-[50%] text-left mt-12">
               Add Series Logo
             </label>
             <input

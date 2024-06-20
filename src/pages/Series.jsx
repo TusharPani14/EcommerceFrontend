@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MainAppContext } from "@/context/MainContext";
-import { IoHeartCircle, IoStarOutline, IoHeartOutline, IoHeart } from "react-icons/io5";
+import {
+  IoHeartCircle,
+  IoStarOutline,
+  IoHeartOutline,
+  IoHeart,
+} from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -88,6 +93,13 @@ const Series = () => {
     return <div className=" flex items-center gap-0.5">{ratingStars}</div>;
   };
 
+  // Utility function to convert HTML content to plain text
+  const convertHtmlToText = (htmlContent) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlContent;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+
   return (
     <div>
       <div className=" px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
@@ -96,9 +108,7 @@ const Series = () => {
         </h2> */}
         <div className="flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
           <Link to="/">
-            <span className="text-[#858585] cursor-pointer raleway">
-              Home
-            </span>
+            <span className="text-[#858585] cursor-pointer raleway">Home</span>
           </Link>
           <span className="px-1">/</span>
           <span className="capitalize">Shop</span>
@@ -138,7 +148,18 @@ const Series = () => {
           <div className="w-full">
             {selectedSeries && (
               <div className="pb-4 text-left">
-                <h3 className="text-[24px] font-bold mt-4">{selectedSeries.name}</h3>
+                <h3 className="text-[24px] font-bold mt-4">
+                  {selectedSeries.name}
+                </h3>
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            {selectedSeries && (
+              <div className="pb-4 text-left">
+                <h3 className="text-[18px] mt-4">
+                  {convertHtmlToText(selectedSeries.description)}
+                </h3>
               </div>
             )}
           </div>
@@ -159,7 +180,9 @@ const Series = () => {
                 >
                   {filteredProducts.map((product, index) => (
                     <SwiperSlide key={index}>
-                      <div className={`relative flex flex-col items-center justify-between rounded-md p-3`}>
+                      <div
+                        className={`relative flex flex-col items-center justify-between rounded-md p-3`}
+                      >
                         {wishlistedProducts.includes(product._id) ? (
                           <IoHeart
                             onClick={() => handleRemoveWishlist(product._id)}
@@ -179,7 +202,10 @@ const Series = () => {
                           to={`/product/${product.title.replace(/\s+/g, "-")}`}
                           className="w-full h-full"
                           onClick={() => {
-                            sessionStorage.setItem("productPageId", JSON.stringify(product._id));
+                            sessionStorage.setItem(
+                              "productPageId",
+                              JSON.stringify(product._id)
+                            );
                           }}
                         >
                           <img
@@ -190,9 +216,15 @@ const Series = () => {
                         </Link>
                         <div className="flex flex-col justify-between w-full items-center">
                           <Link
-                            to={`/product/${product.title.replace(/\s+/g, "-")}`}
+                            to={`/product/${product.title.replace(
+                              /\s+/g,
+                              "-"
+                            )}`}
                             onClick={() => {
-                              sessionStorage.setItem("productPageId", JSON.stringify(product._id));
+                              sessionStorage.setItem(
+                                "productPageId",
+                                JSON.stringify(product._id)
+                              );
                             }}
                           >
                             <p className="dark:text-dark-400 text-[#363F4D] font-[500] my-1 text-[12px] md:text-[14px] 2xl:text-[14.5px]">
@@ -206,8 +238,10 @@ const Series = () => {
                             </div> */}
                             <div className="flex items-center justify-center text-[13px] md:text-[14.5px] 2xl:text-[15px]">
                               <p className="font-[600] plus-jakarta dark:text-gray-400 text-[#A4A4A4]">
-                                AED{' '}
-                                <span className="line-through">{product.price}</span>
+                                AED{" "}
+                                <span className="line-through">
+                                  {product.price}
+                                </span>
                               </p>
                               <span className="text-[#F9BA48] font-[600] plus-jakarta ml-2">
                                 AED {product.discountValue}
@@ -235,8 +269,6 @@ const Series = () => {
           </div>
         </div>
       </section>
-
-
     </div>
   );
 };

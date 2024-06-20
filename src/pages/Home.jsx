@@ -44,26 +44,6 @@ const box = [
 //   { icon: "/main/hm5.svg", text: "hospitality", param: "hospitality" },
 //   { icon: "/main/hm6.svg", text: "Outdoor", param: "outdoor" },
 // ];
-const Process = [
-  {
-    number: "01",
-    text: "First, a conversation sparks off the magic",
-    describe: `Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
-    eiusmo tempor incididunt ut labore`,
-  },
-  {
-    number: "02",
-    text: "Next, co-creation begins, with a site visit.",
-    describe: `Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
-    eiusmo tempor incididunt ut labore`,
-  },
-  {
-    number: "03",
-    text: "Finally the dream comes alive.",
-    describe: `Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
-    eiusmo tempor incididunt ut labore`,
-  },
-];
 const feature = [
   {
     icon: <TiWorld className=" text-[19px] " />,
