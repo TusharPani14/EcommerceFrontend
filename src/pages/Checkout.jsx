@@ -8,6 +8,7 @@ import { phoneCode } from "@/utilities/Currency";
 import { toast } from "react-toastify";
 import moment from "moment-timezone";
 import CryptoJS from "crypto-js";
+import { countryAndStates } from "@/utilities/CountryAndStates";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -25,11 +26,11 @@ const Checkout = () => {
     comapnyName: "",
     addressLine1: "",
     addressLine2: "",
-    country: "",
+    country: "AE",
     city: "",
     state: "",
     zipCode: "",
-    trnNo: 0
+    trnNo: 0,
   });
   const {
     firstName,
@@ -203,6 +204,34 @@ const Checkout = () => {
     }
   };
 
+  const handleCountryChange = (e) => {
+    setUserDetails({ ...userDetails, country: e.target.value, state: "" });
+  };
+
+  const handleStateChange = (e) => {
+    setUserDetails({ ...userDetails, state: e.target.value });
+  };
+
+  const getCountryOptions = () => {
+    return Object.entries(countryAndStates.country).map(([code, name]) => ({
+      code,
+      name,
+    }));
+  };
+
+  const getStateOptions = () => {
+    const selectedCountryCode = userDetails.country;
+    if (!selectedCountryCode || !countryAndStates.states[selectedCountryCode]) {
+      return [];
+    }
+    return countryAndStates.states[selectedCountryCode].map(
+      ({ code, name }) => ({
+        code,
+        name,
+      })
+    );
+  };
+
   return (
     <div className=" w-full">
       <div className="px-[4%] md:px-[8%] py-1 md:py-3 bg-[#F4F5F7]  dark:bg-black dark:text-gray-400 dark:border-b dark:border-t dark:border-gray-600 flex items-center justify-between ">
@@ -211,9 +240,7 @@ const Checkout = () => {
         </h2> */}
         <div className="flex items-center font-[500] text-[#858585] raleway text-[.8461538462rem] md:text-[.8461538462rem]">
           <Link to="/">
-            <span className="text-[#858585] cursor-pointer raleway ">
-              Home
-            </span>
+            <span className="text-[#858585] cursor-pointer raleway ">Home</span>
           </Link>
           <span className=" px-1 ">/</span>
           <span className=" capitalize">Checkout</span>
@@ -429,22 +456,27 @@ const Checkout = () => {
                 >
                   Country*
                 </label>
-                <input
+                <select
+                  className="w-[100%] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
                   name="country"
-                  id="Country"
-                  type="text"
+                  id="country"
                   value={country}
-                  onChange={onChange}
-                  className=" w-full md:w-[240px] 2xl:w-[300px] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
-                  placeholder="Country"
-                />
+                  onChange={handleCountryChange}
+                >
+                  <option value="">Select a country</option>
+                  {getCountryOptions().map((country) => (
+                    <option key={country.code} value={country.code}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className=" flex-col flex">
                 <label
                   className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
                   htmlFor="city"
                 >
-                  Town/City*
+                  Town/City
                 </label>
                 <input
                   name="city"
@@ -466,22 +498,27 @@ const Checkout = () => {
                 >
                   State*
                 </label>
-                <input
+                <select
+                  className="w-[100%] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
                   name="state"
-                  id="State"
-                  type="text"
+                  id="state"
                   value={state}
-                  onChange={onChange}
-                  className=" w-full md:w-[240px] 2xl:w-[300px] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
-                  placeholder="State"
-                />
+                  onChange={handleStateChange}
+                >
+                  <option value="">Select a state</option>
+                  {getStateOptions().map((state) => (
+                    <option key={state.code} value={state.code}>
+                      {state.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className=" flex flex-col">
                 <label
                   className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
                   htmlFor="Zip-Code"
                 >
-                  Zip Code*
+                  Zip Code
                 </label>
                 <input
                   name="zipCode"
@@ -579,8 +616,8 @@ const Checkout = () => {
                               ? (item.updatedPrice * 1 * 0.1).toFixed(2)
                               : item.updatedPrice * 1
                             : currency === "OMR"
-                              ? (item.updatedPrice * 1 * 0.1).toFixed(2)
-                              : item.updatedPrice * 1}
+                            ? (item.updatedPrice * 1 * 0.1).toFixed(2)
+                            : item.updatedPrice * 1}
                         </p>
                       </div>
                     );
@@ -593,7 +630,9 @@ const Checkout = () => {
               </div>
               <div className=" mt-3 py-1 border-t-[1px] border-[#999999] dark:bg-transparent flex items-center justify-between font-[700] plus-jakarta text-[12.4px] md:text-[13px] 2xl:text-[14px]">
                 <p>Discount</p>
-                <p>{currency} -{discount}</p>
+                <p>
+                  {currency} -{discount}
+                </p>
               </div>
               {/* {cart?.length > 0 && (
                 <div className=" flex items-center justify-between font-[600] plus-jakarta tetx-[#363F4D] text-[13.4px] 2xl text-[13px]:md:text-[14px] ">
@@ -682,9 +721,15 @@ const Checkout = () => {
               </div>
               <div className="w-100 items-center pt-2">
                 <p className="text-[14px] text-[#7A7A7A] pb-2">
-                  <span className="text-[red] text-[20px]">*</span> Access to the delivery location, service elevator, and gate passes are the responsibility of the customer.</p>
+                  <span className="text-[red] text-[20px]">*</span> Access to
+                  the delivery location, service elevator, and gate passes are
+                  the responsibility of the customer.
+                </p>
                 <p className="text-[14px] text-[#7A7A7A]">
-                  <span className="text-[red] text-[20px]">*</span> In order to save the delivery crew time, the customer should obtain any installation authorization that may be needed from the local administration before the team arrives.
+                  <span className="text-[red] text-[20px]">*</span> In order to
+                  save the delivery crew time, the customer should obtain any
+                  installation authorization that may be needed from the local
+                  administration before the team arrives.
                 </p>
               </div>
             </div>
@@ -722,7 +767,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
