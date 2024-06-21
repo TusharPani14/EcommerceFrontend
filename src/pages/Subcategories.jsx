@@ -206,7 +206,7 @@ const Subcategory = () => {
                     ))}
                   </Swiper>
                 ) : (
-                  <p className="text-center">
+                  <p className="text-center plus-jakarta font-[600]">
                     No products found in this series.
                   </p>
                 )}

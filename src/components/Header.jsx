@@ -211,7 +211,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className=" w-full">
+    <div className=" w-full shadow-md">
       <div className="off-white flex flex-col gap-1 border-gray-400 items-start  md:flex-row sm:items-center justify-between py-1.5 md:h-[45px] px-[3%] md:px-[8%] text-black dark:bg-black dark:text-white text-[10px] md:text-[13.2px] ">
         <span className="font-[600] plus-jakarta plus-jakarta w-full pt-[1%]">
           <marquee direction="left" loop="true">

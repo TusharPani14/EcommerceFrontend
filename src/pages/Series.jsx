@@ -263,7 +263,7 @@ const Series = () => {
                   ))}
                 </Swiper>
               ) : (
-                <p className="text-center">No products found in this series.</p>
+                <p className="text-center plus-jakarta font-[600]">No products found in this series.</p>
               )}
             </div>
           </div>
