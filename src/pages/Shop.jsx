@@ -222,48 +222,38 @@ const Shop = () => {
                       <Menu>
                         <Menu.Button
                           className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${i?.fileName?.toLowerCase() === filterCategories
-                              ? "text-[#F9BA48] font-bold plus-jakarta"
-                              : "text-[#363F4D] dark:text-gray-400"
-                            } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
+                            ? "text-[#F9BA48] font-bold plus-jakarta"
+                            : "text-[#363F4D] dark:text-gray-400"
+                            } font-[400] text-[13px] md:text-[13px] 2xl:text-[14px] `}
                           onClick={() => handleDropdownToggle(index)}
                         >
-                          <Link key={index} to={`/shop/${i.fileName}`}>
+                          <Link key={index} to={`/shop/${i.fileName}`} className="font-[600]">
                             {i.fileName}
                           </Link>
                           <ChevronDownIcon className="w-[15px]" />
                         </Menu.Button>
-                        <Transition
-                          show={openDropdown === index}
-                          as={React.Fragment}
-                          enter="transition ease-out duration-100 transform"
-                          enterFrom="opacity-0 scale-95"
-                          enterTo="opacity-100 scale-100"
-                          leave="transition ease-in duration-75 transform"
-                          leaveFrom="opacity-100 scale-100"
-                          leaveTo="opacity-0 scale-95"
-                        >
-                          <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 pl-2 gap-2 w-full">
-                            {i?.subcategories.map((e, subIndex) => (
-                              <div key={subIndex}>
-                                <Menu.Button
-                                  className={`w-full justify-between capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${i?.fileName?.toLowerCase() ===
-                                      filterCategories
-                                      ? "text-[#F9BA48] font-bold plus-jakarta"
-                                      : "text-[#363F4D] dark:text-gray-400"
-                                    } font-[400] text-[12px] md:text-[13px] 2xl:text-[15px] `}
-                                  onClick={() =>
-                                    handleSubcategoryToggle(subIndex)
-                                  }
+                        <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[16px] dark:text-gray-600 pl-2 gap-2 w-full">
+                          {i?.subcategories.map((e, subIndex) => (
+                            <div key={subIndex}>
+                              <Menu.Button
+                                className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${i?.fileName?.toLowerCase() ===
+                                  filterCategories
+                                  ? "text-[#F9BA48] font-bold plus-jakarta"
+                                  : "text-[#363F4D] dark:text-gray-400"
+                                  } font-[400] text-[12px] md:text-[13px] 2xl:text-[14px] `}
+                                onClick={() =>
+                                  handleSubcategoryToggle(subIndex)
+                                }
+                              >
+                                <Link
+                                  key={subIndex}
+                                  to={`/shop/${i.fileName}/${e.name}`}
                                 >
-                                  <Link
-                                    key={subIndex}
-                                    to={`/shop/${i.fileName}/${e.name}`}
-                                  >
-                                    {e?.name}
-                                  </Link>
-                                  <ChevronDownIcon className="w-[15px]" />
-                                </Menu.Button>
-                                <Transition
+                                  {e?.name}
+                                </Link>
+                                {/* <ChevronDownIcon className="w-[15px]" /> */}
+                              </Menu.Button>
+                              {/* <Transition
                                   show={openSubcategory === subIndex}
                                   as={React.Fragment}
                                   enter="transition ease-out duration-100 transform"
@@ -292,11 +282,22 @@ const Shop = () => {
                                       )
                                     )}
                                   </Menu.Items>
-                                </Transition>
-                              </div>
-                            ))}
-                          </Menu.Items>
-                        </Transition>
+                                </Transition> */}
+                            </div>
+                          ))}
+                        </Menu.Items>
+                        {/* <Transition
+                          show={openDropdown === index}
+                          as={React.Fragment}
+                          enter="transition ease-out duration-100 transform"
+                          enterFrom="opacity-0 scale-95"
+                          enterTo="opacity-100 scale-100"
+                          leave="transition ease-in duration-75 transform"
+                          leaveFrom="opacity-100 scale-100"
+                          leaveTo="opacity-0 scale-95"
+                        >
+                          
+                        </Transition> */}
                       </Menu>
                     ) : (
                       <Link
@@ -305,8 +306,8 @@ const Shop = () => {
                           setFilterCategories(i?.fileName?.toLowerCase());
                         }}
                         className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${i?.fileName?.toLowerCase() === filterCategories
-                            ? "text-[#F9BA48] font-bold plus-jakarta"
-                            : "text-[#363F4D] dark:text-gray-400"
+                          ? "text-[#F9BA48] font-bold plus-jakarta"
+                          : "text-[#363F4D] dark:text-gray-400"
                           } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
                       >
                         {i?.fileName}
@@ -510,8 +511,8 @@ const Shop = () => {
                         <div
                           key={index}
                           className={`relative ${isCard
-                              ? "flex flex-col items-center justify-between"
-                              : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
+                            ? "flex flex-col items-center justify-between"
+                            : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
                             } pb-7`}
                         >
                           {wishlistedProducts.find(
@@ -540,8 +541,8 @@ const Shop = () => {
                           >
                             <img
                               className={`object-cover object-center w-full ${isCard
-                                  ? "w-full h-[200px]"
-                                  : "h-[150px] row-span-2 col-span-1"
+                                ? "w-full h-[200px]"
+                                : "h-[150px] row-span-2 col-span-1"
                                 }`}
                               src={item.mainImage}
                               alt="product-img"
@@ -549,8 +550,8 @@ const Shop = () => {
                           </Link>
                           <div
                             className={`w-full ${isCard
-                                ? "text-center"
-                                : "flex flex-col justify-between"
+                              ? "text-center"
+                              : "flex flex-col justify-between"
                               }`}
                           >
                             <Link
@@ -568,8 +569,8 @@ const Shop = () => {
                             >
                               <p
                                 className={`dark:text-gray-400 text-[#363F4D] ${isCard
-                                    ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
-                                    : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
+                                  ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
+                                  : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
                                   }`}
                               >
                                 {item.title?.slice(0, 50)}

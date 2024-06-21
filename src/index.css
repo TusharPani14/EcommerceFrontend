@@ -22,15 +22,18 @@
 }
 
 .poppins {
-  font-family: "Poppins", sans-serif !important;
+  /* font-family: "Poppins", sans-serif !important; */
+  font-family: "Raleway", sans-serif !important;
 }
 
 .quicksand {
-  font-family: "Quicksand", sans-serif !important;
+  /* font-family: "Quicksand", sans-serif !important; */
+  font-family: "Raleway", sans-serif !important;
 }
 
 .plus-jakarta {
-  font-family: "Plus Jakarta Sans", sans-serif !important;
+  /* font-family: "Plus Jakarta Sans", sans-serif !important; */
+  font-family: "Raleway", sans-serif !important;
 }
 
 * {
@@ -38,6 +41,10 @@
   margin: 0%;
   box-sizing: border-box;
   /* font-family: "Open Sans", sans-serif; */
+}
+
+.line-height-normal {
+  line-height: 24px;
 }
 
 ::-webkit-scrollbar {

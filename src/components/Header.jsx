@@ -211,7 +211,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className=" w-full">
+    <div className=" w-full shadow-md">
       <div className="off-white flex flex-col gap-1 border-gray-400 items-start  md:flex-row sm:items-center justify-between py-1.5 md:h-[45px] px-[3%] md:px-[8%] text-black dark:bg-black dark:text-white text-[10px] md:text-[13.2px] ">
         <span className="font-[600] plus-jakarta plus-jakarta w-full pt-[1%]">
           <marquee direction="left" loop="true">
@@ -372,7 +372,7 @@ const Header = () => {
           {/* <h2 className=" text-[18px] md:text-[28px] font-bold plus-jakarta ">E-Commerce</h2> */}
         </Link>
         <div className=" flex items-center pt-[4%]">
-          <span className="pr-3">
+          <span className="hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535] pr-3">
             <Link to="tel:600 505253" className="flex justify-center">
               <span className="pr-2 text-[#353535]">
                 <IoCall className="text-[20px] text-[#353535]" />

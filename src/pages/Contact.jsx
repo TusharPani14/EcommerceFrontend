@@ -165,10 +165,20 @@ const Contact = () => {
               <div className=" mt-3 py-1 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400  text-[15px] md:text-[19px] 2xl:text-[20px]">
                 <p className=" flex items-center gap-2">
                   <HiHome className=" text-[17px]" />
-                  Address
+                  Office Address
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
                   Al Raihan Tower - Office No J512, 5th Floor - 46th St - next to Movenpick Hotel - Deira - The Town square - Dubai - United Arab Emirates
+                </span>
+              </div>
+              <div className=" mt-3 py-6 border-t border-gray-300 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400  text-[15px] md:text-[19px] 2xl:text-[20px]">
+                <p className=" flex items-center gap-2">
+                  <HiHome className=" text-[17px]" />
+                  Factory Address
+                </p>
+                <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
+                  Creative Shelf LLC - Sharjah Branch, Interior Design Firm UAE <br /> Ware House # 17, Block D, Industrial Area-13 New National paints round about - Sharjah
+
                 </span>
               </div>
               <div className=" mt-3 py-6 border-t border-b border-gray-300 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400 text-[15px] md:text-[19px] 2xl:text-[20px]">
@@ -176,8 +186,8 @@ const Contact = () => {
                   <HiPhone className=" text-[15px]" /> Phone
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
-                  Toll Free: 600 505253<br />
-                  Mobile: +971 56 673 6852
+                  Toll Free: <a href="tel:600 505253">600 505253</a><br />
+                  Mobile: <a href="tel:+971 56 673 6852">+971 56 673 6852</a>
                 </span>
               </div>
               <div className=" mt-3 py-1 flex flex-col font-[600] plus-jakarta text-[#222222] dark:text-gray-400 text-[15px] md:text-[19px] 2xl:text-[20px]">
@@ -185,9 +195,9 @@ const Contact = () => {
                   <MdEmail className=" text-[17px]" /> Email
                 </p>
                 <span className="text-[#666666] dark:text-gray-500 text-[12px] md:text-[13px] 2xl:text-[14px] font-[500] plus-jakarta">
-                  info@creativefurniture.ae
+                  <a href="mailto:info@creativefurniture.ae">info@creativefurniture.ae</a>
                   <br />
-                  support@creativefurniture.ae
+                  <a href="mailto:support@creativefurniture.ae">support@creativefurniture.ae</a>
                 </span>
               </div>
             </div>
@@ -199,13 +209,13 @@ const Contact = () => {
 
         <img
           className=" w-full h-[280px] md:h-[280px]  2xl:w-[100%] object-cover"
-          src="/Images/ab1.png"
+          src="/Images/contact_us_banner.jpg"
           alt="ab1"
         />
-        <div className="absolute inset-0 bg-black opacity-25"></div>
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className=" w-full absolute top-12 right-0 md:px-[2%] xl:px-[8%] flex flex-col lg:items-start lg:grid grid-cols-2 md:mx-8 mb-14">
           <div className="justify-between p-[10%]">
-            <h2 className="text-[28px] font-[600] text-dark">Book your visit to our factory now</h2>
+            <h2 className="text-[28px] font-[600] text-white">Book your visit to our factory now</h2>
           </div>
           <div className="flex justify-end  p-[10%]">
             <Link className="btn btn-outline text-[15px] text-white border border-[#ffffff] px-8 py-3 hover:bg-[#222222] hover:border-[#222222]" to="https://maps.app.goo.gl/Do9wvxt4myf6mdBx9" target="_blank">Click Here to See Direction</Link>

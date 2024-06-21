@@ -116,16 +116,21 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[#F6F6F6] dark:text-gray-400 dark:bg-black dark:border-t dark:border-gray-400 min-h-[360px] flex flex-col justify-between pt-5 px-[8%]  ">
+      <footer className="bg-[#F6F6F6] plus-jakarta dark:text-gray-400 dark:bg-black dark:border-t dark:border-gray-400 min-h-[360px] flex flex-col justify-between pt-5 px-[8%]  ">
 
         {/* <Newsletter /> */}
 
-        <div className=" grid grid-cols-1 md:grid-cols-6 gap-6 ">
+        <div className=" grid grid-cols-1 md:grid-cols-6 gap-6 pt-5">
           <div className=" col-span-2">
-            <h2 className=" text-[30px] font-semibold mb-2 ">
+            {/* <h2 className=" text-[30px] font-semibold mb-2 ">
               Creative Furniture
-            </h2>
-            <p className=" mb-5 md:mb-7 text-[13.5px] text-[#929292] dark:text-gray-400 ">
+            </h2> */}
+            <img
+              src="/mainLogo.png"
+              className=" w-[160px] md:w-[200px]"
+              alt="Creative Furnture"
+            />
+            <p className=" my-5 md:mb-7 text-[13.5px] text-[#929292] dark:text-gray-400 ">
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit
               esse molestie consequat, vel illum dolore eu feugiat nulla
               facilisis.
@@ -217,18 +222,18 @@ const Footer = () => {
 
 
         </div>
-        <div className=" py-4 md:py-6 border-t border-gray-400 flex flex-col-reverse md:flex-row items-center justify-between text-[12.2px] md:text-[13.4px] dark:text-gray-400 text-[#292929] ">
-          <p className=" mt-3 md:mt-0 ">
+        <div className=" py-4 md:py-6 border-t border-gray-400 text-[12.2px] md:text-[13.4px] dark:text-gray-400 text-[#292929] ">
+          <p className=" mt-3 md:mt-0 text-center">
             Copyright ©2024{" "}
             <span className=" text-[#EE3333]">Creative Furniture LLC</span> All
             rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          {/* <div className="flex items-center gap-6">
             <Link to="/privacy-policy">Policy</Link>
             <Link to="/faqs">Questions</Link>
             <Link to="/contact">Affiliate</Link>
             <Link to="/contact">Help</Link>
-          </div>
+          </div> */}
         </div>
       </footer>
     </>

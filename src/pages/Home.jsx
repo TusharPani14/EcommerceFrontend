@@ -274,15 +274,14 @@ const Home = () => {
           <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400 ">
             Our Products
           </p>
-          <p className=" text-[#474747] text-center text-[13px] md:text-[14.5px] 2xl:text-[16px] mb-4 dark:text-gray-400 ">
+          <p className=" text-[#474747] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 dark:text-gray-400 ">
             Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
             eiusmo tempor incididunt ut labore
           </p>
           <div className=" flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "New Arrivals" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "New Arrivals" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("New Arrivals");
               }}
@@ -290,9 +289,8 @@ const Home = () => {
               New Arrivals
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Featured" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Featured" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Featured");
               }}
@@ -300,9 +298,8 @@ const Home = () => {
               Featured
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Best Sellers" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Best Sellers" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Best Sellers");
               }}
@@ -310,9 +307,8 @@ const Home = () => {
               Best Sellers
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Sale Items" && "text-[#FF7004]"
-              } `}
+              className={`cursor-pointer ${filteredCategory === "Sale Items" && "text-[#FF7004]"
+                } `}
               onClick={() => {
                 setFilteredCategory("Sale Items");
               }}
@@ -320,9 +316,8 @@ const Home = () => {
               Sale Items
             </span>
             <span
-              className={`${
-                filteredCategory === "On Sales" && "text-[#FF7004]"
-              } cursor-pointer`}
+              className={`${filteredCategory === "On Sales" && "text-[#FF7004]"
+                } cursor-pointer`}
               onClick={() => {
                 setFilteredCategory("On Sales");
               }}
@@ -348,8 +343,8 @@ const Home = () => {
               products={
                 filteredCategory === "New Arrivals"
                   ? [...filteredProducts].sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    )
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
                   : filteredProducts
               }
               newProducts={newProducts}
@@ -391,7 +386,7 @@ const Home = () => {
         </div>
       </div> */}
 
-      <div className="dark:text-gray-400 bg-gray-100 flex flex-col items-center">
+      <div className="dark:text-gray-400 flex flex-col items-center">
         <p className=" text-[24px] plus-jakarta py-10 md:text-[28px] 2xl:text-[35px] font-[700] text-[#212121] dark:text-gray-400 ">
           Testimonial
         </p>
@@ -422,8 +417,8 @@ const Home = () => {
               >
                 {testimonialsData?.testimonials?.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <div className="text-white text-center p-4 bg-gray-800 bg-opacity-50 rounded-md">
-                      <p>{item}</p>
+                    <div className="text-white text-center p-4 bg-gray-800 bg-opacity-50 rounded-md mx-10">
+                      <p className="px-4">{item}</p>
                     </div>
                   </SwiperSlide>
                 ))}
@@ -468,7 +463,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              HOME-FURNITURE
+              HOME FURNITURE
             </a>
             <a
               href={catalogueLinks[1]}
@@ -476,7 +471,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              HOSPITALITY-CREATIVE-FURNITURE
+              HOSPITALITY CREATIVE FURNITURE
             </a>
             <a
               href={catalogueLinks[2]}
@@ -484,7 +479,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              OFFICE-FURNITURE
+              OFFICE FURNITURE
             </a>
             {/* <Link target="_blank"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
@@ -495,17 +490,17 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10">
+      <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10 mb-5">
         <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400">
           Latest News
         </p>
-        <p className=" dark:text-gray-400 text-[#474747] w-[90%] md:w-[50%] text-center text-[13px] md:text-[14.5px] 2xl:text-[16px] mb-4 ">
+        <p className=" dark:text-gray-400 text-[#474747] w-[90%] md:w-[50%] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 ">
           Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo
           tempor incididunt ut labore eiusmo tempor incididunt ut labore
         </p>
       </div>
       <NewsSlider blogs={blogs} />
-      <div className="w-full flex px-[8%] mx-auto relative">
+      <div className="w-full flex px-[8%] mx-auto relative mt-8">
         {banners.find((banner) => banner.fileName === "Banner1") && (
           <div className="relative w-full flex justify-center items-center shade_image">
             <img
@@ -514,7 +509,7 @@ const Home = () => {
                 banners.find((banner) => banner.fileName === "Banner1")
                   ?.filePath
                   ? banners.find((banner) => banner.fileName === "Banner1")
-                      .filePath
+                    .filePath
                   : "/main/discount_banner.jpg"
               }
               alt="slide-Image"
@@ -539,12 +534,11 @@ const Home = () => {
                       .find((banner) => banner.fileName === "Banner1")
                       .redirectUrl.startsWith("http")
                       ? banners.find((banner) => banner.fileName === "Banner1")
-                          .redirectUrl
-                      : `${
-                          banners.find(
-                            (banner) => banner.fileName === "Banner1"
-                          ).redirectUrl
-                        }`
+                        .redirectUrl
+                      : `${banners.find(
+                        (banner) => banner.fileName === "Banner1"
+                      ).redirectUrl
+                      }`
                   }
                   target="_blank"
                   rel="noopener noreferrer"
