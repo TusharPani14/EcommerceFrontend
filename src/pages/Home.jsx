@@ -274,7 +274,7 @@ const Home = () => {
           <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400 ">
             Our Products
           </p>
-          <p className=" text-[#474747] text-center text-[13px] md:text-[14.5px] 2xl:text-[16px] mb-4 dark:text-gray-400 ">
+          <p className=" text-[#474747] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 dark:text-gray-400 ">
             Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
             eiusmo tempor incididunt ut labore
           </p>
@@ -386,7 +386,7 @@ const Home = () => {
         </div>
       </div> */}
 
-      <div className="dark:text-gray-400 bg-gray-100 flex flex-col items-center">
+      <div className="dark:text-gray-400 flex flex-col items-center">
         <p className=" text-[24px] plus-jakarta py-10 md:text-[28px] 2xl:text-[35px] font-[700] text-[#212121] dark:text-gray-400 ">
           Testimonial
         </p>
@@ -417,8 +417,8 @@ const Home = () => {
               >
                 {testimonialsData?.testimonials?.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <div className="text-white text-center p-4 bg-gray-800 bg-opacity-50 rounded-md">
-                      <p>{item}</p>
+                    <div className="text-white text-center p-4 bg-gray-800 bg-opacity-50 rounded-md mx-10">
+                      <p className="px-4">{item}</p>
                     </div>
                   </SwiperSlide>
                 ))}
@@ -490,17 +490,17 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10">
+      <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10 mb-5">
         <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400">
           Latest News
         </p>
-        <p className=" dark:text-gray-400 text-[#474747] w-[90%] md:w-[50%] text-center text-[13px] md:text-[14.5px] 2xl:text-[16px] mb-4 ">
+        <p className=" dark:text-gray-400 text-[#474747] w-[90%] md:w-[50%] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 ">
           Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo
           tempor incididunt ut labore eiusmo tempor incididunt ut labore
         </p>
       </div>
       <NewsSlider blogs={blogs} />
-      <div className="w-full flex px-[8%] mx-auto relative">
+      <div className="w-full flex px-[8%] mx-auto relative mt-8">
         {banners.find((banner) => banner.fileName === "Banner1") && (
           <div className="relative w-full flex justify-center items-center shade_image">
             <img

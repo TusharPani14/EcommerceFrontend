@@ -120,12 +120,17 @@ const Footer = () => {
 
         {/* <Newsletter /> */}
 
-        <div className=" grid grid-cols-1 md:grid-cols-6 gap-6 ">
+        <div className=" grid grid-cols-1 md:grid-cols-6 gap-6 pt-5">
           <div className=" col-span-2">
-            <h2 className=" text-[30px] font-semibold mb-2 ">
+            {/* <h2 className=" text-[30px] font-semibold mb-2 ">
               Creative Furniture
-            </h2>
-            <p className=" mb-5 md:mb-7 text-[13.5px] text-[#929292] dark:text-gray-400 ">
+            </h2> */}
+            <img
+              src="/mainLogo.png"
+              className=" w-[160px] md:w-[200px]"
+              alt="Creative Furnture"
+            />
+            <p className=" my-5 md:mb-7 text-[13.5px] text-[#929292] dark:text-gray-400 ">
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit
               esse molestie consequat, vel illum dolore eu feugiat nulla
               facilisis.

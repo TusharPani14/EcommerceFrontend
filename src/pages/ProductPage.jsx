@@ -11,6 +11,7 @@ import {
   IoClose,
   IoCloseCircle,
   IoHeartCircle,
+  IoHeartOutline,
   IoStarOutline,
 } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
@@ -23,7 +24,7 @@ import parse from "html-react-parser";
 import AttributeSlider from "@/components/AttributeSlider";
 import { Tooltip } from "@material-tailwind/react";
 
-const ProductPage = ({}) => {
+const ProductPage = ({ }) => {
   const [activeImage, SetActiveImage] = useState(1);
   const [viewMainImg, SetViewMainImg] = useState(false);
   const [materialImage, SetMaterialImage] = useState("");
@@ -81,8 +82,7 @@ const ProductPage = ({}) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/product/${
-          productPageId || productId
+        `${import.meta.env.VITE_SERVER_URL}/product/${productPageId || productId
         }`
       );
       // if (response.data?.approved === false) {
@@ -389,11 +389,10 @@ const ProductPage = ({}) => {
                           }}
                           src={product?.mainImage}
                           alt={"mainImage"}
-                          className={`${
-                            activeImage === product?.mainImage
-                              ? "opacity-40 border-[2px] border-orange-400 "
-                              : " cursor-pointer"
-                          } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
+                          className={`${activeImage === product?.mainImage
+                            ? "opacity-40 border-[2px] border-orange-400 "
+                            : " cursor-pointer"
+                            } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
                         />{" "}
                       </>
                     )}
@@ -410,11 +409,10 @@ const ProductPage = ({}) => {
                                 }}
                                 src={image}
                                 alt={"product-pics"}
-                                className={`${
-                                  activeImage === image
-                                    ? "opacity-40 border-[2px] border-orange-400 "
-                                    : " cursor-pointer"
-                                } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
+                                className={`${activeImage === image
+                                  ? "opacity-40 border-[2px] border-orange-400 "
+                                  : " cursor-pointer"
+                                  } h-[70px] lg:h-[80px] w-fit md:w-full object-cover`}
                               />
                             ))}
                       </>
@@ -442,7 +440,7 @@ const ProductPage = ({}) => {
                           ar-modes="webxr scene-viewer quick-look"
                           camera-controls
                           auto-rotate
-                          // style={modelViewerStyle}
+                        // style={modelViewerStyle}
                         >
                           <button
                             slot="ar-button"
@@ -545,7 +543,7 @@ const ProductPage = ({}) => {
                               )}
                               {product?.promotional &&
                                 product?.price - product?.discountValue !=
-                                  0 && (
+                                0 && (
                                   <span className="label label-warning text-sm ml-1 raleway">
                                     (
                                     {(
@@ -566,23 +564,23 @@ const ProductPage = ({}) => {
                       maxprice === 0 ||
                       minprice === Number.MAX_VALUE ||
                       maxprice === Number.MIN_VALUE) && (
-                      <>
-                        {currency}{" "}
-                        {currency === "OMR"
-                          ? (minprice * 0.1).toFixed(2)
-                          : parseFloat(minprice).toFixed(2)}{" "}
-                        {price - minprice !== 0 && (
-                          <span className="line-through text-[#484848] text-[1rem]">
-                            {currency} {price}
-                          </span>
-                        )}
-                        {product?.promotional && price - minprice !== 0 && (
-                          <span className="label label-warning text-sm ml-1 raleway">
-                            {(((price - minprice) / price) * 100).toFixed(2)}%
-                          </span>
-                        )}
-                      </>
-                    )}
+                        <>
+                          {currency}{" "}
+                          {currency === "OMR"
+                            ? (minprice * 0.1).toFixed(2)
+                            : parseFloat(minprice).toFixed(2)}{" "}
+                          {price - minprice !== 0 && (
+                            <span className="line-through text-[#484848] text-[1rem]">
+                              {currency} {price}
+                            </span>
+                          )}
+                          {product?.promotional && price - minprice !== 0 && (
+                            <span className="label label-warning text-sm ml-1 raleway">
+                              {(((price - minprice) / price) * 100).toFixed(2)}%
+                            </span>
+                          )}
+                        </>
+                      )}
 
                     {/* <span className=" bg-green-400 w-fit px-2 text-sm font-medium">
                       {product?.promotional}
@@ -624,8 +622,8 @@ const ProductPage = ({}) => {
                       </p>
                       <div className=" flex overflow-hidden gap-2 raleway mb-3">
                         {item.values?.length > 6 ||
-                        (item?.type?.toLowerCase() === "size" &&
-                          item.values?.length > 3) ? (
+                          (item?.type?.toLowerCase() === "size" &&
+                            item.values?.length > 3) ? (
                           <>
                             <AttributeSlider
                               data={item}
@@ -672,25 +670,21 @@ const ProductPage = ({}) => {
                                     ]);
                                   }
                                 }}
-                                className={` h-full ${
-                                  selectedAttribute?.find(
-                                    (i) => i.value === attr.value
-                                  )
-                                    ? "bg-gray-300 text-gray-800"
-                                    : ""
-                                }cursor-pointer w-fit border border-gray-300 text-gray-600 ${
-                                  attr.type === "material" ? "" : "px-1 py-1"
-                                } text-sm ${
-                                  attr?.type === "color"
+                                className={` h-full ${selectedAttribute?.find(
+                                  (i) => i.value === attr.value
+                                )
+                                  ? "bg-gray-300 text-gray-800"
+                                  : ""
+                                  }cursor-pointer w-fit border border-gray-300 text-gray-600 ${attr.type === "material" ? "" : "px-1 py-1"
+                                  } text-sm ${attr?.type === "color"
                                     ? `bg-${attr.value} cursor-pointer `
                                     : ""
-                                } ${
-                                  selectedAttribute?.find(
+                                  } ${selectedAttribute?.find(
                                     (i) => i.value === attr.value
                                   ) && attr?.type === "color"
                                     ? " border-2 border-green-500 cursor-pointer"
                                     : ""
-                                } `}
+                                  } `}
                               >
                                 {attr.type === "material" ? (
                                   <Tooltip
@@ -704,13 +698,12 @@ const ProductPage = ({}) => {
                                         SetViewMaterialImg(true);
                                       }}
                                       alt="material-img"
-                                      className={`w-[40px] h-[40px] md:w-[60px] md:h-[60px] object-cover border cursor-pointer  ${
-                                        selectedAttribute?.find(
-                                          (i) => i.value === attr?.value
-                                        )
-                                          ? " border-black"
-                                          : ""
-                                      }`}
+                                      className={`w-[40px] h-[40px] md:w-[60px] md:h-[60px] object-cover border cursor-pointer  ${selectedAttribute?.find(
+                                        (i) => i.value === attr?.value
+                                      )
+                                        ? " border-black"
+                                        : ""
+                                        }`}
                                     />
                                   </Tooltip>
                                 ) : (
@@ -856,8 +849,8 @@ const ProductPage = ({}) => {
                               handleAddToWishlist(product?._id);
                             }}
                           >
-                            <IoHeartCircle
-                              className={`  cursor-pointer hover:text-red-500 text-[25px] text-gray-600`}
+                            <IoHeartOutline
+                              className={`  cursor-pointer hover:text-red-500 text-[25px] text-red-600`}
                             />
                             <span className="raleway text-[12px] md:text-[13.5px] 2xl:text-[14px] font-[500]">
                               Add to wishlist
@@ -973,7 +966,7 @@ const ProductPage = ({}) => {
                                   </p>
                                   <div className=" flex ">
                                     {item?.discountValue > 0 &&
-                                    item?.discountValue !== null ? (
+                                      item?.discountValue !== null ? (
                                       <>
                                         <p className="font-[600] text-xs mr-0.5 dark:text-gray-400 text-[#A4A4A4]">
                                           {currency}{" "}
@@ -987,8 +980,8 @@ const ProductPage = ({}) => {
                                           <span>
                                             {currency === "OMR"
                                               ? (
-                                                  item.discountValue * 0.1
-                                                ).toFixed(2)
+                                                item.discountValue * 0.1
+                                              ).toFixed(2)
                                               : item.discountValue.toFixed(2)}
                                           </span>
                                         </p>
@@ -1041,9 +1034,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(1);
                     }}
-                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 1 && "bg-white dark:text-black"
-                    } `}
+                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 1 && "bg-white dark:text-black"
+                      } `}
                   >
                     Details
                   </p>
@@ -1051,9 +1043,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(2);
                     }}
-                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 2 && "bg-white dark:text-black"
-                    } `}
+                    className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 2 && "bg-white dark:text-black"
+                      } `}
                   >
                     Delivery & Returns
                   </p>
@@ -1061,9 +1052,8 @@ const ProductPage = ({}) => {
                     onClick={() => {
                       SetActiveTab(3);
                     }}
-                    className={` raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${
-                      activeTab === 3 && "bg-white dark:text-black"
-                    } `}
+                    className={` raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 3 && "bg-white dark:text-black"
+                      } `}
                   >
                     Reviews ({reviews.length})
                   </p>
@@ -1071,21 +1061,15 @@ const ProductPage = ({}) => {
               </div>
               {activeTab === 1 ? (
                 <div className="bg-white flex flex-col text-xs sm:text-sm lg:p-7 py-3 lg:py-10 font-[400]">
-                  <p className=" raleway text-[12px] md:text-[13.3px] 2xl:text-[14px]">
+                  <p className=" raleway text-[12px] md:text-[13.3px] 2xl:text-[14px] line-height-normal">
                     {product?.editorContent && parse(product?.editorContent)}
                   </p>
                 </div>
               ) : activeTab === 2 ? (
                 <>
-                  <div className="bg-white flex flex-col text-xs sm:text-sm lg:p-7 py-3 lg:py-10 font-[400]">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    <br /> Explicabo deserunt harum fugit adipisci a cum nisi
-                    sequi eveniet,
-                    <br />
-                    alias odio quam in fuga labore culpa, quia dignissimos optio
-                    odit
-                    <br />
-                    doloribus, nam expedita rem eos. Esse, repellat quis
+                  <div className="raleway bg-white flex flex-col text-xs sm:text-sm lg:p-7 py-3 lg:py-10 font-[400]">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo deserunt harum fugit adipisci a cum nisi sequi eveniet, alias odio quam in fuga labore culpa, quia dignissimos optio
+                    odit doloribus, nam expedita rem eos. Esse, repellat quis
                   </div>
                 </>
               ) : (
@@ -1206,7 +1190,7 @@ const ProductPage = ({}) => {
                               </p>
                               <div className=" flex items-center justify-center">
                                 {item?.discountValue > 0 &&
-                                item?.discountValue !== null ? (
+                                  item?.discountValue !== null ? (
                                   <>
                                     <p className="font-[600] text-xs md:text-base mr-0.5 dark:text-gray-400 text-[#A4A4A4]">
                                       {currency}{" "}
@@ -1221,8 +1205,8 @@ const ProductPage = ({}) => {
                                       <span>
                                         {currency === "OMR"
                                           ? (item.discountValue * 0.1).toFixed(
-                                              2
-                                            )
+                                            2
+                                          )
                                           : item.discountValue.toFixed(2)}
                                       </span>
                                     </p>
