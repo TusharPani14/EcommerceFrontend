@@ -280,8 +280,9 @@ const Home = () => {
           </p>
           <div className=" flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
-              className={`cursor-pointer ${filteredCategory === "New Arrivals" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "New Arrivals" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("New Arrivals");
               }}
@@ -289,8 +290,9 @@ const Home = () => {
               New Arrivals
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Featured" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "Featured" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("Featured");
               }}
@@ -298,8 +300,9 @@ const Home = () => {
               Featured
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Best Sellers" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "Best Sellers" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("Best Sellers");
               }}
@@ -307,8 +310,9 @@ const Home = () => {
               Best Sellers
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Sale Items" && "text-[#FF7004]"
-                } `}
+              className={`cursor-pointer ${
+                filteredCategory === "Sale Items" && "text-[#FF7004]"
+              } `}
               onClick={() => {
                 setFilteredCategory("Sale Items");
               }}
@@ -316,8 +320,9 @@ const Home = () => {
               Sale Items
             </span>
             <span
-              className={`${filteredCategory === "On Sales" && "text-[#FF7004]"
-                } cursor-pointer`}
+              className={`${
+                filteredCategory === "On Sales" && "text-[#FF7004]"
+              } cursor-pointer`}
               onClick={() => {
                 setFilteredCategory("On Sales");
               }}
@@ -343,8 +348,8 @@ const Home = () => {
               products={
                 filteredCategory === "New Arrivals"
                   ? [...filteredProducts].sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                  )
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
                   : filteredProducts
               }
               newProducts={newProducts}
@@ -463,7 +468,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              View Catalogue 1
+              HOME-FURNITURE
             </a>
             <a
               href={catalogueLinks[1]}
@@ -471,7 +476,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              View Catalogue 2
+              HOSPITALITY-CREATIVE-FURNITURE
             </a>
             <a
               href={catalogueLinks[2]}
@@ -479,7 +484,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
             >
-              View Catalogue 3
+              OFFICE-FURNITURE
             </a>
             {/* <Link target="_blank"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
@@ -509,7 +514,7 @@ const Home = () => {
                 banners.find((banner) => banner.fileName === "Banner1")
                   ?.filePath
                   ? banners.find((banner) => banner.fileName === "Banner1")
-                    .filePath
+                      .filePath
                   : "/main/discount_banner.jpg"
               }
               alt="slide-Image"
@@ -534,11 +539,12 @@ const Home = () => {
                       .find((banner) => banner.fileName === "Banner1")
                       .redirectUrl.startsWith("http")
                       ? banners.find((banner) => banner.fileName === "Banner1")
-                        .redirectUrl
-                      : `${banners.find(
-                        (banner) => banner.fileName === "Banner1"
-                      ).redirectUrl
-                      }`
+                          .redirectUrl
+                      : `${
+                          banners.find(
+                            (banner) => banner.fileName === "Banner1"
+                          ).redirectUrl
+                        }`
                   }
                   target="_blank"
                   rel="noopener noreferrer"
