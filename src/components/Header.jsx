@@ -372,7 +372,7 @@ const Header = () => {
           {/* <h2 className=" text-[18px] md:text-[28px] font-bold plus-jakarta ">E-Commerce</h2> */}
         </Link>
         <div className=" flex items-center pt-[4%]">
-          <span className="pr-3">
+          <span className="hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535] pr-3">
             <Link to="tel:600 505253" className="flex justify-center">
               <span className="pr-2 text-[#353535]">
                 <IoCall className="text-[20px] text-[#353535]" />
