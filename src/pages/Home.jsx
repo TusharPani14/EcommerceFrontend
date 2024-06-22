@@ -4,7 +4,7 @@ import NewsSlider from "../components/NewsSlider";
 import CategorySlider from "../components/CategorySlider";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { IoHeartCircle } from "react-icons/io5";
+import { IoHeartCircle, IoStarOutline } from "react-icons/io5";
 import axios from "axios";
 import { MainAppContext } from "@/context/MainContext";
 import Featured from "@/components/Featured";
@@ -21,6 +21,7 @@ import "swiper/css/navigation";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import parse from "html-react-parser";
+import { FaStar } from "react-icons/fa";
 
 const box = [
   {
@@ -105,6 +106,7 @@ const Home = () => {
   const [slider, setSlider] = useState([]);
   const [showModal, setShowModal] = useState(true);
   const [testimonialsData, setTestimonialsData] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const { wishlistedProducts, handleAddToWishlist, handleRemoveWishlist } =
     useContext(MainAppContext);
 
@@ -214,6 +216,21 @@ const Home = () => {
     return parse(truncatedText);
   };
 
+  const getReviews = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/review`
+      );
+      console.log(response.data);
+      const allReviews = response.data.reviews;
+      const filteredReviews = allReviews.filter((review) => review.rating >= 4);
+      console.log(filteredReviews);
+      setReviews(filteredReviews);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getAllProducts();
@@ -223,8 +240,24 @@ const Home = () => {
     getCatalogue();
     getSlider();
     fetchTestimonials();
+    getReviews();
     // setWishlistedProducts(wishlist);
   }, []);
+
+  const Stars = ({ stars }) => {
+    const ratingStars = Array.from({ length: 5 }, (elem, index) => {
+      return (
+        <div key={index}>
+          {stars >= index + 1 ? (
+            <FaStar className="dark:text-yellow-400 text-yellow-500" />
+          ) : (
+            <IoStarOutline className="text-gray-400 dark:text-yellow-400" />
+          )}
+        </div>
+      );
+    });
+    return <div className="flex items-center gap-0.5">{ratingStars}</div>;
+  };
 
   return (
     <section className=" w-full dark:bg-black dark:text-white">
@@ -280,8 +313,9 @@ const Home = () => {
           </p>
           <div className=" flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
-              className={`cursor-pointer ${filteredCategory === "New Arrivals" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "New Arrivals" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("New Arrivals");
               }}
@@ -289,8 +323,9 @@ const Home = () => {
               New Arrivals
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Featured" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "Featured" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("Featured");
               }}
@@ -298,8 +333,9 @@ const Home = () => {
               Featured
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Best Sellers" && "text-[#FF7004]"
-                }`}
+              className={`cursor-pointer ${
+                filteredCategory === "Best Sellers" && "text-[#FF7004]"
+              }`}
               onClick={() => {
                 setFilteredCategory("Best Sellers");
               }}
@@ -307,8 +343,9 @@ const Home = () => {
               Best Sellers
             </span>
             <span
-              className={`cursor-pointer ${filteredCategory === "Sale Items" && "text-[#FF7004]"
-                } `}
+              className={`cursor-pointer ${
+                filteredCategory === "Sale Items" && "text-[#FF7004]"
+              } `}
               onClick={() => {
                 setFilteredCategory("Sale Items");
               }}
@@ -316,8 +353,9 @@ const Home = () => {
               Sale Items
             </span>
             <span
-              className={`${filteredCategory === "On Sales" && "text-[#FF7004]"
-                } cursor-pointer`}
+              className={`${
+                filteredCategory === "On Sales" && "text-[#FF7004]"
+              } cursor-pointer`}
               onClick={() => {
                 setFilteredCategory("On Sales");
               }}
@@ -343,8 +381,8 @@ const Home = () => {
               products={
                 filteredCategory === "New Arrivals"
                   ? [...filteredProducts].sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                  )
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
                   : filteredProducts
               }
               newProducts={newProducts}
@@ -492,6 +530,37 @@ const Home = () => {
       </div>
       <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10 mb-5">
         <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400">
+          Reviews
+        </p>
+        {reviews.length === 0 ? (
+          <p>No reviews with rating 4 or higher found.</p>
+        ) : (
+          <div className="w-full max-w-2xl">
+            {reviews.map((review) => (
+              <div
+                key={review._id}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 mb-5"
+              >
+                <h3 className="font-bold text-xl text-[#212121] dark:text-gray-300">
+                  {review.userId.name}
+                </h3>
+                <h3 className="font-bold text-base text-[#212121] dark:text-gray-300">
+                  {review.title}
+                </h3>
+                <Stars stars={review.rating} />
+                <p className="text-[#212121] dark:text-gray-400">
+                  {review.comment}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-500">
+                  By User {review.userId.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="dark:text-gray-400 flex flex-col items-center col-span-4 mt-10 mb-5">
+        <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400">
           Latest News
         </p>
         <p className=" dark:text-gray-400 text-[#474747] w-[90%] md:w-[50%] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 ">
@@ -509,7 +578,7 @@ const Home = () => {
                 banners.find((banner) => banner.fileName === "Banner1")
                   ?.filePath
                   ? banners.find((banner) => banner.fileName === "Banner1")
-                    .filePath
+                      .filePath
                   : "/main/discount_banner.jpg"
               }
               alt="slide-Image"
@@ -534,11 +603,12 @@ const Home = () => {
                       .find((banner) => banner.fileName === "Banner1")
                       .redirectUrl.startsWith("http")
                       ? banners.find((banner) => banner.fileName === "Banner1")
-                        .redirectUrl
-                      : `${banners.find(
-                        (banner) => banner.fileName === "Banner1"
-                      ).redirectUrl
-                      }`
+                          .redirectUrl
+                      : `${
+                          banners.find(
+                            (banner) => banner.fileName === "Banner1"
+                          ).redirectUrl
+                        }`
                   }
                   target="_blank"
                   rel="noopener noreferrer"

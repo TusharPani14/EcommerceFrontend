@@ -69,7 +69,7 @@ export default function AttributeSlider({
         }}
         modules={[Autoplay, Pagination, Navigation]}
         className={` dark:bg-black ${
-          data?.type === "material" ? "px-[15%]" : ""
+          data?.type === "material" ? "px-[15%]" : "px-[5%]"
         } `}
       >
         {data?.values?.map((attr, index) => (
@@ -98,12 +98,12 @@ export default function AttributeSlider({
                   console.log([...newArr, attr]);
                 }
               }}
-              className={` h-full text-[11px] md:text-[11px] 2xl:text-[12px]  ${
+              className={` h-full text-[11px] md:text-[11px] 2xl:text-[13px]  ${
                 selectedAttribute?.find((i) => i.value === attr.value)
                   ? "bg-gray-300 text-gray-800"
                   : ""
               }cursor-pointer w-fit border border-gray-300 text-gray-600 ${
-                attr.type === "material" ? "" : "px-4 py-1"
+                attr.type === "material" ? "" : "px-1 py-3 md:px-3 xl:px-1 2xl:px-2"
               } text-sm ${
                 attr?.type === "color" ? `bg-${attr.value} cursor-pointer ` : ""
               } ${

@@ -12,108 +12,6 @@ import EditProduct from "./EditProduct";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { saveAs } from "file-saver";
 
-export const sortMethods = [
-  {
-    id: 0,
-    name: "  Date: New to Old",
-    value: 0,
-  },
-  {
-    id: 1,
-    name: "Date: Old to New",
-    value: 1,
-  },
-
-  {
-    id: 6,
-    name: " Email: a-z",
-    value: 6,
-  },
-  {
-    id: 7,
-    name: " Email: z-a",
-    value: 7,
-  },
-  {
-    id: 8,
-    name: "Id: High to low",
-    value: 8,
-  },
-  {
-    id: 9,
-    name: "Id: Low to High",
-    value: 9,
-  },
-];
-const OrdersData = [
-  {
-    id: 1,
-    orderId: "257",
-    name: "Venodr 1",
-    email: "selem@hhh.com",
-    role: "vendor",
-    adminApproved: true,
-    phone: "987654568764",
-    products: 6,
-    status: "level 3",
-    date: "Mar 17, 2024",
-  },
-  {
-    id: 2,
-    orderId: "397",
-    name: "Venodr 2",
-    role: "vendor",
-    email: "minnadb@hhh.com",
-    phone: "987654568764",
-    adminApproved: false,
-    products: 6,
-    status: "level 2",
-    date: "Feb 27, 2024",
-  },
-  {
-    id: 3,
-    orderId: "437",
-    name: "Venodr 3",
-    role: "vendor",
-    email: "kaowihu@hhh.com",
-    phone: "987654568764",
-    adminApproved: false,
-    products: 6,
-    status: "level 1",
-    date: "Jan 01, 2024",
-  },
-  {
-    id: 4,
-    orderId: "397",
-    name: "Vendor 4",
-    role: "vendor",
-    email: "wirwnadb@hhh.com",
-    phone: "987654568764",
-    products: 6,
-    adminApproved: true,
-    status: "level 2",
-    date: "Nov 27, 2023",
-  },
-  {
-    id: 4,
-    orderId: "637",
-    name: "kljhg",
-    role: "user",
-    email: "fFewihu@hhh.com",
-    phone: "987654568764",
-    products: 6,
-    adminApproved: true,
-    status: "level 1",
-    date: "Dec 01, 2024",
-  },
-];
-
-const filterMethods = [
-  { id: 1, name: "See All", value: "" },
-  { id: 2, name: "level 2", value: "level 2" },
-  { id: 3, name: "level 1", value: "level 1" },
-  { id: 4, name: "level 3", value: "level 3" },
-];
 const VendorDetailsDialog = ({ userData, close }) => {
   return (
     <div className="  fixed inset-0 w-full h-[100vh] flex items-center justify-center bg-black/30 overflow-hidden overflow-y-auto  z-50 ">
@@ -232,8 +130,9 @@ const Products = () => {
   const [editProductInfo, setEditProductInfo] = useState(false);
   const [processingTab, setProcessingTab] = useState("");
   const [activeUserData, setActiveUserData] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
   // const [loading, setLoading] = useState(false);
-  const [sortedArrayCount, setSortedArrayCount] = useState(OrdersData.length);
   const { user } = useContext(MainAppContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -245,28 +144,9 @@ const Products = () => {
   const closeModal = () => {
     setDialog(false);
   };
-  useEffect(() => {
-    setSortedArray1(sortProducts(sortMethod1, OrdersData));
-  }, [OrdersData, sortMethod1]);
-  useEffect(() => {
-    setSortedArray2(sortProducts(sortMethod2, OrdersData));
-  }, [OrdersData, sortMethod2]);
   const [dialog, setDialog] = useState(false);
   const [products, setProducts] = useState([]);
 
-  // const fetchProducts = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${import.meta.env.VITE_SERVER_URL}/auth/getProducts`
-  //     );
-  //     setProducts(response.data);
-  //     setSortedArray1(response.data);
-  //     setSortedArray2(response.data);
-  //     // console.log(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //   }
-  // };
   const getAllProducts = async () => {
     setLoading(true);
     try {
@@ -282,6 +162,18 @@ const Products = () => {
       console.error("Error fetching products:", error);
     }
     setLoading(false);
+  };
+
+  const getCategoriesData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/admin/category`
+      );
+      console.log(response.data.categories);
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
   };
 
   const approveProduct = async (product) => {
@@ -334,6 +226,7 @@ const Products = () => {
 
   useEffect(() => {
     getAllProducts();
+    getCategoriesData();
   }, []);
 
   // const approveVendor = async (user) => {
@@ -370,9 +263,7 @@ const Products = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10; // Number of items per page
-
-  // Calculate the start index and end index for the current page
+  const pageSize = 10;
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 
@@ -420,20 +311,49 @@ const Products = () => {
 
   const exportCSV = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/product/exportCSV`, {
-        responseType: 'blob',
-      });
-      let filename = 'products.csv'; 
-      const contentDisposition = response.headers['content-disposition'];
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/product/exportCSV`,
+        {
+          responseType: "blob",
+        }
+      );
+      let filename = "products.csv";
+      const contentDisposition = response.headers["content-disposition"];
       if (contentDisposition) {
-        filename = contentDisposition.split('filename=')[1] || 'export.csv';
+        filename = contentDisposition.split("filename=")[1] || "export.csv";
       }
       saveAs(response.data, filename);
     } catch (error) {
-      console.error('Error exporting CSV:', error);
+      console.error("Error exporting CSV:", error);
     }
   };
+
+  const exportSelectedProducts = async () => {
+    try {
+      const [categoryName, subcategoryName, seriesName] = selectedOption.split('-');
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/product/exportSelectedCSV`, {
+        responseType: "blob",
+        params: {
+          category: categoryName,
+          subcategory: subcategoryName,
+          series: seriesName
+        }
+      });
   
+      let filename = "products.csv";
+      const contentDisposition = response.headers["content-disposition"];
+      if (contentDisposition) {
+        filename = contentDisposition.split("filename=")[1] || "export.csv";
+      }
+      saveAs(response.data, filename);
+    } catch (error) {
+      console.error("Error exporting products:", error);
+    }
+  };  
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   return (
     <div className=" w-full min-h-[100vh] h-fit bg-[#F8F9FA] dark:bg-black rounded-lg px-[2%] py-4 md:py-10">
@@ -444,10 +364,43 @@ const Products = () => {
         <button
           className="bg-[#FF7004] px-4 py-2.5 my-1 w-[100px] sm:w-[150px] font-medium text-[11.2px] md:text-[13px] text-white flex items-center"
           onClick={exportCSV}
+          disabled={!selectedOption}
         >
           <FileUploadIcon className="mr-2" />
-          Export
+          Export All
         </button>
+        <div className="flex flex-col">
+          <label className="py-2">Export By:</label>
+          <select
+            className="bg-gray-200 border border-gray-300 rounded px-2 py-1 mb-4"
+            value={selectedOption}
+            onChange={handleSelectChange}
+          >
+            <option value="" disabled>
+              Select an option
+            </option>
+            {categories.map((category) =>
+              category.subcategories.map((subcategory) =>
+                subcategory.series.map((series) => (
+                  <option
+                    key={`${category.id}-${subcategory.id}-${series.id}`}
+                    value={`${category.fileName}-${subcategory.name}-${series.name}`}
+                  >
+                    {category.fileName}-{subcategory.name}-{series.name}
+                  </option>
+                ))
+              )
+            )}
+          </select>
+          <button
+            className="bg-[#FF7004] px-4 py-2.5 my-1 w-[100px] sm:w-[150px] font-medium text-[11.2px] md:text-[13px] text-white flex items-center"
+            onClick={exportSelectedProducts}
+            disabled={!selectedOption}
+          >
+            <FileUploadIcon className="mr-2" />
+            Export
+          </button>
+        </div>
       </div>
       {loading ? (
         <div className=" w-full flex items-center justify-center py-3">
@@ -472,42 +425,7 @@ const Products = () => {
                 </p>
                 <div className="overflow-x-auto">
                   <div className=" flex flex-col md:flex-row md:items-center justify-between">
-                    <div className=" flex flex-col md:flex-row md:items-center gap-3 py-2">
-                      {/* <select
-                value={sortMethod1}
-                onChange={(e) => {
-                  setSortMethod1(e.target.value);
-                }}
-                className=" md:w-[250px] p-2 dark:bg-transparent dark:text-gray-400 text-[#4F5D77] font-semibold bg-[#f2f2f2] text-[12.5px] md:text-[14.4px]"
-              >
-                {sortMethods.map((method, index) => {
-                  return (
-                    <option
-                      key={index}
-                      value={method.value}
-                      className=" text-black"
-                    >
-                      {method.name}
-                    </option>
-                  );
-                })}
-              </select> */}
-                      {/* <select
-                value={filterMethod1}
-                onChange={(e) => {
-                  setFilterMethod1(e.target.value);
-                }}
-                className=" w-full p-2 dark:bg-transparent dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] font-semibold text-[12.5px] md:text-[14.4px]"
-              >
-                {filterMethods.map((method, index) => {
-                  return (
-                    <option key={index} value={method.value}>
-                      {method.name}
-                    </option>
-                  );
-                })}
-              </select> */}
-                    </div>
+                    <div className=" flex flex-col md:flex-row md:items-center gap-3 py-2"></div>
                   </div>
                   <table className="w-full border-collapse">
                     <thead className="">
@@ -556,47 +474,6 @@ const Products = () => {
                               <td className="text-center py-2 px-4 dark:text-gray-400 text-[#495058] my-1 text-[13px] md:text-[15px] 2xl:text-[16px]">
                                 {item?.status}
                               </td>
-                              {/* <td>
-                        <select
-                          className={`text-center ${
-                            item.status.toLowerCase() === "level 3"
-                              ? "bg-orange-200 text-orange-600"
-                              : item.status.toLowerCase() === "level 1"
-                              ? "bg-red-200 text-red-700"
-                              : item.status.toLowerCase() === "level 2"
-                              ? "bg-green-200 text-green-700"
-                              : "bg-blue-200 text-blue-600"
-                          }
-                          rounded-md py-1 w-full outline-none text-sm font-semibold`}
-                          value={item?.status}
-                          onChange={(e) => {}}
-                        >
-                          <option
-                            className=" bg-white text-black"
-                            value="level 1"
-                          >
-                            level 1
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 3"
-                          >
-                            level 3
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 4"
-                          >
-                            level 4
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 2"
-                          >
-                            level 2
-                          </option>
-                        </select>
-                      </td> */}
                               <td className="  items-center gap-2 py-2 px-4">
                                 <button
                                   onClick={() => {
@@ -706,42 +583,7 @@ const Products = () => {
                 </p>
                 <div className="overflow-x-auto">
                   <div className=" flex flex-col md:flex-row md:items-center justify-between">
-                    <div className=" flex flex-col md:flex-row md:items-center gap-3 py-2">
-                      {/* <select
-                value={sortMethod2}
-                onChange={(e) => {
-                  setSortMethod2(e.target.value);
-                }}
-                className=" md:w-[250px] p-2 dark:bg-transparent dark:text-gray-400 text-[#4F5D77] font-semibold bg-[#f2f2f2] text-[12.5px] md:text-[14.4px]"
-              >
-                {sortMethods.map((method, index) => {
-                  return (
-                    <option
-                      key={index}
-                      value={method.value}
-                      className=" text-black"
-                    >
-                      {method.name}
-                    </option>
-                  );
-                })}
-              </select> */}
-                      {/* <select
-                value={filterMethod2}
-                onChange={(e) => {
-                  setFilterMethod2(e.target.value);
-                }}
-                className=" w-full p-2 dark:bg-transparent dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] font-semibold text-[12.5px] md:text-[14.4px]"
-              >
-                {filterMethods.map((method, index) => {
-                  return (
-                    <option key={index} value={method.value}>
-                      {method.name}
-                    </option>
-                  );
-                })}
-              </select> */}
-                    </div>
+                    <div className=" flex flex-col md:flex-row md:items-center gap-3 py-2"></div>
                   </div>
                   <table className="w-full border-collapse">
                     <thead className="">
@@ -819,47 +661,6 @@ const Products = () => {
                                   onChange={() => handleChangeStockStatus(item)}
                                 />
                               </td>
-                              {/* <td> */}
-                              {/* <select
-                          className={`text-center ${
-                            item.status.toLowerCase() === "level 3"
-                              ? "bg-orange-200 text-orange-600"
-                              : item.status.toLowerCase() === "level 1"
-                              ? "bg-red-200 text-red-700"
-                              : item.status.toLowerCase() === "level 2"
-                              ? "bg-green-200 text-green-700"
-                              : "bg-blue-200 text-blue-600"
-                          }
-                          rounded-md py-1 w-full outline-none text-sm font-semibold`}
-                          value={item?.status}
-                          onChange={(e) => {}}
-                        >
-                          <option
-                            className=" bg-white text-black"
-                            value="level 1"
-                          >
-                            level 1
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 3"
-                          >
-                            level 3
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 4"
-                          >
-                            level 4
-                          </option>
-                          <option
-                            className=" bg-white text-black"
-                            value="level 2"
-                          >
-                            level 2
-                          </option>
-                        </select> */}
-                              {/* </td> */}
                               <td className="  items-center gap-2 py-2 px-4">
                                 <button
                                   onClick={() => {
@@ -903,14 +704,14 @@ const Products = () => {
                         })}
                     </tbody>
                   </table>
-                  <div class="flex items-center justify-end gap-8">
+                  <div className="flex items-center justify-end gap-8">
                     <button
                       disabled={currentPage2 === 1}
                       onClick={() => handlePageChange2(currentPage2 - 1)}
-                      class="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                       type="button"
                     >
-                      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                      <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -938,10 +739,10 @@ const Products = () => {
                     <button
                       disabled={currentPage2 === totalPages2}
                       onClick={() => handlePageChange2(currentPage2 + 1)}
-                      class="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                       type="button"
                     >
-                      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                      <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

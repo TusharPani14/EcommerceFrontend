@@ -138,7 +138,7 @@ const Orders = ({ userData }) => {
         );
 
         // Update the orders state with the fetched orders
-        // console.log(response.data.orders);
+        console.log(response.data.orders);
         setOrders(response.data.orders);
         setLoading(false);
       } catch (error) {
@@ -159,12 +159,12 @@ const Orders = ({ userData }) => {
           {orders?.map((order, orderIndex) => (
             <div key={orderIndex}>
               {order?.products?.map((product, productIndex) => {
-                const modifiedMainImage = product.product.mainImage.startsWith(
+                const modifiedMainImage = product?.product?.mainImage.startsWith(
                   import.meta.env.VITE_SERVER_URL
                 )
-                  ? product.product.mainImage
+                  ? product?.product.mainImage
                   : `${import.meta.env.VITE_SERVER_URL
-                  }/${product.product.mainImage.replace(/\\/g, "/")}`;
+                  }/${product?.product?.mainImage.replace(/\\/g, "/")}`;
                 return (
                   <div
                     className="flex flex-col md:flex-row md:justify-between w-full dark:bg-white/40 bg-gray-100 p-2 border-b border-gray-300"
@@ -183,7 +183,7 @@ const Orders = ({ userData }) => {
                       )}
                       <Link
                         className="flex items-center"
-                        to={`/product/${product.product._id}`}
+                        to={`/product/${product?.product._id}`}
                       >
                         <img
                           className="h-[100px] mr-4 w-[100px] object-cover"
@@ -192,7 +192,7 @@ const Orders = ({ userData }) => {
                         />
                         <div className="flex flex-col">
                           <p className="text-[#000] flex flex-col lg:flex-row text-[15px] md:text-[16.5px] 2xl:text-[18px] font-bold plus-jakarta">
-                            {product.product.title}
+                            {product?.product.title}
                             <span className=" lg:ml-2 text-xs sm:text-sm font-semibold bg-green-200 text-green-800 text-center py-1 w-fit px-3 ">
                               <p>{order.status}</p>
                             </span>
@@ -211,7 +211,7 @@ const Orders = ({ userData }) => {
                       <span className="text-xs sm:text-sm font-medium capitalize">Rating:</span> {product.rating}
                     </p> */}
                           </div>
-                          <p className="text-[#000] text-[15px] md:text-[16.5px] 2xl:text-[16px] font-semibold">
+                          {/* <p className="text-[#000] text-[15px] md:text-[16.5px] 2xl:text-[16px] font-semibold">
                             <span className="text-xs sm:text-sm font-medium">
                               Total:
                             </span>
@@ -219,7 +219,7 @@ const Orders = ({ userData }) => {
                             {currency === "OMR"
                               ? (product.product.price * 1 * 0.1).toFixed(2)
                               : product.product.price * 1}
-                          </p>
+                          </p> */}
                         </div>
                       </Link>
                     </div>
@@ -232,7 +232,7 @@ const Orders = ({ userData }) => {
                       >
                         Track Order
                       </button>
-                      {order?.status?.toLowerCase() === "received" && (
+                      {order?.status?.toLowerCase() === "orderdelivered" && (
                         <button
                           onClick={() => {
                             setIsRatingFormOpen(true);
