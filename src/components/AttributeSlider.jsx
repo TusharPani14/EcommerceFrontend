@@ -69,7 +69,7 @@ export default function AttributeSlider({
         }}
         modules={[Autoplay, Pagination, Navigation]}
         className={` dark:bg-black ${
-          data?.type === "material" ? "px-[15%]" : ""
+          data?.type === "material" ? "px-[15%]" : "px-[5%]"
         } `}
       >
         {data?.values?.map((attr, index) => (
@@ -103,7 +103,7 @@ export default function AttributeSlider({
                   ? "bg-gray-300 text-gray-800"
                   : ""
               }cursor-pointer w-fit border border-gray-300 text-gray-600 ${
-                attr.type === "material" ? "" : "px-1 py-1 md:px-3 xl:px-1 2xl:px-4"
+                attr.type === "material" ? "" : "px-1 py-3 md:px-3 xl:px-1 2xl:px-2"
               } text-sm ${
                 attr?.type === "color" ? `bg-${attr.value} cursor-pointer ` : ""
               } ${
