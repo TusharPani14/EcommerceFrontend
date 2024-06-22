@@ -641,11 +641,11 @@ const Header = () => {
       )}
 
       <div className="cart_floating">
-        <span className="text-lg font-bold">
+        <span className="text-[16px] font-[500]">
           {currency} {total.toFixed(2)}
         </span>
         <Link to="/cart" className=" relative pl-4">
-          <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#353535]">
+          <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#606060]">
             {cartCount ? cartCount : 0}
           </span>
           <IoCartOutline className="hidden lg:block  object-contain cursor-pointer text-[22px] text-[#353535]" />

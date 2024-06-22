@@ -544,7 +544,7 @@ const ProductPage = ({ }) => {
                               {product?.promotional &&
                                 product?.price - product?.discountValue !=
                                 0 && (
-                                  <span className="label label-warning text-sm ml-1 raleway">
+                                  <span className="text-sm ml-1 raleway">
                                     (
                                     {(
                                       (product?.price -
@@ -1037,7 +1037,7 @@ const ProductPage = ({ }) => {
                     className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 1 && "bg-white dark:text-black"
                       } `}
                   >
-                    Details
+                    Specs
                   </p>
                   <p
                     onClick={() => {
@@ -1046,7 +1046,7 @@ const ProductPage = ({ }) => {
                     className={`raleway cursor-pointer text-center text-[11px] md:text-[16px] 2xl:text-[20px] py-1.5 px-7 ${activeTab === 2 && "bg-white dark:text-black"
                       } `}
                   >
-                    Delivery & Returns
+                    More Info
                   </p>
                   <p
                     onClick={() => {

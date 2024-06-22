@@ -362,9 +362,12 @@ button.button1:hover {
   }
 }
 
-.off-white,
 body {
   background-color: #fafafa;
+}
+
+.off-white {
+  background-color: #e8e8e8;
 }
 
 .shade_image:before {
@@ -424,10 +427,10 @@ ul.listing_disc li {
 .cart_floating {
   position: fixed;
   z-index: 999;
-  bottom: 20px !important;
-  padding: 10px 25px;
+  top: 50px !important;
+  padding: 10px 15px;
   border: 1px solid #ccc !important;
-  left: 25px;
+  right: 25px;
   display: flex;
   background: rgba(255, 255, 255, 0.4);
 }
