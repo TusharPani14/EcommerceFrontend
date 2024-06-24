@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import moment from "moment-timezone";
 import CryptoJS from "crypto-js";
 import { countryAndStates } from "@/utilities/CountryAndStates";
+import BankModal from "@/components/BankModel";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -55,57 +56,12 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [hideVerifyButton, setHideVerifyButton] = useState(false);
   const [discount, setDiscount] = useState(0);
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   // console.log(cartTotal);
-  //   const total1 = cart.reduce((acc, obj) => acc + obj.price * 1, 0);
-  //   setTotal(total1);
-  // }, []);
+  const [bankModel, setBankModel] = useState(false);
+  const [productsModified, setProductsModified] = useState();
 
   const customerId = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))?._id
     : null;
-
-  // // console.log(cart);
-
-  const handleStripeCheckout = async () => {
-    setLoading(true);
-    const public_key = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
-    const stripe = await loadStripe(public_key);
-    const userDetailsUpdated = {
-      ...userDetails,
-      customerId: customerId,
-      phone: phoneCode1 + phone,
-    };
-    lightGreen(userDetailsUpdated);
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/order/stripe-checkout`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          products: cart,
-          customer: userDetailsUpdated,
-          totalAmount: total,
-        }),
-      }
-    );
-
-    const session = await response.json();
-
-    // Redirect to Stripe Checkout page
-    setLoading(false);
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      console.error("Error redirecting to Stripe Checkout:", result.error);
-      // Handle error
-    }
-  };
 
   const handleIPGCheckout = (
     userDetails,
@@ -114,7 +70,6 @@ const Checkout = () => {
     phone,
     total
   ) => {
-    console.log(userDetails, customerId, phoneCode1, phone, total, cart);
     const userDetailsUpdated = {
       ...userDetails,
       customerId: customerId,
@@ -125,6 +80,27 @@ const Checkout = () => {
     const searchParams = new URLSearchParams(userDetailsUpdated).toString();
 
     navigate(`/checkoutipg?${searchParams}`);
+  };
+
+  const handleBankCheckout = (
+    userDetails,
+    customerId,
+    phoneCode1,
+    phone,
+    total
+  ) => {
+    const userDetailsUpdated = {
+      ...userDetails,
+      customerId: customerId,
+      phone: phoneCode1 + phone,
+      total: total,
+    };
+    const products = cart.map((item) => ({
+      product: item.productId,
+      quantity: item.quantity,
+    }));
+    setProductsModified(products)
+    setBankModel(true);
   };
 
   const sendOtp = async () => {
@@ -704,6 +680,25 @@ const Checkout = () => {
                 <input
                   name="State*"
                   id="State*"
+                  type="radio"
+                  value={"bank"}
+                  onClick={(e) => {
+                    setPaymentMode(e.target.value);
+                  }}
+                  className=" border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
+                  placeholder="State*"
+                />
+                <label
+                  className=" text-[#363F4D] dark:text-gray-400 font-[400] text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
+                  htmlFor="State*"
+                >
+                  Pay with Bank Transfer
+                </label>
+              </div>
+              <div className=" flex items-center gap-2 ">
+                <input
+                  name="State*"
+                  id="State*"
                   type="checkbox"
                   checked={isTnCAccepted}
                   onChange={() => {
@@ -750,15 +745,24 @@ const Checkout = () => {
                 }
                 className=" bg-[#363F4D] disabled:bg-gray-400 disabled:border-gray-400  border-[1.4px] border-[#363F4D] px-4 py-2.5 font-medium uppercase text-[13px] text-white mt-6 "
                 onClick={() => {
-                  // console.log(cart);
                   setOrders(cart);
-                  handleIPGCheckout(
-                    userDetails,
-                    customerId,
-                    phoneCode1,
-                    phone,
-                    total
-                  );
+                  if (paymentMode === "installment")
+                    handleIPGCheckout(
+                      userDetails,
+                      customerId,
+                      phoneCode1,
+                      phone,
+                      total
+                    );
+                  if (paymentMode === "bank") {
+                    handleBankCheckout(
+                      userDetails,
+                      customerId,
+                      phoneCode1,
+                      phone,
+                      total
+                    );
+                  }
                 }}
               >
                 Place order
@@ -767,6 +771,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      <BankModal bankModel={bankModel} setBankModel={setBankModel} productsModified={productsModified} customerId={customerId} total={total}/>
     </div>
   );
 };
