@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { IoLogoPinterest } from "react-icons/io5";
 // import Newsletter from "./Newsletter";
 
 
@@ -148,11 +149,12 @@ const Footer = () => {
               <Link to={social?.instagram ? social?.instagram : "/"}>
                 <img className=" h-[17px]  " src="/logos/l3.svg" alt="logo" />
               </Link>
-              <Link to={social?.linkedin ? social?.linkedin : "/"}>
+              {/* <Link to={social?.linkedin ? social?.linkedin : "/"}>
                 <img className=" h-[17px]  " src="/logos/l4.svg" alt="logo" />
-              </Link>
+              </Link> */}
               <Link to={social?.youtube ? social?.youtube : "/"}>
-                <img className=" h-[17px]  " src="/logos/l5.svg" alt="logo" />
+                {/* <img className=" h-[17px]  " src="/logos/l5.svg" alt="logo" /> */}
+                <IoLogoPinterest className="dark:text-gray-400 text-[#929292] text-[20px]" />
               </Link>
             </div>
           </div>

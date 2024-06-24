@@ -276,7 +276,16 @@ const Header = () => {
             {/* })} */}
           </select>
 
-          {!userLoggedIn && (
+          <span className="block md:hidden text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535] pr-3">
+            <Link to="tel:600 505253" className="flex justify-center">
+              <span className="pr-2 text-[#353535]">
+                <IoCall className="text-[20px] text-[#353535]" />
+              </span>
+              <span className="text-[#353535]">600 505253</span>
+            </Link>
+          </span>
+
+          {/* {!userLoggedIn && (
             <>
               <Link to="/login">
                 <span className=" font-[600] plus-jakarta plus-jakarta ">
@@ -289,7 +298,7 @@ const Header = () => {
                 </span>
               </Link>
             </>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -445,7 +454,7 @@ const Header = () => {
           {userLoggedIn ? (
             <>
               {/* <span className=" hidden  lg:inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}
-              <Link to="/wishlist" className="px-4">
+              <Link to="/wishlist" className="px-4 ">
                 <IoHeartOutline className=" text-[20px] text-[#353535]" />
               </Link>
               {/* <span className="  inline-block w-[2px] mx-1 md:mx-2.5 h-[17px] bg-[#898989] "></span> */}
@@ -487,22 +496,22 @@ const Header = () => {
               </div> */}
             </>
           )}
-          <div
+          {/* <div
             onClick={() => {
               SetIsCartOpen(true);
             }}
-            className=" relative"
-          >
-            <span className=" lg:hidden absolute -top-2 -right-1 bg-orange-500 text-sm z-20 h-3.5 w-3.5 font-medium flex items-center justify-center rounded-full">
+            className=" relative flex items-center"
+          > */}
+          {/* <span className=" lg:hidden absolute -top-2 -right-1 bg-orange-500 text-sm z-20 h-3.5 w-3.5 font-medium flex items-center justify-center rounded-full">
               {cartCount ? cartCount : 0}
-            </span>
-            {/* <img
+            </span> */}
+          {/* <img
               className=" lg:hidden w-[15.8px] md:w-[18px] h-[18px] object-contain cursor-pointer "
               src="/logos/bag.svg"
               alt="search"
             /> */}
-            <IoCartOutline className="lg:hidden w-[15.8px] md:w-[18px] h-[18px] object-contain cursor-pointer  text-[20px] text-[#353535]" />
-          </div>
+          {/* <IoCartOutline className="lg:hidden w-[15.8px] md:w-[18px] h-[18px] text-[30px] object-contain cursor-pointer  text-[20px] text-[#353535]" /> */}
+          {/* </div> */}
           <div className=" flex items-center  gap-0.5">
             {/* {userLoggedIn && userDetails && (
              
@@ -542,7 +551,7 @@ const Header = () => {
             )}
 
             {/*  */}
-            <span className="  inline-block lg:hidden mx-1emd:n w-[2px] mx-0.5 h-[17px] bg-[#898989] "></span>
+            {/* <span className="  inline-block lg:hidden mx-1emd:n w-[2px] mx-0.5 h-[17px] bg-[#898989] "></span> */}
             {userLoggedIn &&
               userDetails &&
               (userDetails?.role == "vendor" ||
@@ -645,10 +654,10 @@ const Header = () => {
           {currency} {total.toFixed(2)}
         </span>
         <Link to="/cart" className=" relative pl-4">
-          <span className=" hidden  absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#606060]">
+          <span className=" absolute -top-1.5 -right-1.5 bg-orange-500 font-medium text-[12px] z-20 h-3.5 w-3.5 lg:flex items-center justify-center rounded-full text-[#606060]">
             {cartCount ? cartCount : 0}
           </span>
-          <IoCartOutline className="hidden lg:block  object-contain cursor-pointer text-[22px] text-[#353535]" />
+          <IoCartOutline className="  object-contain cursor-pointer text-[22px] text-[#353535]" />
         </Link>
       </div>
     </div>

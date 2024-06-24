@@ -311,11 +311,10 @@ const Home = () => {
             Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
             eiusmo tempor incididunt ut labore
           </p>
-          <div className=" flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
+          <div className="plus-jakarta flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "New Arrivals" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "New Arrivals" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("New Arrivals");
               }}
@@ -323,9 +322,8 @@ const Home = () => {
               New Arrivals
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Featured" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Featured" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Featured");
               }}
@@ -333,9 +331,8 @@ const Home = () => {
               Featured
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Best Sellers" && "text-[#FF7004]"
-              }`}
+              className={`cursor-pointer ${filteredCategory === "Best Sellers" && "text-[#FF7004]"
+                }`}
               onClick={() => {
                 setFilteredCategory("Best Sellers");
               }}
@@ -343,9 +340,8 @@ const Home = () => {
               Best Sellers
             </span>
             <span
-              className={`cursor-pointer ${
-                filteredCategory === "Sale Items" && "text-[#FF7004]"
-              } `}
+              className={`cursor-pointer ${filteredCategory === "Sale Items" && "text-[#FF7004]"
+                } `}
               onClick={() => {
                 setFilteredCategory("Sale Items");
               }}
@@ -353,9 +349,8 @@ const Home = () => {
               Sale Items
             </span>
             <span
-              className={`${
-                filteredCategory === "On Sales" && "text-[#FF7004]"
-              } cursor-pointer`}
+              className={`${filteredCategory === "On Sales" && "text-[#FF7004]"
+                } cursor-pointer`}
               onClick={() => {
                 setFilteredCategory("On Sales");
               }}
@@ -381,8 +376,8 @@ const Home = () => {
               products={
                 filteredCategory === "New Arrivals"
                   ? [...filteredProducts].sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    )
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
                   : filteredProducts
               }
               newProducts={newProducts}
@@ -428,39 +423,45 @@ const Home = () => {
         <p className=" text-[24px] plus-jakarta py-10 md:text-[28px] 2xl:text-[35px] font-[700] text-[#212121] dark:text-gray-400 ">
           Testimonial
         </p>
-        <div className="flex space-x-16 px-[4%] xl:px-[8%] py-4 mt-2 relative">
+        <div className="testimonial-slider w-full px-[12%] pb-10 overflow-hidden">
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={2}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            pagination={{ clickable: true }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="testimonial-slider w-full px-[0%] pb-10"
+          >
+            {testimonialsData?.testimonials?.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className="w-50 bg-white rounded-lg">
+                  <div className="text-dark text-center p-4 bg-opacity-50 rounded-md mx-10">
+                    <p className="px-4">{item}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* <div className="flex space-x-16 px-[4%] xl:px-[8%] py-4 mt-2 relative">
           {testimonialsData?.description && (
             <div className="flex flex-col w-50">
               <p className="text-[#363F4D] font-bold plus-jakarta text-[20px] md:text-[30px] 2xl:text-[32px] mb-4">
                 {testimonialsData.title}
               </p>
-              {/* Use truncateContent function to truncate description */}
+              Use truncateContent function to truncate description
               {truncateContent(testimonialsData?.description, 50)}
             </div>
           )}
-          <div className="flex relative xl:col-span-1 w-50">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Swiper
-                spaceBetween={10}
-                slidesPerView={1}
-                loop={true}
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                pagination={{ clickable: true }}
-                navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="testimonial-slider"
-              >
-                {testimonialsData?.testimonials?.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="text-white text-center p-4 bg-gray-800 bg-opacity-50 rounded-md mx-10">
-                      <p className="px-4">{item}</p>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+          <div className="flex">
+            <div className="flex items-center justify-center">
+
             </div>
             {testimonialsData.imagePath && (
               <img
@@ -470,7 +471,7 @@ const Home = () => {
               />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className=" relative text-white overflow-x-hidden w-full h-[300px] md:h-[530px] flex flex-col items-center justify-center ">
@@ -481,14 +482,17 @@ const Home = () => {
           alt="slide-Image"
         />
 
-        <div className=" absolute flex flex-col items-center justify-center gap-20 bg-black/50 w-full h-full top-0 left-0">
-          <p className=" playball text-[15px] md:text-[17px] 2xl-text-[30px] scale-[1.5] 2xl:scale-[3] uppercase text-left ">
+        <div className="absolute left-[15%] z-10">
+          <p className="playball text-white text-[15px] md:text-[15px] 2xl-text-[30px] pb-[15%] scale-[1.5] 2xl:scale-[3] uppercase text-left ">
             Discover Our
           </p>
-          <p className=" uppercase poppins text-[20px] md:text-[40px] font-semibold plus-jakarta 2xl-text-[500px] scale-[2] 2xl:scale-[3.5] ">
+          <p className="pl-[10px] uppercase poppins text-white text-[20px] md:text-[27px] font-semibold plus-jakarta 2xl-text-[500px] scale-[2] 2xl:scale-[3.5] ">
             CATALOGUE
           </p>
-          <div className=" w-full flex items-center justify-around ">
+        </div>
+
+        <div className=" absolute flex flex-col items-center justify-center gap-20 bg-black/50 w-full h-full top-0 left-0">
+          <div className=" w-full flex items-center absolute left-[48.5%] top-[65%] ">
             {/* <Link target="_blank"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
               onClick={() => (window.location.href = catalogueLinks[0], '_blank')}
@@ -499,26 +503,27 @@ const Home = () => {
               href={catalogueLinks[0]}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
+              className="font-semibold  text-center plus-jakarta w-fit px-4 py-2 text-[11px] md:text-[14px] pr-[7%] pl-[2.3%]"
             >
-              HOME FURNITURE
-            </a>
-            <a
-              href={catalogueLinks[1]}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
-            >
-              HOSPITALITY CREATIVE FURNITURE
+              Download
             </a>
             <a
               href={catalogueLinks[2]}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
+              className="font-semibold text-center plus-jakarta w-fit px-4 py-2 text-[11px] md:text-[14px]  pr-[7%]"
             >
-              OFFICE FURNITURE
+              Download
             </a>
+            <a
+              href={catalogueLinks[1]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold  text-center plus-jakarta w-fit px-4 py-2 text-[11px] md:text-[14px]"
+            >
+              Download
+            </a>
+
             {/* <Link target="_blank"
               className="font-semibold plus-jakarta underline w-fit px-4 py-2 uppercase text-[11px] md:text-xl"
               onClick={() => (window.location.href = catalogueLinks[2], '_blank')}
@@ -578,7 +583,7 @@ const Home = () => {
                 banners.find((banner) => banner.fileName === "Banner1")
                   ?.filePath
                   ? banners.find((banner) => banner.fileName === "Banner1")
-                      .filePath
+                    .filePath
                   : "/main/discount_banner.jpg"
               }
               alt="slide-Image"
@@ -603,12 +608,11 @@ const Home = () => {
                       .find((banner) => banner.fileName === "Banner1")
                       .redirectUrl.startsWith("http")
                       ? banners.find((banner) => banner.fileName === "Banner1")
-                          .redirectUrl
-                      : `${
-                          banners.find(
-                            (banner) => banner.fileName === "Banner1"
-                          ).redirectUrl
-                        }`
+                        .redirectUrl
+                      : `${banners.find(
+                        (banner) => banner.fileName === "Banner1"
+                      ).redirectUrl
+                      }`
                   }
                   target="_blank"
                   rel="noopener noreferrer"

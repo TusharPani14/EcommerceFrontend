@@ -28,7 +28,7 @@ export default function HeroSlider({ slider }) {
           return (
             <SwiperSlide key={index}>
               {
-                <div className=" relative text-white w-full h-full flex flex-col items-center justify-center ">
+                <div className=" relative shade_image text-white w-full h-full flex flex-col items-center justify-center ">
                   <a href={slide.link}>
                     <img
                       className="w-full h-full object-fill lg:object-cover"
