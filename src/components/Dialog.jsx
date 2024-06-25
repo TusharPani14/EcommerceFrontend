@@ -190,7 +190,7 @@ export default function DialogBar() {
                         </div>
                         <div className=" w-full relative ">
                           <Link
-                            to={`/shop/all`}
+                            to={`/product-category/all`}
                             onClick={() => {
                               SetIsMenuOpen(false);
                             }}
@@ -254,7 +254,10 @@ export default function DialogBar() {
                               <Menu.Button className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
                                 <Link
                                   key={index}
-                                  to={`/shop/${item.fileName}`}
+                                  to={`/product-category/${item.fileName.replace(
+                                    /\s+/g,
+                                    "-"
+                                  )}`}
                                   onClick={() => setOpenCategory(null)}
                                 >
                                   {item.fileName}
@@ -282,7 +285,13 @@ export default function DialogBar() {
                                           <Menu.Button className="w-full flex items-center justify-between capitalize  py-2.5">
                                             <Link
                                               key={subIndex}
-                                              to={`/shop/${(item.fileName)}/${(subcategory.name)}`}
+                                              to={`/product-category/${item.fileName.replace(
+                                                /\s+/g,
+                                                "-"
+                                              )}/${subcategory.name.replace(
+                                                /\s+/g,
+                                                "-"
+                                              )}`}
                                               onClick={() =>
                                                 setOpenCategory(null)
                                               }
@@ -319,10 +328,16 @@ export default function DialogBar() {
                             autoFocus="off"
                             className="  py-2.5  dark:text-dark-500  bg-transparent "
                           >
-                            <option className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] " value={"AED"}>
+                            <option
+                              className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] "
+                              value={"AED"}
+                            >
                               AED
                             </option>
-                            <option className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] " value={"OMR"}>
+                            <option
+                              className=" text-black  text-[13px] md:text-[13px] 2xl:text-[16px] "
+                              value={"OMR"}
+                            >
                               OMR
                             </option>
                           </select>

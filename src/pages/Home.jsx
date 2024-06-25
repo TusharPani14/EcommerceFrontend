@@ -281,7 +281,7 @@ const Home = () => {
           .slice(0, 6)
           ?.map((item, index) => {
             return (
-              <Link to={`/shop/${item?.fileName}`} key={index}>
+              <Link to={`/product-category/${item?.fileName.replace(/\s+/g, '-')}`} key={index}>
                 <div className=" pl-2 md:pl-2 pb-2 md:pb-2">
                   <div className=" relative shade_image">
                     <p

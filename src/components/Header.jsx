@@ -324,7 +324,7 @@ const Header = () => {
           </Link>
           <Link
             className=" hidden md:flex items-center gap-1"
-            to="/shop/all"
+            to="/product-category/all"
           >
             <span className=" hidden md:block text-[13px] md:text-[15px] font-[500] plus-jakarta text-[#353535]">
               Collection

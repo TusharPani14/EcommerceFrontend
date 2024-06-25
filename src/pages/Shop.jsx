@@ -1,23 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { MdStar } from "react-icons/md";
 import MultiRangeSlider from "multi-range-slider-react";
 import { AiOutlineBars } from "react-icons/ai";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
 import { AppContext } from "../context/AppContext";
 import {
-  IoHeartCircle,
-  IoStarOutline,
   IoHeartOutline,
   IoHeart,
 } from "react-icons/io5";
-import { array, number } from "prop-types";
-import { toast } from "react-toastify";
 import axios from "axios";
-import { useAuth } from "@/context/AuthContext";
 import { MainAppContext } from "@/context/MainContext";
-import { FaStar } from "react-icons/fa";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const sortMethods = [
@@ -65,11 +58,8 @@ const Shop = () => {
     setMaxPrice,
     Products,
     handleRemoveWishlist,
-    buyNow,
-    setBuyNow,
     setProductPageId,
   } = useContext(MainAppContext);
-  const [page, setPage] = useState(0);
   const [isCard, setIsCard] = useState(true);
   const [loading, setLoading] = useState(true);
   const [sortMethod, setSortMethod] = useState(1);
@@ -79,7 +69,8 @@ const Shop = () => {
   const [userDetails, setUserDetails] = useState({});
 
   const [itemsPerPage, setItemsPerPage] = useState(12);
-  const { category } = useParams();
+  let { category } = useParams();
+  category = category.replace(/-/g, ' ');
 
   const { SetIsMobileFilterOpen, currency, wishlist } = useContext(AppContext);
   const [categories, setCategories] = useState([]);
@@ -221,13 +212,21 @@ const Shop = () => {
                     {i?.subcategories ? (
                       <Menu>
                         <Menu.Button
-                          className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${i?.fileName?.toLowerCase() === filterCategories
-                            ? "text-[#F9BA48] font-bold plus-jakarta"
-                            : "text-[#363F4D] dark:text-gray-400"
-                            } font-[400] text-[13px] md:text-[13px] 2xl:text-[14px] `}
+                          className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${
+                            i?.fileName?.toLowerCase() === filterCategories
+                              ? "text-[#F9BA48] font-bold plus-jakarta"
+                              : "text-[#363F4D] dark:text-gray-400"
+                          } font-[400] text-[13px] md:text-[13px] 2xl:text-[14px] `}
                           onClick={() => handleDropdownToggle(index)}
                         >
-                          <Link key={index} to={`/shop/${i.fileName}`} className="font-[600]">
+                          <Link
+                            key={index}
+                            to={`/product-category/${i.fileName.replace(
+                              /\s+/g,
+                              "-"
+                            )}`}
+                            className="font-[600]"
+                          >
                             {i.fileName}
                           </Link>
                           <ChevronDownIcon className="w-[15px]" />
@@ -236,18 +235,22 @@ const Shop = () => {
                           {i?.subcategories.map((e, subIndex) => (
                             <div key={subIndex}>
                               <Menu.Button
-                                className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${i?.fileName?.toLowerCase() ===
+                                className={`w-full justify-between capitalize cursor-pointer flex items-center py-2.5 ${
+                                  i?.fileName?.toLowerCase() ===
                                   filterCategories
-                                  ? "text-[#F9BA48] font-bold plus-jakarta"
-                                  : "text-[#363F4D] dark:text-gray-400"
-                                  } font-[400] text-[12px] md:text-[13px] 2xl:text-[14px] `}
+                                    ? "text-[#F9BA48] font-bold plus-jakarta"
+                                    : "text-[#363F4D] dark:text-gray-400"
+                                } font-[400] text-[12px] md:text-[13px] 2xl:text-[14px] `}
                                 onClick={() =>
                                   handleSubcategoryToggle(subIndex)
                                 }
                               >
                                 <Link
                                   key={subIndex}
-                                  to={`/shop/${i.fileName}/${e.name}`}
+                                  to={`/product-category/${i.fileName.replace(
+                                    /\s+/g,
+                                    "-"
+                                  )}/${e.name.replace(/\s+/g, "-")}`}
                                 >
                                   {e?.name}
                                 </Link>
@@ -268,7 +271,7 @@ const Shop = () => {
                                       (seriesItem, seriesIndex) => (
                                         <Link
                                           key={seriesIndex}
-                                          to={`/shop/${i?.fileName}/${e?.name}/${seriesItem.name}`}
+                                          to={`/product-category/${i?.fileName}/${e?.name}/${seriesItem.name}`}
                                           onClick={() => {
                                             setFilterCategories(
                                               i?.fileName?.toLowerCase()
@@ -301,14 +304,15 @@ const Shop = () => {
                       </Menu>
                     ) : (
                       <Link
-                        to={`/shop/${i?.fileName}`}
+                        to={`/product-category/${i?.fileName.replace(/\s+/g, '-')}`}
                         onClick={() => {
                           setFilterCategories(i?.fileName?.toLowerCase());
                         }}
-                        className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${i?.fileName?.toLowerCase() === filterCategories
-                          ? "text-[#F9BA48] font-bold plus-jakarta"
-                          : "text-[#363F4D] dark:text-gray-400"
-                          } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
+                        className={`w-full capitalize cursor-pointer flex items-center border-b-[1px] py-2.5 border-[#E5E5E5] ${
+                          i?.fileName?.toLowerCase() === filterCategories
+                            ? "text-[#F9BA48] font-bold plus-jakarta"
+                            : "text-[#363F4D] dark:text-gray-400"
+                        } font-[400] text-[13px] md:text-[14px] 2xl:text-[16px] `}
                       >
                         {i?.fileName}
                       </Link>
@@ -367,8 +371,8 @@ const Shop = () => {
                       banners.find((banner) => banner.fileName === "Banner2")
                         ?.filePath
                         ? banners.find(
-                          (banner) => banner.fileName === "Banner2"
-                        ).filePath
+                            (banner) => banner.fileName === "Banner2"
+                          ).filePath
                         : "/Images/shop-banner.png"
                     }
                     alt="product-img"
@@ -378,51 +382,52 @@ const Shop = () => {
                       <div className="p-2">
                         {banners.find((banner) => banner.fileName === "Banner2")
                           .title && (
-                            <h2 className="text-xl md:text-2xl font-bold text-black">
-                              {
-                                banners.find(
-                                  (banner) => banner.fileName === "Banner2"
-                                ).title
-                              }
-                            </h2>
-                          )}
-                        {banners.find((banner) => banner.fileName === "Banner2")
-                          .description && (
-                            <p className="text-sm md:text-base text-black">
-                              {
-                                banners.find(
-                                  (banner) => banner.fileName === "Banner2"
-                                ).description
-                              }
-                            </p>
-                          )}
-                      </div>
-                      {banners.find((banner) => banner.fileName === "Banner2")
-                        .buttonContent && (
-                          <a
-                            href={
-                              banners
-                                .find((banner) => banner.fileName === "Banner2")
-                                .redirectUrl.startsWith("http")
-                                ? banners.find(
-                                  (banner) => banner.fileName === "Banner2"
-                                ).redirectUrl
-                                : `${banners.find(
-                                  (banner) => banner.fileName === "Banner2"
-                                ).redirectUrl
-                                }`
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
-                          >
+                          <h2 className="text-xl md:text-2xl font-bold text-black">
                             {
                               banners.find(
                                 (banner) => banner.fileName === "Banner2"
-                              ).buttonContent
+                              ).title
                             }
-                          </a>
+                          </h2>
                         )}
+                        {banners.find((banner) => banner.fileName === "Banner2")
+                          .description && (
+                          <p className="text-sm md:text-base text-black">
+                            {
+                              banners.find(
+                                (banner) => banner.fileName === "Banner2"
+                              ).description
+                            }
+                          </p>
+                        )}
+                      </div>
+                      {banners.find((banner) => banner.fileName === "Banner2")
+                        .buttonContent && (
+                        <a
+                          href={
+                            banners
+                              .find((banner) => banner.fileName === "Banner2")
+                              .redirectUrl.startsWith("http")
+                              ? banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).redirectUrl
+                              : `${
+                                  banners.find(
+                                    (banner) => banner.fileName === "Banner2"
+                                  ).redirectUrl
+                                }`
+                          }
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
+                        >
+                          {
+                            banners.find(
+                              (banner) => banner.fileName === "Banner2"
+                            ).buttonContent
+                          }
+                        </a>
+                      )}
                     </div>
                   )}
                 </div>
@@ -434,15 +439,17 @@ const Shop = () => {
                     onClick={() => {
                       setIsCard(true);
                     }}
-                    className={` text-[19px] cursor-pointer ${isCard && "text-[#F9BA48]"
-                      } `}
+                    className={` text-[19px] cursor-pointer ${
+                      isCard && "text-[#F9BA48]"
+                    } `}
                   />
                   <AiOutlineBars
                     onClick={() => {
                       setIsCard(false);
                     }}
-                    className={` text-[19px] cursor-pointer pointer ${!isCard && "text-[#F9BA48]"
-                      } `}
+                    className={` text-[19px] cursor-pointer pointer ${
+                      !isCard && "text-[#F9BA48]"
+                    } `}
                   />
                 </div>
                 <div className=" flex items-center justify-end pr-3 py-2.5 text-[#7A7A7A] font-[400] text-[12px] md:text-[13.5px] 2xl:text-[14px] ">
@@ -510,10 +517,11 @@ const Shop = () => {
                       .map((item, index) => (
                         <div
                           key={index}
-                          className={`relative ${isCard
-                            ? "flex flex-col items-center justify-between"
-                            : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
-                            } pb-7`}
+                          className={`relative ${
+                            isCard
+                              ? "flex flex-col items-center justify-between"
+                              : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
+                          } pb-7`}
                         >
                           {wishlistedProducts.find(
                             (i) => i?.productId?._id === item._id
@@ -540,19 +548,21 @@ const Shop = () => {
                             className="w-full h-full"
                           >
                             <img
-                              className={`object-cover object-center w-full ${isCard
-                                ? "w-full h-[200px]"
-                                : "h-[150px] row-span-2 col-span-1"
-                                }`}
+                              className={`object-cover object-center w-full ${
+                                isCard
+                                  ? "w-full h-[200px]"
+                                  : "h-[150px] row-span-2 col-span-1"
+                              }`}
                               src={item.mainImage}
                               alt="product-img"
                             />
                           </Link>
                           <div
-                            className={`w-full ${isCard
-                              ? "text-center"
-                              : "flex flex-col justify-between"
-                              }`}
+                            className={`w-full ${
+                              isCard
+                                ? "text-center"
+                                : "flex flex-col justify-between"
+                            }`}
                           >
                             <Link
                               to={`/product/${item?.title.replace(
@@ -568,10 +578,11 @@ const Shop = () => {
                               }}
                             >
                               <p
-                                className={`dark:text-gray-400 text-[#363F4D] ${isCard
-                                  ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
-                                  : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
-                                  }`}
+                                className={`dark:text-gray-400 text-[#363F4D] ${
+                                  isCard
+                                    ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
+                                    : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
+                                }`}
                               >
                                 {item.title?.slice(0, 50)}
                               </p>
@@ -588,8 +599,9 @@ const Shop = () => {
                                 />
                               </div> */}
                               <div
-                                className={`flex items-center ${isCard ? "justify-center" : ""
-                                  } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
+                                className={`flex items-center ${
+                                  isCard ? "justify-center" : ""
+                                } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
                               >
                                 <p className="font-[500] plus-jakarta dark:text-gray-400 text-[#A4A4A4]">
                                   {currency}{" "}

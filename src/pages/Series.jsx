@@ -27,9 +27,13 @@ const Series = () => {
   } = useContext(MainAppContext);
 
   // Capture the category, subcategory, and series from URL
-  const { category, subcategory, series: seriesName } = useParams();
+  let { category, subcategory, series: seriesName } = useParams();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState(null);
+
+  category = category.replace(/-/g, ' ');
+  subcategory = subcategory.replace(/-/g, ' ');
+  seriesName = seriesName.replace(/-/g, ' ');
 
   // Fetch all categories on component mount
   useEffect(() => {

@@ -31,25 +31,27 @@ const TestimonialPage = () => {
   ];
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/testimonial`
-        );
-        if (response.data) {
-          setTestimonialsData([response.data]); // Single testimonial data scenario
-        } else {
-          console.error(
-            "API response does not contain a valid testimonial data"
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
-      }
-    };
-
     fetchTestimonials();
   }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/testimonial`
+      );
+      if (response.data) {
+        const { title, description, testimonials, imagePath } = response.data;
+        setTitle(title);
+        setDescription(description);
+        setNewTestimonials(testimonials);
+        setTestimonialsData([{ ...response.data, image: imagePath }]);
+      } else {
+        console.error("API response does not contain a valid testimonial data");
+      }
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+    }
+  };
 
   const handleAddTestimonial = async () => {
     try {
@@ -75,7 +77,8 @@ const TestimonialPage = () => {
         `${import.meta.env.VITE_SERVER_URL}/testimonial`
       );
       if (response.data) {
-        setTestimonialsData([response.data]); // Update state with new testimonial data
+        setTestimonialsData([response.data]);
+        fetchTestimonials();
       } else {
         console.error("API response does not contain a valid testimonial data");
       }
@@ -89,9 +92,7 @@ const TestimonialPage = () => {
 
   const handleDeleteTestimonial = async () => {
     try {
-      await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL}/testimonial`
-      );
+      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/testimonial`);
       toast.success("Testimonial deleted successfully");
       setTestimonialsData([]); // Clear testimonial data after deletion
     } catch (error) {

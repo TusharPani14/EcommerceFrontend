@@ -79,7 +79,7 @@ export default function MobileShopFilter() {
                               (subcategory, i) => {
                                 return (
                                   <Link
-                                    to={`/shop/${category?.fileName}/${subcategory?.name}`}
+                                    to={`/product-category/${category?.fileName}/${subcategory?.name}`}
                                     onClick={() => SetIsMobileFilterOpen(false)}
                                     key={i}
                                   >

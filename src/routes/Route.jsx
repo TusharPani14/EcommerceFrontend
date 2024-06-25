@@ -109,19 +109,19 @@ export const userRoutes = [
     name: "shop",
     title: "Shop",
     component: <Shop />,
-    path: "/shop/:category",
+    path: "/product-category/:category",
   },
   {
     name: "Subcategory",
     title: "Subcategory",
     component: <Subcategory />,
-    path: "/shop/:category/:subcategory",
+    path: "/product-category/:category/:subcategory",
   },
   {
     name: "Series",
     title: "Series",
     component: <Series />,
-    path: "/shop/:category/:subcategory/:series",
+    path: "/product-category/:category/:subcategory/:series",
   },
   {
     name: "blogs",

@@ -161,7 +161,7 @@ const Home = () => {
           .slice(0, 6)
           ?.map((item, index) => {
             return (
-              <Link to={`/shop/${item?.fileName}`} key={index}>
+              <Link to={`/product-category/${item?.fileName.replace(/\s+/g, '-')}`} key={index}>
                 <div className=" pl-5 md:pl-10">
                   <div className=" relative">
                     <p
