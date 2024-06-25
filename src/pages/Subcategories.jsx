@@ -48,7 +48,7 @@ const Subcategory = () => {
   const fetchSeriesForSubcategory = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category`
+        `${import.meta.env.VITE_SERVER_URL}/category`
       );
       const categories = response.data.categories;
       findSeries(categories);

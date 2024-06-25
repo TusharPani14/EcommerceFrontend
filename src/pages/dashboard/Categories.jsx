@@ -7,26 +7,43 @@ import { FaStar } from "react-icons/fa";
 import {
   IoAddCircleOutline,
   IoClose,
+  IoPencil,
   IoStar,
   IoStarOutline,
 } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
 import ReactQuill from "react-quill";
+import CategoryEditModal from "@/components/CategoryModals/CategoryEditModal";
+import SubCategoryEditModal from "@/components/CategoryModals/SubCategoryEditModal";
+import SeriesEditModal from "@/components/CategoryModals/SeriesEditModal";
 
 const Categories = () => {
   const [CategoriesName, setCategoriesName] = useState("");
+  const [CategoriesMetaTitle, setCategoriesMetaTitle] = useState("");
+  const [CategoriesMetaDescription, setCategoriesMetaDescription] =
+    useState("");
   const [CategoriesImageFile, setCategoriesImageFile] = useState(null);
   const [CategoriesLogoFile, setCategoriesLogoFile] = useState(null);
-  const [CategoriesLink, setCategoriesLink] = useState("");
-  const [inputText, setInputText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [isCategory, setIsCategory] = useState(true);
+  const [subcategoryName, setSubcategoryName] = useState("");
+  const [subcategoryMetaTitle, setSubcategoryMetaTitle] = useState("");
+  const [subcategoryMetaDescription, setSubcategoryMetaDescription] =
+    useState("");
   const [subCategoryLogoFile, setSubCategoryLogoFile] = useState(null);
   const [seriesName, setSeriesName] = useState("");
   const [seriesDescription, setSeriesDescription] = useState("");
   const [seriesLogoFile, setSeriesLogoFile] = useState(null);
+  const [seriesMetaTitle, setSeriesMetaTitle] = useState("");
+  const [seriesMetaDescription, setSeriesMetaDescription] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [openEditCategory, setOpenEditCategory] = useState(false);
+  const [editCategory, setEditCategory] = useState();
+  const [openEditSubCategory, setOpenEditSubCategory] = useState(false);
+  const [editSubCategory, setEditSubCategory] = useState();
+  const [openEditSeries, setOpenEditSeries] = useState(false);
+  const [editSeries, setEditSeries] = useState();
   const { user } = useContext(MainAppContext);
   const navigate = useNavigate();
 
@@ -50,11 +67,12 @@ const Categories = () => {
     formData.append("categoryImage", CategoriesImageFile);
     formData.append("categoryLogo", CategoriesLogoFile);
     formData.append("fileName", CategoriesName);
-    formData.append("redirectUrl", CategoriesLink);
+    formData.append("metaTitle", CategoriesMetaTitle);
+    formData.append("metaDescription", CategoriesMetaDescription);
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category`,
+        `${import.meta.env.VITE_SERVER_URL}/category`,
         formData,
         {
           headers: {
@@ -73,8 +91,9 @@ const Categories = () => {
   const getCategoriesData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category`
+        `${import.meta.env.VITE_SERVER_URL}/category`
       );
+      console.log(response.data);
       setCategories(response.data.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -83,10 +102,9 @@ const Categories = () => {
 
   const handleMarkSelected = async (categoryId) => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category/select`,
-        { categoryId }
-      );
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/category/select`, {
+        categoryId,
+      });
       toast.success("Category marked as selected successfully");
       getCategoriesData();
     } catch (error) {
@@ -99,14 +117,16 @@ const Categories = () => {
     try {
       const formData = new FormData();
       formData.append("categoryId", selectedCategory);
-      formData.append("name", inputText);
+      formData.append("name", subcategoryName);
       formData.append("subcategoryLogo", subCategoryLogoFile);
+      formData.append("metaTitle", subcategoryMetaTitle);
+      formData.append("metaDescription", subcategoryMetaDescription);
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/admin/subcategory`,
+        `${import.meta.env.VITE_SERVER_URL}/category/subcategory`,
         formData
       );
       toast.success("Subcategory added successfully");
-      setInputText("");
+      setSubcategoryName("");
       getCategoriesData();
     } catch (error) {
       console.error("Error adding subcategory:", error);
@@ -121,8 +141,10 @@ const Categories = () => {
       formData.append("name", seriesName);
       formData.append("description", seriesDescription);
       formData.append("seriesLogo", seriesLogoFile);
+      formData.append("metaTitle", seriesMetaTitle);
+      formData.append("metaDescription", seriesMetaDescription);
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/admin/series`,
+        `${import.meta.env.VITE_SERVER_URL}/category/subcategory/series`,
         formData
       );
       toast.success("Series added successfully");
@@ -133,6 +155,12 @@ const Categories = () => {
       console.error("Error adding series:", error);
       toast.error("Error adding series");
     }
+  };
+
+  const convertHtmlToText = (htmlContent) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlContent;
+    return tempDiv.textContent || tempDiv.innerText || "";
   };
 
   useEffect(() => {
@@ -182,6 +210,38 @@ const Categories = () => {
               />
 
               <label
+                className="text-xs md:text-sm mt-3"
+                htmlFor="CategoriesMetaTitle"
+              >
+                Meta Title
+              </label>
+              <input
+                id="CategoriesMetaTitle"
+                name="CategoriesMetaTitle"
+                type="text"
+                placeholder="Add Meta Title"
+                value={CategoriesMetaTitle}
+                onChange={(e) => setCategoriesMetaTitle(e.target.value)}
+                className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
+              />
+
+              <label
+                className="text-xs md:text-sm mt-3"
+                htmlFor="CategoriesMetaDescription"
+              >
+                Meta Description
+              </label>
+              <input
+                id="CategoriesMetaDescription"
+                name="CategoriesMetaDescription"
+                type="text"
+                placeholder="Add Meta Description"
+                value={CategoriesMetaDescription}
+                onChange={(e) => setCategoriesMetaDescription(e.target.value)}
+                className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
+              />
+
+              <label
                 className="capitalize text-left text-xs md:text-sm"
                 htmlFor="Categories1"
               >
@@ -215,52 +275,36 @@ const Categories = () => {
               Add Categories
             </button>
           </div>
-          <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px] ">
+          <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px]">
             All Categories
           </p>
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-3">
+          <div className="grid gap-4 grid-cols-1 mt-3">
             {categories.map((category) => (
               <div
                 key={category._id}
                 className="relative flex flex-col bg-white shadow-md shadow-black/30 p-4 rounded-md"
               >
-                {category.selected ? (
-                  <div className="flex items-center justify-end text-[19px] gap-1">
-                    <IoStar
-                      className="text-yellow-500 cursor-pointer"
-                      onClick={() => handleMarkSelected(category._id)}
-                    />
-                    <IoClose className="cursor-pointer" />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-end text-[19px] gap-1">
-                    <IoStarOutline
-                      className="text-[19px] cursor-pointer absolute right-2 top-2"
-                      onClick={() => handleMarkSelected(category._id)}
-                    />
-                    <IoClose className="cursor-pointer" />
-                  </div>
-                )}
+                <div className="flex items-center justify-end text-[19px] gap-1">
+                  <IoClose className="cursor-pointer" />
+                  <IoPencil
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setEditCategory(category);
+                      setOpenEditCategory(true);
+                    }}
+                  />
+                </div>
+
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-3 justify-between">
                     <div className="flex flex-col font-semibold text-[13px] md:text-sm">
                       <p>Category Name: {category.fileName}</p>
-                      <div className="flex items-center gap-2">
-                        Subcategories:
-                        <select
-                          name="Category"
-                          id="Category"
-                          className="w-full p-2 border-none outline-none dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
-                        >
-                          {category?.subcategories?.map(
-                            (subcategory, index) => (
-                              <option key={index} value={subcategory.name}>
-                                {subcategory.name} <IoClose />
-                              </option>
-                            )
-                          )}
-                        </select>
-                      </div>
+                      {category.metaTitle && (
+                        <p>Meta Title: {category.metaTitle}</p>
+                      )}
+                      {category.metaDescription && (
+                        <p>Meta Description: {category.metaDescription}</p>
+                      )}
                     </div>
                     <img
                       className="object-cover h-[50px] w-[50px]"
@@ -274,6 +318,88 @@ const Categories = () => {
                   src={category.imageLink}
                   alt="Category Image"
                 />
+
+                <div className="mt-3">
+                  {category.subcategories.map((subcategory) => (
+                    <div
+                      key={subcategory.name}
+                      className="relative flex flex-col bg-gray-100 p-3 rounded-md"
+                    >
+                      <div className="flex items-center justify-end text-[19px] gap-1 absolute right-2 top-2">
+                        <IoPencil
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setEditSubCategory(subcategory);
+                            setOpenEditSubCategory(true);
+                          }}
+                        />
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="flex flex-col">
+                          <p className="font-semibold text-[12px] md:text-sm">
+                            Subcategory Name: {subcategory.name}
+                          </p>
+                          {subcategory.metaTitle && (
+                            <p className="font-semibold text-[12px] md:text-sm">
+                              Meta Title: {subcategory.metaTitle}
+                            </p>
+                          )}
+                          {subcategory.metaDescription && (
+                            <p className="text-[12px] md:text-sm">
+                              Meta Description: {subcategory.metaDescription}
+                            </p>
+                          )}
+                        </div>
+                        <img
+                          className="object-cover h-[75px] w-[75px]"
+                          src={subcategory.subLogoLink}
+                          alt="Subcategory Logo"
+                        />
+                      </div>
+
+                      <div className="grid gap-2 grid-cols-1 md:grid-cols-2 mt-2">
+                        {subcategory.series.map((seriesItem, seriesIndex) => (
+                          <div
+                            key={seriesIndex}
+                            className="relative flex flex-col bg-white p-2 rounded-md shadow-sm"
+                          >
+                            <div className="flex items-center justify-end text-[19px] gap-1 absolute right-2 top-2">
+                              <IoPencil
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  setEditSeries(seriesItem);
+                                  setOpenEditSeries(true);
+                                }}
+                              />
+                            </div>
+                            <p className="font-semibold text-[12px] md:text-sm">
+                              Series Name: {seriesItem.name}
+                            </p>
+                            <p className="text-[12px] md:text-sm">
+                              {convertHtmlToText(seriesItem.description)}
+                            </p>
+                            <img
+                              className="object-cover h-[150px] w-full mt-1"
+                              src={seriesItem.seriesLink}
+                              alt="Series Image"
+                            />
+                            {seriesItem.metaTitle && (
+                              <p className="font-semibold text-[12px] md:text-sm">
+                                Meta Title: {seriesItem.metaTitle}
+                              </p>
+                            )}
+                            {seriesItem.metaDescription && (
+                              <p className="text-[12px] md:text-sm">
+                                Meta Description: {seriesItem.metaDescription}
+                              </p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -308,10 +434,28 @@ const Categories = () => {
             placeholder="Subcategory Name"
             type="text"
             className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
-            value={inputText}
+            value={subcategoryName}
             onChange={(e) => {
-              setInputText(e.target.value);
+              setSubcategoryName(e.target.value);
             }}
+          />
+          <input
+            id="subcategoryMetaTitle"
+            name="subcategoryMetaTitle"
+            type="text"
+            placeholder="Subcategory Meta Title"
+            value={subcategoryMetaTitle}
+            onChange={(e) => setSubcategoryMetaTitle(e.target.value)}
+            className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
+          />
+          <input
+            id="subcategoryMetaDescription"
+            name="subcategoryMetaDescription"
+            type="text"
+            placeholder="Subcategory Meta Description"
+            value={subcategoryMetaDescription}
+            onChange={(e) => setSubcategoryMetaDescription(e.target.value)}
+            className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
           />
           <label className="text-xs md:text-sm w-[50%] text-left mt-2">
             Add Subcategory Logo
@@ -386,13 +530,31 @@ const Categories = () => {
                 setSeriesName(e.target.value);
               }}
             />
+            <input
+              id="seriesMetaTitle"
+              name="seriesMetaTitle"
+              type="text"
+              placeholder="Series Meta Title"
+              value={seriesMetaTitle}
+              onChange={(e) => setSeriesMetaTitle(e.target.value)}
+              className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
+            />
+            <input
+              id="seriesMetaDescription"
+              name="seriesMetaDescription"
+              type="text"
+              placeholder="Series Meta Description"
+              value={seriesMetaDescription}
+              onChange={(e) => setSeriesMetaDescription(e.target.value)}
+              className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
+            />
             <ReactQuill
               className="w-[50%] dark:text-gray-400 text-[#4F5D77] text-[14.4px] dark:bg-white/10 mt-2"
               theme="snow"
               value={seriesDescription}
               formats={formats}
               onChange={(textValue) => setSeriesDescription(textValue)}
-              style={{ height: '150px' }}
+              style={{ height: "150px" }}
             />
             <label className="text-xs md:text-sm w-[50%] text-left mt-12">
               Add Series Logo
@@ -413,6 +575,21 @@ const Categories = () => {
           </div>
         </div>
       )}
+      <CategoryEditModal
+        openEditCategory={openEditCategory}
+        setOpenEditCategory={setOpenEditCategory}
+        editCategory={editCategory}
+      />
+      <SubCategoryEditModal
+        openEditSubCategory={openEditSubCategory}
+        setOpenEditSubCategory={setOpenEditSubCategory}
+        editSubCategory={editSubCategory}
+      />
+      <SeriesEditModal
+        openEditSeries={openEditSeries}
+        setOpenEditSeries={setOpenEditSeries}
+        editSeries={editSeries}
+      />
     </div>
   );
 };

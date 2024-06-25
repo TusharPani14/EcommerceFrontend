@@ -167,7 +167,7 @@ const Products = () => {
   const getCategoriesData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category`
+        `${import.meta.env.VITE_SERVER_URL}/category`
       );
       console.log(response.data.categories);
       setCategories(response.data.categories);
