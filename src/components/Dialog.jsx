@@ -366,7 +366,7 @@ export default function DialogBar() {
                             Log Out
                           </div>
                         )}
-                        <div className=" absolute bottom-0 left-0 w-full flex items-center justify-between px-[3%]">
+                        <div className=" w-full flex items-center justify-between px-[3%]">
                           <Link to={social?.facebook ? social?.facebook : "/"}>
                             {" "}
                             <RiFacebookFill className=" text-[25px] p-1 rounded-full bg-[#FF7004] text-white " />

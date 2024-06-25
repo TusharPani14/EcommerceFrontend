@@ -170,8 +170,7 @@ const Categories = () => {
   const handleDeleteSubCategory = async (categoryId, subcategoryId) => {
     try {
       const response = await axios.delete(
-        `${
-          import.meta.env.VITE_SERVER_URL
+        `${import.meta.env.VITE_SERVER_URL
         }/category/${categoryId}/subcategory/${subcategoryId}`
       );
       console.log("Subcategory deleted successfully:", response.data);
@@ -186,8 +185,7 @@ const Categories = () => {
   const handleDeleteSeries = async (subcategoryId, seriesId) => {
     try {
       const response = await axios.delete(
-        `${
-          import.meta.env.VITE_SERVER_URL
+        `${import.meta.env.VITE_SERVER_URL
         }/category/subcategory/${subcategoryId}/series/${seriesId}`
       );
       console.log("Series deleted successfully:", response.data);
@@ -302,10 +300,197 @@ const Categories = () => {
               Add Categories
             </button>
           </div>
-          <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px]">
+          <p className="pb-10 dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px]">
             All Categories
           </p>
-          <div className="grid gap-4 grid-cols-1 mt-3">
+
+          <table width="100%">
+            <thead>
+              <tr>
+                <th width="15%">Category Icon</th>
+                <th width="15%">Category Image</th>
+                <th width="15%">Category Name</th>
+                <th width="15%">Meta Title</th>
+                <th width="25%">Meta Description</th>
+                <th width="15%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((category) => (
+
+                <tr key={category._id}>
+                  <td align="center" className="py-5">
+                    <img
+                      className="object-cover w-[50px]"
+                      src={category.logoLink}
+                      alt="Category Logo"
+                    />
+                  </td>
+                  <td align="center">
+                    <img
+                      className="object-cover w-[50px] w-[50%] mt-1"
+                      src={category.imageLink}
+                      alt="Category Image"
+                    />
+                  </td>
+                  <td align="center">{category.fileName}</td>
+                  <td align="center">{category.metaTitle}</td>
+                  <td align="center">{category.metaDescription}</td>
+                  <td align="center" className="flex flex-row">
+                    <IoClose className="cursor-pointer" />
+                    <IoPencil
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setEditCategory(category);
+                        setOpenEditCategory(true);
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+
+          <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px] pt-10 pb-5">
+            All Sub Categories
+          </p>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th width="10%">Icon</th>
+                <th width="15%">Parent Category</th>
+                <th width="15%">Sub Category</th>
+                <th width="15%">Meta Title</th>
+                <th width="25%">Meta Description</th>
+                <th width="10%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((category) => (
+                <>
+                  {category.subcategories.map((subcategory) => (
+
+                    <tr key={subcategory.name}>
+                      <td align="center" className="py-5">
+                        <img
+                          className="object-cover h-[75px] w-[75px]"
+                          src={subcategory.subLogoLink}
+                          alt="Subcategory Logo"
+                        />
+                      </td>
+                      <td align="center">{category.fileName}</td>
+                      <td align="center">{subcategory.name}</td>
+                      <td align="center">{subcategory.metaTitle}</td>
+                      <td align="center">{subcategory.metaDescription}</td>
+                      <td align="center">
+                        <IoClose
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleDeleteSubCategory(
+                              category._id,
+                              subcategory._id
+                            )
+                          }
+                        />
+                        <IoPencil
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setEditSubCategory(subcategory);
+                            setOpenEditSubCategory(true);
+                          }}
+                        />
+                      </td>
+                    </tr>
+
+                  ))}
+
+                </>
+
+              ))}
+            </tbody>
+          </table>
+
+
+          <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px] pt-10 pb-5">
+            All Series
+          </p>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th width="10%">Image</th>
+                <th width="15%">Category</th>
+                <th width="15%">Sub-Category</th>
+                <th width="15%">Series</th>
+                <th width="15%">Description</th>
+                <th width="15%">Meta Title</th>
+                <th width="20%">Meta Description</th>
+                <th width="10%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((category) => (
+                <>
+                  {category.subcategories.map((subcategory) => (
+                    <>
+                      {subcategory.series.map((seriesItem, seriesIndex) => (
+                        <tr key={seriesIndex}>
+                          <td align="center" className="py-5">
+                            <img
+                              className="object-cover h-[150px] w-full mt-1"
+                              src={seriesItem.seriesLink}
+                              alt="Series Image"
+                            />
+                          </td>
+                          <td align="center">{category.fileName}</td>
+                          <td align="center">{subcategory.name}</td>
+                          <td align="center">{seriesItem.name}</td>
+                          <td align="center">{convertHtmlToText(seriesItem.description)}</td>
+                          <td align="center">
+                            {seriesItem.metaTitle && (
+                              <>
+                                {seriesItem.metaTitle}
+                              </>
+                            )}
+                          </td>
+                          <td align="center">
+                            {seriesItem.metaDescription && (
+                              <>
+                                {seriesItem.metaDescription}
+                              </>
+                            )}
+                          </td>
+                          <td align="center">
+                            <IoClose
+                              className="cursor-pointer"
+                              onClick={() =>
+                                handleDeleteSeries(
+                                  subcategory._id,
+                                  seriesItem._id
+                                )
+                              }
+                            />
+                            <IoPencil
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setEditSeries(seriesItem);
+                                setOpenEditSeries(true);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  ))}
+
+                </>
+
+              ))}
+            </tbody>
+          </table>
+
+
+          {/* <div className="grid gap-4 grid-cols-1 mt-3">
             {categories.map((category) => (
               <div
                 key={category._id}
@@ -450,7 +635,7 @@ const Categories = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </>
       ) : (
         <div className="md:m-0 mt-4 flex flex-col items-center justify-center======== py-5 bg-white dark:bg-white/5 rounded-md col-span-5">
