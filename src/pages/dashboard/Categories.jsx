@@ -3,14 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { MainAppContext } from "@/context/MainContext";
-import { FaStar } from "react-icons/fa";
-import {
-  IoAddCircleOutline,
-  IoClose,
-  IoPencil,
-  IoStar,
-  IoStarOutline,
-} from "react-icons/io5";
+import { IoClose, IoPencil } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
 import ReactQuill from "react-quill";
 import CategoryEditModal from "@/components/CategoryModals/CategoryEditModal";
@@ -100,19 +93,6 @@ const Categories = () => {
     }
   };
 
-  const handleMarkSelected = async (categoryId) => {
-    try {
-      await axios.post(`${import.meta.env.VITE_SERVER_URL}/category/select`, {
-        categoryId,
-      });
-      toast.success("Category marked as selected successfully");
-      getCategoriesData();
-    } catch (error) {
-      console.error("Error marking category as selected:", error);
-      toast.error("Error marking category as selected");
-    }
-  };
-
   const handleAddSubcategory = async () => {
     try {
       const formData = new FormData();
@@ -171,6 +151,53 @@ const Categories = () => {
     }
     getCategoriesData();
   }, []);
+
+  const handleDeleteCategory = async (category) => {
+    const categoryId = category._id;
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/category/${categoryId}`
+      );
+      console.log("Category deleted successfully:", response.data);
+      toast.success("Category deleted successfully");
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error deleting category:", error.response.data);
+      toast.error("Error deleting category");
+    }
+  };
+
+  const handleDeleteSubCategory = async (categoryId, subcategoryId) => {
+    try {
+      const response = await axios.delete(
+        `${
+          import.meta.env.VITE_SERVER_URL
+        }/category/${categoryId}/subcategory/${subcategoryId}`
+      );
+      console.log("Subcategory deleted successfully:", response.data);
+      toast.success("Subcategory deleted successfully");
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error deleting subcategory:", error.response.data);
+      toast.error("Error deleting subcategory");
+    }
+  };
+
+  const handleDeleteSeries = async (subcategoryId, seriesId) => {
+    try {
+      const response = await axios.delete(
+        `${
+          import.meta.env.VITE_SERVER_URL
+        }/category/subcategory/${subcategoryId}/series/${seriesId}`
+      );
+      console.log("Series deleted successfully:", response.data);
+      toast.success("Series deleted successfully");
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error deleting series:", error.response.data);
+      toast.error("Error deleting series");
+    }
+  };
 
   return (
     <div className="w-full min-h-[100vh] h-fit bg-[#F8F9FA] dark:bg-black rounded-lg px-[2%] py-4 md:py-10 overflow-x-hidden">
@@ -285,7 +312,10 @@ const Categories = () => {
                 className="relative flex flex-col bg-white shadow-md shadow-black/30 p-4 rounded-md"
               >
                 <div className="flex items-center justify-end text-[19px] gap-1">
-                  <IoClose className="cursor-pointer" />
+                  <IoClose
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteCategory(category)}
+                  />
                   <IoPencil
                     className="cursor-pointer"
                     onClick={() => {
@@ -326,6 +356,15 @@ const Categories = () => {
                       className="relative flex flex-col bg-gray-100 p-3 rounded-md"
                     >
                       <div className="flex items-center justify-end text-[19px] gap-1 absolute right-2 top-2">
+                        <IoClose
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleDeleteSubCategory(
+                              category._id,
+                              subcategory._id
+                            )
+                          }
+                        />
                         <IoPencil
                           className="cursor-pointer"
                           onClick={() => {
@@ -365,6 +404,15 @@ const Categories = () => {
                             className="relative flex flex-col bg-white p-2 rounded-md shadow-sm"
                           >
                             <div className="flex items-center justify-end text-[19px] gap-1 absolute right-2 top-2">
+                              <IoClose
+                                className="cursor-pointer"
+                                onClick={() =>
+                                  handleDeleteSeries(
+                                    subcategory._id,
+                                    seriesItem._id
+                                  )
+                                }
+                              />
                               <IoPencil
                                 className="cursor-pointer"
                                 onClick={() => {
