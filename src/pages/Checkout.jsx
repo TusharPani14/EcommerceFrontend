@@ -290,7 +290,7 @@ const Checkout = () => {
                       onClick={() => {
                         sendOtp();
                       }}
-                      className=" h-full px-1 bg-gray-300 text-xs font-semibold"
+                      className=" h-full px-3 bg-red-300 text-xs font-semibold"
                     >
                       Verify
                     </button>
@@ -374,7 +374,7 @@ const Checkout = () => {
                   placeholder="Company Name"
                 />
               </div>
-              <div className=" w-full col-span-2">
+              <div className=" w-full col-span-2 pt-4">
                 <label
                   className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
                   htmlFor="email"
@@ -447,26 +447,7 @@ const Checkout = () => {
                   ))}
                 </select>
               </div>
-              <div className=" flex-col flex">
-                <label
-                  className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
-                  htmlFor="city"
-                >
-                  Town/City
-                </label>
-                <input
-                  name="city"
-                  id="city"
-                  type="text"
-                  value={city}
-                  onChange={onChange}
-                  className=" w-full md:w-[240px] 2xl:w-[300px] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
-                  placeholder="Town/City"
-                />
-              </div>
-            </div>
 
-            <div className=" sm:grid grid-cols-2 gap-10 xl:gap-[13%] md:mt-6 ">
               <div className=" flex flex-col">
                 <label
                   className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
@@ -489,6 +470,26 @@ const Checkout = () => {
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div className=" sm:grid grid-cols-2 gap-10 xl:gap-[13%] md:mt-5 ">
+              <div className=" flex-col flex">
+                <label
+                  className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
+                  htmlFor="city"
+                >
+                  Town/City
+                </label>
+                <input
+                  name="city"
+                  id="city"
+                  type="text"
+                  value={city}
+                  onChange={onChange}
+                  className="w-[100%] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
+                  placeholder="Town/City"
+                />
+              </div>
               <div className=" flex flex-col">
                 <label
                   className=" text-[#7A7A7A] font-[700] plus-jakarta text-[12px] md:text-[13px] 2xl:text-[14.4px] mb-1 "
@@ -502,7 +503,7 @@ const Checkout = () => {
                   type="number"
                   value={zipCode}
                   onChange={onChange}
-                  className=" w-full md:w-[240px] 2xl:w-[300px] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
+                  className=" w-[100%] border-[1.4px] border-[#999999] dark:bg-transparent p-2 text-[#7A7A7A] text-[14.4px]"
                   placeholder="Zip Code"
                 />
               </div>
@@ -592,8 +593,8 @@ const Checkout = () => {
                               ? (item.updatedPrice * 1 * 0.1).toFixed(2)
                               : item.updatedPrice * 1
                             : currency === "OMR"
-                            ? (item.updatedPrice * 1 * 0.1).toFixed(2)
-                            : item.updatedPrice * 1}
+                              ? (item.updatedPrice * 1 * 0.1).toFixed(2)
+                              : item.updatedPrice * 1}
                         </p>
                       </div>
                     );
@@ -771,7 +772,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      <BankModal bankModel={bankModel} setBankModel={setBankModel} productsModified={productsModified} customerId={customerId} total={total}/>
+      <BankModal bankModel={bankModel} setBankModel={setBankModel} productsModified={productsModified} customerId={customerId} total={total} />
     </div>
   );
 };
