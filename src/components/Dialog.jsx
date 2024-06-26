@@ -248,66 +248,71 @@ export default function DialogBar() {
                             </div>
                           );
                         })}
-                        {categories.map((item, index) => (
-                          <div className="w-full relative" key={index}>
-                            <Menu>
-                              <Menu.Button className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
-                                <Link
-                                  key={index}
-                                  to={`/product-category/${item.fileName.replace(
-                                    /\s+/g,
-                                    "-"
-                                  )}`}
-                                  onClick={() => setOpenCategory(null)}
+                        {categories
+                          .sort(
+                            (a, b) =>
+                              new Date(a.createdAt) - new Date(b.createdAt)
+                          )
+                          .map((item, index) => (
+                            <div className="w-full relative" key={index}>
+                              <Menu>
+                                <Menu.Button className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
+                                  <Link
+                                    key={index}
+                                    to={`/product-category/${item.fileName.replace(
+                                      /\s+/g,
+                                      "-"
+                                    )}`}
+                                    onClick={() => setOpenCategory(null)}
+                                  >
+                                    {item.fileName}
+                                  </Link>
+                                  <ChevronDownIcon
+                                    className="w-[15px]"
+                                    onClick={() => handleCategoryClick(index)}
+                                  />
+                                </Menu.Button>
+                                <Transition
+                                  show={openCategory === index}
+                                  as={React.Fragment}
+                                  enter="transition ease-out duration-100 transform"
+                                  enterFrom="opacity-0 scale-95"
+                                  enterTo="opacity-100 scale-100"
+                                  leave="transition ease-in duration-75 transform"
+                                  leaveFrom="opacity-100 scale-100"
+                                  leaveTo="opacity-0 scale-95"
                                 >
-                                  {item.fileName}
-                                </Link>
-                                <ChevronDownIcon
-                                  className="w-[15px]"
-                                  onClick={() => handleCategoryClick(index)}
-                                />
-                              </Menu.Button>
-                              <Transition
-                                show={openCategory === index}
-                                as={React.Fragment}
-                                enter="transition ease-out duration-100 transform"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="transition ease-in duration-75 transform"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                              >
-                                <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                                  {item.subcategories.map(
-                                    (subcategory, subIndex) => (
-                                      <div key={subIndex}>
-                                        <Menu>
-                                          <Menu.Button className="w-full flex items-center justify-between capitalize  py-2.5">
-                                            <Link
-                                              key={subIndex}
-                                              to={`/product-category/${item.fileName.replace(
-                                                /\s+/g,
-                                                "-"
-                                              )}/${subcategory.name.replace(
-                                                /\s+/g,
-                                                "-"
-                                              )}`}
-                                              onClick={() =>
-                                                setOpenCategory(null)
-                                              }
-                                            >
-                                              {subcategory.name}
-                                            </Link>
-                                          </Menu.Button>
-                                        </Menu>
-                                      </div>
-                                    )
-                                  )}
-                                </Menu.Items>
-                              </Transition>
-                            </Menu>
-                          </div>
-                        ))}
+                                  <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
+                                    {item.subcategories.map(
+                                      (subcategory, subIndex) => (
+                                        <div key={subIndex}>
+                                          <Menu>
+                                            <Menu.Button className="w-full flex items-center justify-between capitalize  py-2.5">
+                                              <Link
+                                                key={subIndex}
+                                                to={`/product-category/${item.fileName.replace(
+                                                  /\s+/g,
+                                                  "-"
+                                                )}/${subcategory.name.replace(
+                                                  /\s+/g,
+                                                  "-"
+                                                )}`}
+                                                onClick={() =>
+                                                  setOpenCategory(null)
+                                                }
+                                              >
+                                                {subcategory.name}
+                                              </Link>
+                                            </Menu.Button>
+                                          </Menu>
+                                        </div>
+                                      )
+                                    )}
+                                  </Menu.Items>
+                                </Transition>
+                              </Menu>
+                            </div>
+                          ))}
 
                         <div className=" flex flex-col text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px] ">
                           {/* <select

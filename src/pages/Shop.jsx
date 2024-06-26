@@ -4,10 +4,7 @@ import MultiRangeSlider from "multi-range-slider-react";
 import { AiOutlineBars } from "react-icons/ai";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
 import { AppContext } from "../context/AppContext";
-import {
-  IoHeartOutline,
-  IoHeart,
-} from "react-icons/io5";
+import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import axios from "axios";
 import { MainAppContext } from "@/context/MainContext";
 import { Menu } from "@headlessui/react";
@@ -70,7 +67,7 @@ const Shop = () => {
 
   const [itemsPerPage, setItemsPerPage] = useState(12);
   let { category } = useParams();
-  category = category.replace(/-/g, ' ');
+  category = category.replace(/-/g, " ");
 
   const { SetIsMobileFilterOpen, currency, wishlist } = useContext(AppContext);
   const [categories, setCategories] = useState([]);
@@ -206,8 +203,9 @@ const Shop = () => {
                 CATEGORIES
               </p>
 
-              {categories?.map((i, index) => {
-                return (
+              {categories
+                ?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                .map((i, index) => (
                   <div key={index}>
                     {i?.subcategories ? (
                       <Menu>
@@ -304,7 +302,10 @@ const Shop = () => {
                       </Menu>
                     ) : (
                       <Link
-                        to={`/product-category/${i?.fileName.replace(/\s+/g, '-')}`}
+                        to={`/product-category/${i?.fileName.replace(
+                          /\s+/g,
+                          "-"
+                        )}`}
                         onClick={() => {
                           setFilterCategories(i?.fileName?.toLowerCase());
                         }}
@@ -318,8 +319,7 @@ const Shop = () => {
                       </Link>
                     )}
                   </div>
-                );
-              })}
+                ))}
               <div className=" py-5">
                 <p className="  border-b-[1px] pt-2.5 border-[#E5E5E5] text-[#363F4D] font-[700] plus-jakarta text-[13px] md:text-[14.5px] 2xl:text-[16px] ">
                   FILTER BY PRICE
