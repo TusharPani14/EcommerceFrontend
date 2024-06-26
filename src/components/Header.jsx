@@ -253,9 +253,9 @@ const Header = () => {
           </select> */}
           {/* <span className=" inline-block w-[1px] mx-2 h-[13px] bg-gray-300 "></span> */}
 
-          <span className="font-[500] plus-jakarta plus-jakarta text-[#353535]">
+          {/* <span className="font-[500] plus-jakarta plus-jakarta text-[#353535]">
             Currency:
-          </span>
+          </span> */}
 
           <select
             value={currency}

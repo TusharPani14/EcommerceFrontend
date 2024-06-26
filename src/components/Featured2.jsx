@@ -69,6 +69,7 @@ export default function Featured2({
             delay: 3500,
             disableOnInteraction: false,
           }}
+          speed={1000}
           modules={[Autoplay, Pagination, Navigation]}
           className=" w-full h-[350px] 2xl:h-[400px] px-[2%] pb-20 "
         >
@@ -210,6 +211,7 @@ export default function Featured2({
             delay: 3500,
             disableOnInteraction: false,
           }}
+          speed={1000}
           modules={[Autoplay, Pagination, Navigation]}
           className=" w-full h-full p-[1%] "
         >

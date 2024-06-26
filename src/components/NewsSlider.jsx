@@ -42,11 +42,22 @@ export default function NewsSlider({ blogs }) {
   const blogDate = (blogDate) => {
     const date = new Date(blogDate);
     const day = date.getDate();
-    const month = date.getMonth() + 1; // Note: Months are zero-indexed
+    const month = date.toLocaleString('default', { month: 'long' }); // Get month name
     const year = date.getFullYear();
 
-    // Format date as MM/DD/YYYY
-    return `${month < 10 ? `0${month}` : month}/${day < 10 ? `0${day}` : day}/${year}`;
+    // Function to add ordinal suffix to day
+    const getOrdinalSuffix = (day) => {
+      if (day > 3 && day < 21) return 'th';
+      switch (day % 10) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+      }
+    };
+
+    // Format the date with ordinal suffix
+    return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
   };
 
   return (
@@ -55,9 +66,10 @@ export default function NewsSlider({ blogs }) {
       slidesPerView={screenSize}
       spaceBetween={30}
       navigation={true}
+      speed={1000}
       modules={[Autoplay, Pagination, Navigation]}
       className="w-full h-[550px] 2xl:h-[600px] px-[8%] pb-10"
-      autoplay={{ delay: 5000 }} // Optional: Set autoplay interval
+      autoplay={{ delay: 3000 }} // Optional: Set autoplay interval
     >
       {blogs.map((slide, index) => (
         <SwiperSlide key={index}>

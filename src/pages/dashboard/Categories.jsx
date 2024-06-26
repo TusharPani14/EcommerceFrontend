@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { MainAppContext } from "@/context/MainContext";
-import { IoClose, IoPencil } from "react-icons/io5";
+import { IoClose, IoPencil, IoStar, IoStarOutline } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
 import ReactQuill from "react-quill";
 import CategoryEditModal from "@/components/CategoryModals/CategoryEditModal";
@@ -90,6 +90,20 @@ const Categories = () => {
       setCategories(response.data.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
+    }
+  };
+
+  const handleMarkSelected = async (categoryId) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/admin/category/select`,
+        { categoryId }
+      );
+      toast.success("Category marked as selected successfully");
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error marking category as selected:", error);
+      toast.error("Error marking category as selected");
     }
   };
 
@@ -307,7 +321,8 @@ const Categories = () => {
           <table width="100%">
             <thead>
               <tr>
-                <th width="15%">Category Icon</th>
+                <th width="10%">Icon</th>
+                <th width="5%">Featured</th>
                 <th width="15%">Category Image</th>
                 <th width="15%">Category Name</th>
                 <th width="15%">Meta Title</th>
@@ -325,6 +340,25 @@ const Categories = () => {
                       src={category.logoLink}
                       alt="Category Logo"
                     />
+                  </td>
+                  <td>
+                    {category.selected ? (
+                      <div className="flex items-center justify-end text-[19px] gap-1">
+                        <IoStar
+                          className="text-yellow-500 cursor-pointer"
+                          onClick={() => handleMarkSelected(category._id)}
+                        />
+
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-end text-[19px] gap-1">
+                        <IoStarOutline
+                          className="text-[19px] cursor-pointer absolute right-2 top-2"
+                          onClick={() => handleMarkSelected(category._id)}
+                        />
+
+                      </div>
+                    )}
                   </td>
                   <td align="center">
                     <img

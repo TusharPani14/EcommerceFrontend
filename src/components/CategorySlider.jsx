@@ -43,7 +43,7 @@ export default function CategorySlider({ data }) {
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-[100px] my-4 md:h-[230px] 2xl:h-[280px] px-[15%] md:px-[8%]"
       >
-        {data.map((item, index) => (
+        {/* {data.map((item, index) => (
           <SwiperSlide key={`category-${index}`}>
             <Link
               to={`/product-category/${item.fileName.replace(/\s+/g, '-')}`}
@@ -64,7 +64,7 @@ export default function CategorySlider({ data }) {
               </div>
             </Link>
           </SwiperSlide>
-        ))}
+        ))} */}
         {data.flatMap((item) =>
           item.subcategories.map((subcategory, subIndex) => (
             <SwiperSlide key={`subcategory-${item.fileName}-${subIndex}`}>
@@ -75,9 +75,8 @@ export default function CategorySlider({ data }) {
                 )}`}
               >
                 <div
-                  className={`relative flex items-end justify-center w-[70px] h-[70px] md:w-[150px] md:h-[150px] ${
-                    isDarkMode ? "dark" : ""
-                  } rotateCircle cursor-pointer`}
+                  className={`relative flex items-end justify-center w-[70px] h-[70px] md:w-[150px] md:h-[150px] ${isDarkMode ? "dark" : ""
+                    } rotateCircle cursor-pointer`}
                 >
                   <img
                     className="w-full h-full dark:invert scale-[0.7] md:scale-[0.5] object-contain"

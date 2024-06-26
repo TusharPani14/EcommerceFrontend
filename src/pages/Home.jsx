@@ -307,9 +307,9 @@ const Home = () => {
           <p className=" text-[24px] md:text-[28px] 2xl:text-[32px] plus-jakarta font-[700] text-[#212121] dark:text-gray-400 ">
             Our Products
           </p>
-          <p className=" text-[#474747] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-4 dark:text-gray-400 ">
-            Torem ipsum dolor sit amet, consectetur adipisicing elitsed do
-            eiusmo tempor incididunt ut labore
+          <h4 className=" text-[#353535] plus-jakarta font-bold text-center text-[15px] md:text-[16px] 2xl:text-[16px] dark:text-gray-600 "> We Don't Make Designs we make Designs Better</h4>
+          <p className=" text-[#474747] text-center text-[13px] md:text-[14px] 2xl:text-[14px] mb-10 dark:text-gray-400 mt-1 ">
+            Creative Furniture team of artisans works to meet consumer needs and stay on top of trends in order to present the finest of contemporary life.
           </p>
           <div className="plus-jakarta flex items-center flex-wrap justify-center gap-2 md:gap-6 font-[600] text-[#474747] dark:text-gray-400 text-[13px] md:text-[17px] ">
             <span
