@@ -108,11 +108,18 @@ const App = () => {
             <Route path="/spin" element={<Smv />} />
             <Route path="/admindashboard/*" element={<AdminDashboard />} />
           </Routes>
-          <img
-            src="/WhatsApp_icon.png"
-            alt="WhatsApp"
-            className="object-contain fixed bottom-16 right-4 w-16 h-16"
-          />
+          <a
+            href="https://wa.me/971503126092"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-16 right-4 w-16 h-16"
+          >
+            <img
+              src="/WhatsApp_icon.png"
+              alt="WhatsApp"
+              className="object-contain w-full h-full"
+            />
+          </a>
         </div>
       )}
     </>
