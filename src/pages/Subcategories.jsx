@@ -21,8 +21,8 @@ const Subcategory = () => {
   let { category, subcategory } = useParams();
   const [seriesList, setSeriesList] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState({});
-  category = category.replace(/-/g, ' ');
-  subcategory = subcategory.replace(/-/g, ' ');
+  category = category.replace(/-/g, " ");
+  subcategory = subcategory.replace(/-/g, " ");
 
   // Fetch series for the subcategory on component mount
   useEffect(() => {
@@ -110,13 +110,11 @@ const Subcategory = () => {
             <div className="w-full">
               <div className="pb-4 text-left">
                 <Link
-                  to={`/product-category/${category.replace(
-                    /\s+/g,
-                    "-"
-                  )}/${subcategory.replace(/\s+/g, "-")}/${series.name.replace(
-                    /\s+/g,
-                    "-"
-                  )}`}
+                  to={`/product-category/${encodeURIComponent(
+                    category.replace(/\s+/g, "-")
+                  )}/${encodeURIComponent(
+                    subcategory.replace(/\s+/g, "-")
+                  )}/${encodeURIComponent(series.name.replace(/\s+/g, "-"))}`}
                   className="text-[34px] text-[#484848] raleway font-bold mt-4 cursor-pointer"
                 >
                   {series.name}
