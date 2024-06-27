@@ -46,8 +46,9 @@ const App = () => {
         </div>
       ) : (
         <div
-          className={`${isDarkMode ? "dark" : ""
-            }  off-white dark:text-gray-400 dark:bg-black`}
+          className={`${
+            isDarkMode ? "dark" : ""
+          }  off-white dark:text-gray-400 dark:bg-black`}
         >
           <ToastContainer
             position="top-right"
@@ -107,6 +108,11 @@ const App = () => {
             <Route path="/spin" element={<Smv />} />
             <Route path="/admindashboard/*" element={<AdminDashboard />} />
           </Routes>
+          <img
+            src="/WhatsApp_icon.png"
+            alt="WhatsApp"
+            className="object-contain fixed bottom-16 right-4 w-16 h-16"
+          />
         </div>
       )}
     </>
