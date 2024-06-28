@@ -9,6 +9,8 @@ const CategoryEditModal = ({
   editCategory,
 }) => {
   const [CategoriesName, setCategoriesName] = useState("");
+  const [CategoriesSlug, setCategoriesSlug] = useState("");
+  const [StaticMainCategory, setStaticMainCategory] = useState("");
   const [CategoriesMetaTitle, setCategoriesMetaTitle] = useState("");
   const [CategoriesMetaDescription, setCategoriesMetaDescription] =
     useState("");
@@ -20,6 +22,8 @@ const CategoryEditModal = ({
       setCategoriesName(editCategory?.fileName || "");
       setCategoriesMetaTitle(editCategory?.metaTitle || "");
       setCategoriesMetaDescription(editCategory?.metaDescription || "");
+      setCategoriesSlug(editCategory?.slug || "");
+      setStaticMainCategory(editCategory?.staticMainCategory || "");
     }
   }, [openEditCategory, editCategory]);
 
@@ -80,6 +84,36 @@ const CategoryEditModal = ({
             placeholder="Add New Category"
             value={CategoriesName}
             onChange={(e) => setCategoriesName(e.target.value)}
+            className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-xs md:text-sm mt-3" htmlFor="CategoriesSlug">
+            Categories Slug
+          </label>
+          <input
+            id="CategoriesSlug"
+            name="CategoriesSlug"
+            type="text"
+            placeholder="Add Category Slug"
+            value={CategoriesSlug}
+            onChange={(e) => setCategoriesSlug(e.target.value)}
+            className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-xs md:text-sm mt-3" htmlFor="CategoriesName">
+            Static Main Category
+          </label>
+          <input
+            id="CategoriesName"
+            name="CategoriesName"
+            type="text"
+            placeholder="Add New Category"
+            value={StaticMainCategory}
+            onChange={(e) => setStaticMainCategory(e.target.value)}
             className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
           />
         </div>

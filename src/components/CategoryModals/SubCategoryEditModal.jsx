@@ -9,6 +9,7 @@ const SubCategoryEditModal = ({
   editSubCategory,
 }) => {
   const [subCategoryName, setSubCategoryName] = useState("");
+  const [subcategorySlug, setSubcategorySlug] = useState("");
   const [subCategoryMetaTitle, setSubCategoryMetaTitle] = useState("");
   const [subCategoryMetaDescription, setSubCategoryMetaDescription] =
     useState("");
@@ -20,6 +21,7 @@ const SubCategoryEditModal = ({
       setSubCategoryName(editSubCategory?.name || "");
       setSubCategoryMetaTitle(editSubCategory?.metaTitle || "");
       setSubCategoryMetaDescription(editSubCategory?.metaDescription || "");
+      setSubcategorySlug(editSubCategory?.slug || "")
     }
   }, [openEditSubCategory, editSubCategory]);
 
@@ -27,6 +29,7 @@ const SubCategoryEditModal = ({
     try {
       const formData = new FormData();
       formData.append("name", subCategoryName);
+      formData.append("slug", subcategorySlug);
       formData.append("metaTitle", subCategoryMetaTitle);
       formData.append("metaDescription", subCategoryMetaDescription);
       if (subCategoryImageFile)
@@ -80,6 +83,21 @@ const SubCategoryEditModal = ({
             placeholder="Add New Subcategory"
             value={subCategoryName}
             onChange={(e) => setSubCategoryName(e.target.value)}
+            className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-xs md:text-sm mt-3" htmlFor="subCategorySlug">
+            Subcategory Slug
+          </label>
+          <input
+            id="subCategorySlug"
+            name="subCategorySlug"
+            type="text"
+            placeholder="Add Subcategory Slug"
+            value={subcategorySlug}
+            onChange={(e) => setSubcategorySlug(e.target.value)}
             className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
           />
         </div>

@@ -37,6 +37,16 @@ export default function DialogBar() {
   const { userLoggedIn, setUserLoggedIn } = useAuth();
   const [openCategory, setOpenCategory] = useState(null);
   const [openSubcategory, setOpenSubcategory] = useState(null);
+  const [openStaticCategory, setOpenStaticCategory] = useState(null);
+  const staticMainCategories = [
+    "Office",
+    "Living Room",
+    "BedRoom",
+    "Kids Room Furniture",
+    "Outdoor",
+    "Hospitality",
+    "University Furniture",
+  ];
 
   useEffect(() => {
     // Function to fetch the menu from the backend
@@ -98,6 +108,25 @@ export default function DialogBar() {
     };
     getSocialMedia();
   }, []);
+
+  const groupCategoriesByStaticMainCategory = (categories) => {
+    const groupedCategories = {};
+
+    categories.forEach((category) => {
+      const { staticMainCategory } = category;
+
+      if (!groupedCategories[staticMainCategory]) {
+        groupedCategories[staticMainCategory] = [];
+      }
+
+      groupedCategories[staticMainCategory].push(category);
+    });
+
+    return groupedCategories;
+  };
+
+  // Assuming categories is an array of objects with staticMainCategory field
+  const groupedCategories = groupCategoriesByStaticMainCategory(categories);
 
   return (
     <Transition.Root show={isMenuOpen} as={Fragment}>
@@ -241,42 +270,26 @@ export default function DialogBar() {
                             </div>
                           );
                         })}
-                        {Array.isArray(categories) && categories
-                          .sort(
-                            (a, b) =>
-                              new Date(a.createdAt) - new Date(b.createdAt)
-                          )
-                          .map((item, index) => (
-                            <div className="w-full relative" key={index}>
+
+                        {staticMainCategories.map(
+                          (staticCategory, staticIndex) => (
+                            <div key={staticIndex} className="w-full relative">
                               <Menu>
                                 <Menu.Button
                                   className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]"
                                   onClick={() =>
-                                    setOpenCategory(
-                                      openCategory === index ? null : index
+                                    setOpenStaticCategory(
+                                      openStaticCategory === staticIndex
+                                        ? null
+                                        : staticIndex
                                     )
                                   }
                                 >
-                                  <Link
-                                    to={`/product-category/${item.fileName.replace(
-                                      /\s+/g,
-                                      "-"
-                                    )}`}
-                                    onClick={() => setOpenCategory(null)}
-                                  >
-                                    {item.fileName}
-                                  </Link>
-                                  <ChevronDownIcon
-                                    className="w-[15px]"
-                                    onClick={() =>
-                                      setOpenCategory(
-                                        openCategory === index ? null : index
-                                      )
-                                    }
-                                  />
+                                  {staticCategory}
+                                  <ChevronDownIcon className="w-[15px]" />
                                 </Menu.Button>
                                 <Transition
-                                  show={openCategory === index}
+                                  show={openStaticCategory === staticIndex}
                                   as={React.Fragment}
                                   enter="transition ease-out duration-100 transform"
                                   enterFrom="opacity-0 scale-95"
@@ -286,49 +299,43 @@ export default function DialogBar() {
                                   leaveTo="opacity-0 scale-95"
                                 >
                                   <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                                    {item.subcategories.map(
-                                      (subcategory, subIndex) => (
-                                        <div key={subIndex}>
+                                    {groupedCategories[staticCategory]?.map(
+                                      (item, index) => (
+                                        <div key={index}>
                                           <Menu>
                                             <Menu.Button
                                               className="w-full flex items-center justify-between capitalize py-2.5"
                                               onClick={() =>
-                                                setOpenSubcategory(
-                                                  openSubcategory === subIndex
+                                                setOpenCategory(
+                                                  openCategory === index
                                                     ? null
-                                                    : subIndex
+                                                    : index
                                                 )
                                               }
                                             >
                                               <Link
-                                                to={`/product-category/${item.fileName.replace(
-                                                  /\s+/g,
-                                                  "-"
-                                                )}/${subcategory.name.replace(
-                                                  /\s+/g,
-                                                  "-"
-                                                )}`}
-                                                onClick={() =>
-                                                  setOpenCategory(null)
-                                                }
+                                                to={`/product-category/${item.slug}`}
+                                                onClick={() => {
+                                                  setOpenCategory(null);
+                                                  setOpenStaticCategory(null);
+                                                }}
                                               >
-                                                {subcategory.name}
+                                                {item.fileName}
                                               </Link>
                                               <ChevronDownIcon
                                                 className="w-[15px]"
-                                                onClick={() =>
-                                                  setOpenSubcategory(
-                                                    openSubcategory === subIndex
+                                                onClick={(e) => {
+                                                  e.stopPropagation(); // Prevent parent menu from closing
+                                                  setOpenCategory(
+                                                    openCategory === index
                                                       ? null
-                                                      : subIndex
-                                                  )
-                                                }
+                                                      : index
+                                                  );
+                                                }}
                                               />
                                             </Menu.Button>
                                             <Transition
-                                              show={
-                                                openSubcategory === subIndex
-                                              }
+                                              show={openCategory === index}
                                               as={React.Fragment}
                                               enter="transition ease-out duration-100 transform"
                                               enterFrom="opacity-0 scale-95"
@@ -338,39 +345,115 @@ export default function DialogBar() {
                                               leaveTo="opacity-0 scale-95"
                                             >
                                               <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                                                {subcategory.series.map(
-                                                  (seriesItem, seriesIndex) => (
-                                                    <Link
-                                                      key={seriesIndex}
-                                                      to={`/product-category/${encodeURIComponent(
-                                                        item.fileName.replace(
-                                                          /\s+/g,
-                                                          "-"
-                                                        )
-                                                      )}/${encodeURIComponent(
-                                                        subcategory.name.replace(
-                                                          /\s+/g,
-                                                          "-"
-                                                        )
-                                                      )}/${encodeURIComponent(
-                                                        seriesItem.name.replace(
-                                                          /\s+/g,
-                                                          "-"
-                                                        )
-                                                      )}`}
-                                                      onClick={() => {
-                                                        setCategories(
-                                                          item.fileName.toLowerCase()
-                                                        );
-                                                        SetIsMenuOpen(false)
-                                                      }}
-                                                    >
-                                                      <p className="py-2.5 capitalize">
-                                                        {seriesItem.name}
-                                                      </p>
-                                                    </Link>
+                                                {item.subcategories
+                                                  .filter(
+                                                    (subcategory) =>
+                                                      subcategory.dialogSelected
                                                   )
-                                                )}
+                                                  .map(
+                                                    (subcategory, subIndex) => (
+                                                      <div key={subIndex}>
+                                                        <Menu>
+                                                          <Menu.Button
+                                                            className="w-full flex items-center justify-between capitalize py-2.5"
+                                                            onClick={() =>
+                                                              setOpenSubcategory(
+                                                                openSubcategory ===
+                                                                  subIndex
+                                                                  ? null
+                                                                  : subIndex
+                                                              )
+                                                            }
+                                                          >
+                                                            <Link
+                                                              to={`/product-category/${item.slug}/${subcategory.slug}`}
+                                                              onClick={() => {
+                                                                setOpenCategory(
+                                                                  null
+                                                                );
+                                                                setOpenStaticCategory(
+                                                                  null
+                                                                );
+                                                              }}
+                                                            >
+                                                              {subcategory.name}
+                                                            </Link>
+                                                            <ChevronDownIcon
+                                                              className="w-[15px]"
+                                                              onClick={(e) => {
+                                                                e.stopPropagation(); // Prevent parent menu from closing
+                                                                setOpenSubcategory(
+                                                                  openSubcategory ===
+                                                                    subIndex
+                                                                    ? null
+                                                                    : subIndex
+                                                                );
+                                                              }}
+                                                            />
+                                                          </Menu.Button>
+                                                          <Transition
+                                                            show={
+                                                              openSubcategory ===
+                                                              subIndex
+                                                            }
+                                                            as={React.Fragment}
+                                                            enter="transition ease-out duration-100 transform"
+                                                            enterFrom="opacity-0 scale-95"
+                                                            enterTo="opacity-100 scale-100"
+                                                            leave="transition ease-in duration-75 transform"
+                                                            leaveFrom="opacity-100 scale-100"
+                                                            leaveTo="opacity-0 scale-95"
+                                                          >
+                                                            <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
+                                                              {subcategory.series
+                                                                .filter(
+                                                                  (
+                                                                    seriesItem
+                                                                  ) =>
+                                                                    seriesItem.dialogSelected
+                                                                )
+                                                                .map(
+                                                                  (
+                                                                    seriesItem,
+                                                                    seriesIndex
+                                                                  ) => (
+                                                                    <Link
+                                                                      key={
+                                                                        seriesIndex
+                                                                      }
+                                                                      to={`/product-category/${encodeURIComponent(
+                                                                        item.slug
+                                                                      )}/${encodeURIComponent(
+                                                                        subcategory.slug
+                                                                      )}/${encodeURIComponent(
+                                                                        seriesItem.slug
+                                                                      )}`}
+                                                                      onClick={() => {
+                                                                        setCategories(
+                                                                          item.fileName.toLowerCase()
+                                                                        );
+                                                                        SetIsMenuOpen(
+                                                                          false
+                                                                        );
+                                                                        setOpenStaticCategory(
+                                                                          null
+                                                                        );
+                                                                      }}
+                                                                    >
+                                                                      <p className="py-2.5 capitalize">
+                                                                        {
+                                                                          seriesItem.name
+                                                                        }
+                                                                      </p>
+                                                                    </Link>
+                                                                  )
+                                                                )}
+                                                            </Menu.Items>
+                                                          </Transition>
+                                                        </Menu>
+                                                      </div>
+                                                    )
+                                                  )}
                                               </Menu.Items>
                                             </Transition>
                                           </Menu>
@@ -381,7 +464,8 @@ export default function DialogBar() {
                                 </Transition>
                               </Menu>
                             </div>
-                          ))}
+                          )
+                        )}
 
                         <div className=" flex flex-col text-gray-800 font-[600] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[16px] ">
                           {/* <select

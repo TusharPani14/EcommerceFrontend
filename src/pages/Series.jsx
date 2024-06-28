@@ -31,10 +31,10 @@ const Series = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState(null);
 
-  category = category.replace(/-/g, ' ');
-  subcategory = subcategory.replace(/-/g, ' ');
-  seriesName = seriesName.replace(/-/g, ' ');
-  console.log(category, "/", subcategory, "/", seriesName)
+  // category = category.replace(/-/g, ' ');
+  // subcategory = subcategory.replace(/-/g, ' ');
+  // seriesName = seriesName.replace(/-/g, ' ');
+  // console.log(category, "/", subcategory, "/", seriesName)
 
   // Fetch all categories on component mount
   useEffect(() => {

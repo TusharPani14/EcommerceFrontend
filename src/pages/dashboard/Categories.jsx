@@ -12,6 +12,8 @@ import SeriesEditModal from "@/components/CategoryModals/SeriesEditModal";
 
 const Categories = () => {
   const [CategoriesName, setCategoriesName] = useState("");
+  const [CategoriesSlug, setCategoriesSlug] = useState("");
+  const [StaticMainCategory, setStaticMainCategory] = useState("");
   const [CategoriesMetaTitle, setCategoriesMetaTitle] = useState("");
   const [CategoriesMetaDescription, setCategoriesMetaDescription] =
     useState("");
@@ -21,11 +23,13 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [isCategory, setIsCategory] = useState(true);
   const [subcategoryName, setSubcategoryName] = useState("");
+  const [subcategorySlug, setSubcategorySlug] = useState("");
   const [subcategoryMetaTitle, setSubcategoryMetaTitle] = useState("");
   const [subcategoryMetaDescription, setSubcategoryMetaDescription] =
     useState("");
   const [subCategoryLogoFile, setSubCategoryLogoFile] = useState(null);
   const [seriesName, setSeriesName] = useState("");
+  const [seriesSlug, setSeriesSlug] = useState("");
   const [seriesDescription, setSeriesDescription] = useState("");
   const [seriesLogoFile, setSeriesLogoFile] = useState(null);
   const [seriesMetaTitle, setSeriesMetaTitle] = useState("");
@@ -60,6 +64,8 @@ const Categories = () => {
     formData.append("categoryImage", CategoriesImageFile);
     formData.append("categoryLogo", CategoriesLogoFile);
     formData.append("fileName", CategoriesName);
+    formData.append("staticMainCategory", StaticMainCategory);
+    formData.append("slug", CategoriesSlug);
     formData.append("metaTitle", CategoriesMetaTitle);
     formData.append("metaDescription", CategoriesMetaDescription);
 
@@ -112,6 +118,7 @@ const Categories = () => {
       const formData = new FormData();
       formData.append("categoryId", selectedCategory);
       formData.append("name", subcategoryName);
+      formData.append("slug", subcategorySlug);
       formData.append("subcategoryLogo", subCategoryLogoFile);
       formData.append("metaTitle", subcategoryMetaTitle);
       formData.append("metaDescription", subcategoryMetaDescription);
@@ -121,6 +128,7 @@ const Categories = () => {
       );
       toast.success("Subcategory added successfully");
       setSubcategoryName("");
+      setSubcategorySlug("");
       getCategoriesData();
     } catch (error) {
       console.error("Error adding subcategory:", error);
@@ -133,6 +141,7 @@ const Categories = () => {
       const formData = new FormData();
       formData.append("subcategoryId", selectedSubcategory);
       formData.append("name", seriesName);
+      formData.append("slug", seriesSlug);
       formData.append("description", seriesDescription);
       formData.append("seriesLogo", seriesLogoFile);
       formData.append("metaTitle", seriesMetaTitle);
@@ -143,6 +152,7 @@ const Categories = () => {
       );
       toast.success("Series added successfully");
       setSeriesName("");
+      setSeriesSlug("");
       setSeriesLogoFile(null);
       getCategoriesData();
     } catch (error) {
@@ -184,7 +194,8 @@ const Categories = () => {
   const handleDeleteSubCategory = async (categoryId, subcategoryId) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL
+        `${
+          import.meta.env.VITE_SERVER_URL
         }/category/${categoryId}/subcategory/${subcategoryId}`
       );
       console.log("Subcategory deleted successfully:", response.data);
@@ -199,7 +210,8 @@ const Categories = () => {
   const handleDeleteSeries = async (subcategoryId, seriesId) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL
+        `${
+          import.meta.env.VITE_SERVER_URL
         }/category/subcategory/${subcategoryId}/series/${seriesId}`
       );
       console.log("Series deleted successfully:", response.data);
@@ -208,6 +220,82 @@ const Categories = () => {
     } catch (error) {
       console.error("Error deleting series:", error.response.data);
       toast.error("Error deleting series");
+    }
+  };
+
+  const handleCategoryCheckboxChange = async (field, value, categoryId) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/category/categorySelect`,
+        {
+          categoryId: categoryId,
+          [field]: value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(response.data.message);
+      console.log("Category updated successfully:", response.data);
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error updating category:", error);
+      toast.error("Error updating category status");
+    }
+  };
+
+  const handleSubcategoryCheckboxChange = async (
+    field,
+    value,
+    subcategoryId
+  ) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/category/subcategorySelect`,
+        {
+          subcategoryId: subcategoryId,
+          [field]: value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(response.data.message);
+      console.log("Subcategory updated successfully:", response.data);
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error updating subcategory:", error);
+      toast.error("Error updating subcategory status");
+    }
+  };
+
+  const handleSeriesCheckboxChange = async (field, value, seriesId) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/category/seriesSelect`,
+        {
+          seriesId: seriesId,
+          [field]: value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(response.data.message);
+      console.log("Series updated successfully:", response.data);
+      getCategoriesData();
+    } catch (error) {
+      console.error("Error updating series:", error);
+      toast.error("Error updating series status");
     }
   };
 
@@ -244,6 +332,42 @@ const Categories = () => {
                 value={CategoriesName}
                 onChange={(e) => {
                   setCategoriesName(e.target.value);
+                }}
+                className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
+              />
+
+              <label
+                className="text-xs md:text-sm mt-3"
+                htmlFor="CategoriesName"
+              >
+                Categories Slug
+              </label>
+              <input
+                id="newCategory"
+                name="newCategory"
+                type="text"
+                placeholder="Add Category Slug"
+                value={CategoriesSlug}
+                onChange={(e) => {
+                  setCategoriesSlug(e.target.value);
+                }}
+                className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
+              />
+
+              <label
+                className="text-xs md:text-sm mt-3"
+                htmlFor="CategoriesName"
+              >
+                Static Main Category
+              </label>
+              <input
+                id="newCategory"
+                name="newCategory"
+                type="text"
+                placeholder="Add Static Main Category"
+                value={StaticMainCategory}
+                onChange={(e) => {
+                  setStaticMainCategory(e.target.value);
                 }}
                 className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
               />
@@ -322,8 +446,9 @@ const Categories = () => {
             <thead>
               <tr>
                 <th width="10%">Icon</th>
-                <th width="5%">Featured</th>
                 <th width="15%">Category Image</th>
+                <th width="10%">Collection</th>
+                <th width="10%">Dialog</th>
                 <th width="15%">Category Name</th>
                 <th width="15%">Meta Title</th>
                 <th width="25%">Meta Description</th>
@@ -332,7 +457,6 @@ const Categories = () => {
             </thead>
             <tbody>
               {categories.map((category) => (
-
                 <tr key={category._id}>
                   <td align="center" className="py-5">
                     <img
@@ -341,30 +465,43 @@ const Categories = () => {
                       alt="Category Logo"
                     />
                   </td>
-                  <td>
-                    {category.selected ? (
-                      <div className="flex items-center justify-end text-[19px] gap-1">
-                        <IoStar
-                          className="text-yellow-500 cursor-pointer"
-                          onClick={() => handleMarkSelected(category._id)}
-                        />
-
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-end text-[19px] gap-1">
-                        <IoStarOutline
-                          className="text-[19px] cursor-pointer absolute right-2 top-2"
-                          onClick={() => handleMarkSelected(category._id)}
-                        />
-
-                      </div>
-                    )}
-                  </td>
                   <td align="center">
                     <img
                       className="object-cover w-[50px] w-[50%] mt-1"
                       src={category.imageLink}
                       alt="Category Image"
+                    />
+                  </td>
+                  <td align="center" className="py-5">
+                    <input
+                      checked={category.collectionSelected}
+                      id="checked-checkbox"
+                      type="checkbox"
+                      value=""
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      onChange={(e) =>
+                        handleCategoryCheckboxChange(
+                          "collectionSelected",
+                          e.target.checked,
+                          category._id
+                        )
+                      }
+                    />
+                  </td>
+                  <td align="center">
+                    <input
+                      checked={category.dialogSelected}
+                      id="checked-checkbox"
+                      type="checkbox"
+                      value=""
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      onChange={(e) =>
+                        handleCategoryCheckboxChange(
+                          "dialogSelected",
+                          e.target.checked,
+                          category._id
+                        )
+                      }
                     />
                   </td>
                   <td align="center">{category.fileName}</td>
@@ -385,7 +522,6 @@ const Categories = () => {
             </tbody>
           </table>
 
-
           <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px] pt-10 pb-5">
             All Sub Categories
           </p>
@@ -393,6 +529,8 @@ const Categories = () => {
             <thead>
               <tr>
                 <th width="10%">Icon</th>
+                <th width="10%">Collection</th>
+                <th width="10%">Dialog</th>
                 <th width="15%">Parent Category</th>
                 <th width="15%">Sub Category</th>
                 <th width="15%">Meta Title</th>
@@ -404,13 +542,44 @@ const Categories = () => {
               {categories.map((category) => (
                 <>
                   {category.subcategories.map((subcategory) => (
-
                     <tr key={subcategory.name}>
                       <td align="center" className="py-5">
                         <img
                           className="object-cover h-[75px] w-[75px]"
                           src={subcategory.subLogoLink}
                           alt="Subcategory Logo"
+                        />
+                      </td>
+                      <td align="center" className="py-5">
+                        <input
+                          checked={subcategory.collectionSelected}
+                          id="checked-checkbox"
+                          type="checkbox"
+                          value=""
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) =>
+                            handleSubcategoryCheckboxChange(
+                              "collectionSelected",
+                              e.target.checked,
+                              subcategory._id
+                            )
+                          }
+                        />
+                      </td>
+                      <td align="center">
+                        <input
+                          checked={subcategory.dialogSelected}
+                          id="checked-checkbox"
+                          type="checkbox"
+                          value=""
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) =>
+                            handleSubcategoryCheckboxChange(
+                              "dialogSelected",
+                              e.target.checked,
+                              subcategory._id
+                            )
+                          }
                         />
                       </td>
                       <td align="center">{category.fileName}</td>
@@ -436,15 +605,11 @@ const Categories = () => {
                         />
                       </td>
                     </tr>
-
                   ))}
-
                 </>
-
               ))}
             </tbody>
           </table>
-
 
           <p className="dark:text-gray-400 text-[#363F4D] mt-3 font-bold plus-jakarta text-[17px] md:text-[23px] 2xl:text-[25px] pt-10 pb-5">
             All Series
@@ -453,6 +618,8 @@ const Categories = () => {
             <thead>
               <tr>
                 <th width="10%">Image</th>
+                <th width="10%">Collection</th>
+                <th width="10%">Dialog</th>
                 <th width="15%">Category</th>
                 <th width="15%">Sub-Category</th>
                 <th width="15%">Series</th>
@@ -476,22 +643,52 @@ const Categories = () => {
                               alt="Series Image"
                             />
                           </td>
+                          <td align="center" className="py-5">
+                            <input
+                              checked={seriesItem.collectionSelected}
+                              id="checked-checkbox"
+                              type="checkbox"
+                              value=""
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              onChange={(e) =>
+                                handleSeriesCheckboxChange(
+                                  "collectionSelected",
+                                  e.target.checked,
+                                  seriesItem._id
+                                )
+                              }
+                            />
+                          </td>
+                          <td align="center">
+                            <input
+                              checked={seriesItem.dialogSelected}
+                              id="checked-checkbox"
+                              type="checkbox"
+                              value=""
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              onChange={(e) =>
+                                handleSeriesCheckboxChange(
+                                  "dialogSelected",
+                                  e.target.checked,
+                                  seriesItem._id
+                                )
+                              }
+                            />
+                          </td>
                           <td align="center">{category.fileName}</td>
                           <td align="center">{subcategory.name}</td>
                           <td align="center">{seriesItem.name}</td>
-                          <td align="center">{convertHtmlToText(seriesItem.description)}</td>
+                          <td align="center">
+                            {convertHtmlToText(seriesItem.description)}
+                          </td>
                           <td align="center">
                             {seriesItem.metaTitle && (
-                              <>
-                                {seriesItem.metaTitle}
-                              </>
+                              <>{seriesItem.metaTitle}</>
                             )}
                           </td>
                           <td align="center">
                             {seriesItem.metaDescription && (
-                              <>
-                                {seriesItem.metaDescription}
-                              </>
+                              <>{seriesItem.metaDescription}</>
                             )}
                           </td>
                           <td align="center">
@@ -516,13 +713,10 @@ const Categories = () => {
                       ))}
                     </>
                   ))}
-
                 </>
-
               ))}
             </tbody>
           </table>
-
 
           {/* <div className="grid gap-4 grid-cols-1 mt-3">
             {categories.map((category) => (
@@ -707,6 +901,16 @@ const Categories = () => {
             }}
           />
           <input
+            name={`subcategoryslug`}
+            placeholder="Subcategory Slug"
+            type="text"
+            className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
+            value={subcategorySlug}
+            onChange={(e) => {
+              setSubcategorySlug(e.target.value);
+            }}
+          />
+          <input
             id="subcategoryMetaTitle"
             name="subcategoryMetaTitle"
             type="text"
@@ -795,6 +999,16 @@ const Categories = () => {
               value={seriesName}
               onChange={(e) => {
                 setSeriesName(e.target.value);
+              }}
+            />
+            <input
+              name={`seriesSlug`}
+              placeholder="Series Slug"
+              type="text"
+              className="w-[50%] mt-1 p-2 dark:text-gray-400 text-[#4F5D77] bg-[#f2f2f2] text-[14.4px] dark:bg-white/10"
+              value={seriesSlug}
+              onChange={(e) => {
+                setSeriesSlug(e.target.value);
               }}
             />
             <input

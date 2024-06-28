@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const SeriesEditModal = ({ openEditSeries, setOpenEditSeries, editSeries }) => {
   const [seriesName, setSeriesName] = useState("");
+  const [seriesSlug, setSeriesSlug] = useState("");
   const [seriesDescription, setSeriesDescription] = useState("");
   const [seriesMetaTitle, setSeriesMetaTitle] = useState("");
   const [seriesMetaDescription, setSeriesMetaDescription] = useState("");
@@ -16,6 +17,7 @@ const SeriesEditModal = ({ openEditSeries, setOpenEditSeries, editSeries }) => {
       setSeriesDescription(editSeries?.description || "");
       setSeriesMetaTitle(editSeries?.metaTitle || "");
       setSeriesMetaDescription(editSeries?.metaDescription || "");
+      setSeriesSlug(editSeries?.slug || "");
     }
   }, [openEditSeries, editSeries]);
 
@@ -23,6 +25,7 @@ const SeriesEditModal = ({ openEditSeries, setOpenEditSeries, editSeries }) => {
     try {
       const formData = new FormData();
       formData.append("name", seriesName);
+      formData.append("slug", seriesSlug);
       formData.append("description", seriesDescription);
       formData.append("metaTitle", seriesMetaTitle);
       formData.append("metaDescription", seriesMetaDescription);
@@ -74,6 +77,21 @@ const SeriesEditModal = ({ openEditSeries, setOpenEditSeries, editSeries }) => {
             placeholder="Add New Series"
             value={seriesName}
             onChange={(e) => setSeriesName(e.target.value)}
+            className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="text-xs md:text-sm mt-3" htmlFor="seriesSlug">
+            Series Slug
+          </label>
+          <input
+            id="seriesSlug"
+            name="seriesSlug"
+            type="text"
+            placeholder="Add New Series"
+            value={seriesSlug}
+            onChange={(e) => setSeriesSlug(e.target.value)}
             className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
           />
         </div>
