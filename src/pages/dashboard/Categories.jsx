@@ -9,11 +9,12 @@ import ReactQuill from "react-quill";
 import CategoryEditModal from "@/components/CategoryModals/CategoryEditModal";
 import SubCategoryEditModal from "@/components/CategoryModals/SubCategoryEditModal";
 import SeriesEditModal from "@/components/CategoryModals/SeriesEditModal";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const Categories = () => {
   const [CategoriesName, setCategoriesName] = useState("");
   const [CategoriesSlug, setCategoriesSlug] = useState("");
-  const [StaticMainCategory, setStaticMainCategory] = useState("");
+  const [staticMainCategories, setStaticMainCategories] = useState([""]);
   const [CategoriesMetaTitle, setCategoriesMetaTitle] = useState("");
   const [CategoriesMetaDescription, setCategoriesMetaDescription] =
     useState("");
@@ -64,7 +65,7 @@ const Categories = () => {
     formData.append("categoryImage", CategoriesImageFile);
     formData.append("categoryLogo", CategoriesLogoFile);
     formData.append("fileName", CategoriesName);
-    formData.append("staticMainCategory", StaticMainCategory);
+    formData.append("staticMainCategory", JSON.stringify(staticMainCategories));
     formData.append("slug", CategoriesSlug);
     formData.append("metaTitle", CategoriesMetaTitle);
     formData.append("metaDescription", CategoriesMetaDescription);
@@ -96,20 +97,6 @@ const Categories = () => {
       setCategories(response.data.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
-    }
-  };
-
-  const handleMarkSelected = async (categoryId) => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/admin/category/select`,
-        { categoryId }
-      );
-      toast.success("Category marked as selected successfully");
-      getCategoriesData();
-    } catch (error) {
-      console.error("Error marking category as selected:", error);
-      toast.error("Error marking category as selected");
     }
   };
 
@@ -299,6 +286,22 @@ const Categories = () => {
     }
   };
 
+  const handleInputChange = (index, event) => {
+    const values = [...staticMainCategories];
+    values[index] = event.target.value;
+    setStaticMainCategories(values);
+  };
+
+  const handleAddField = () => {
+    setStaticMainCategories([...staticMainCategories, ""]);
+  };
+
+  const handleRemoveField = (index) => {
+    const values = [...staticMainCategories];
+    values.splice(index, 1);
+    setStaticMainCategories(values);
+  };
+
   return (
     <div className="w-full min-h-[100vh] h-fit bg-[#F8F9FA] dark:bg-black rounded-lg px-[2%] py-4 md:py-10 overflow-x-hidden">
       <div className="flex items-center justify-between">
@@ -360,17 +363,35 @@ const Categories = () => {
               >
                 Static Main Category
               </label>
-              <input
-                id="newCategory"
-                name="newCategory"
-                type="text"
-                placeholder="Add Static Main Category"
-                value={StaticMainCategory}
-                onChange={(e) => {
-                  setStaticMainCategory(e.target.value);
-                }}
-                className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3"
-              />
+              {staticMainCategories.map((category, index) => (
+                <div key={index} className="flex items-center mt-2">
+                  <input
+                    id={`staticMainCategory-${index}`}
+                    name={`staticMainCategory-${index}`}
+                    type="text"
+                    placeholder="Add Static Main Category"
+                    value={category}
+                    onChange={(e) => handleInputChange(index, e)}
+                    className="bg-gray-200 w-[90%] md:w-full text-black placeholder:text-gray-600 rounded-sm p-3 mr-2"
+                  />
+                  {staticMainCategories.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveField(index)}
+                      className="text-red-500"
+                    >
+                      <FaMinus />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleAddField}
+                    className="text-green-500 ml-2"
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+              ))}
 
               <label
                 className="text-xs md:text-sm mt-3"
@@ -508,7 +529,10 @@ const Categories = () => {
                   <td align="center">{category.metaTitle}</td>
                   <td align="center">{category.metaDescription}</td>
                   <td align="center" className="flex flex-row">
-                    <IoClose className="cursor-pointer" />
+                    <IoClose
+                      className="cursor-pointer"
+                      onClick={() => handleDeleteCategory(category)}
+                    />
                     <IoPencil
                       className="cursor-pointer"
                       onClick={() => {

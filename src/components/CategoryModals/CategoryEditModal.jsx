@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -10,7 +11,7 @@ const CategoryEditModal = ({
 }) => {
   const [CategoriesName, setCategoriesName] = useState("");
   const [CategoriesSlug, setCategoriesSlug] = useState("");
-  const [StaticMainCategory, setStaticMainCategory] = useState("");
+  const [StaticMainCategories, setStaticMainCategories] = useState([""]);
   const [CategoriesMetaTitle, setCategoriesMetaTitle] = useState("");
   const [CategoriesMetaDescription, setCategoriesMetaDescription] =
     useState("");
@@ -23,9 +24,31 @@ const CategoryEditModal = ({
       setCategoriesMetaTitle(editCategory?.metaTitle || "");
       setCategoriesMetaDescription(editCategory?.metaDescription || "");
       setCategoriesSlug(editCategory?.slug || "");
-      setStaticMainCategory(editCategory?.staticMainCategory || "");
+
+      console.log(editCategory?.staticMainCategory);
+      setStaticMainCategories(
+        Array.isArray(editCategory?.staticMainCategory)
+          ? editCategory?.staticMainCategory
+          : editCategory?.staticMainCategory?.split(",") || [""]
+      );
     }
   }, [openEditCategory, editCategory]);
+
+  const handleInputChange = (index, event) => {
+    const values = [...StaticMainCategories];
+    values[index] = event.target.value;
+    setStaticMainCategories(values);
+  };
+
+  const handleAddField = () => {
+    setStaticMainCategories([...StaticMainCategories, ""]);
+  };
+
+  const handleRemoveField = (index) => {
+    const values = [...StaticMainCategories];
+    values.splice(index, 1);
+    setStaticMainCategories(values);
+  };
 
   const handleEditCategory = async () => {
     try {
@@ -33,6 +56,7 @@ const CategoryEditModal = ({
       formData.append("fileName", CategoriesName);
       formData.append("metaTitle", CategoriesMetaTitle);
       formData.append("metaDescription", CategoriesMetaDescription);
+      formData.append("staticMainCategory", JSON.stringify(StaticMainCategories));
       if (CategoriesImageFile)
         formData.append("categoryImage", CategoriesImageFile);
       if (CategoriesLogoFile)
@@ -64,7 +88,7 @@ const CategoryEditModal = ({
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-md w-[90%] md:max-w-md relative">
+      <div className="bg-white p-6 rounded-md w-[90%] md:max-w-md max-h-[90%] overflow-y-auto relative">
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
           onClick={() => setOpenEditCategory(false)}
@@ -107,15 +131,35 @@ const CategoryEditModal = ({
           <label className="text-xs md:text-sm mt-3" htmlFor="CategoriesName">
             Static Main Category
           </label>
-          <input
-            id="CategoriesName"
-            name="CategoriesName"
-            type="text"
-            placeholder="Add New Category"
-            value={StaticMainCategory}
-            onChange={(e) => setStaticMainCategory(e.target.value)}
-            className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3"
-          />
+          {StaticMainCategories.map((category, index) => (
+            <div key={index} className="flex items-center mt-2">
+              <input
+                id={`staticMainCategory-${index}`}
+                name={`staticMainCategory-${index}`}
+                type="text"
+                placeholder="Add Static Main Category"
+                value={category}
+                onChange={(e) => handleInputChange(index, e)}
+                className="bg-gray-200 w-[90%] md:w-full text-black placeholder-text-gray-600 rounded-sm p-3 mr-2"
+              />
+              {StaticMainCategories.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => handleRemoveField(index)}
+                  className="text-red-500"
+                >
+                  <FaMinus />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={handleAddField}
+                className="text-green-500 ml-2"
+              >
+                <FaPlus />
+              </button>
+            </div>
+          ))}
         </div>
 
         <div className="mb-4">

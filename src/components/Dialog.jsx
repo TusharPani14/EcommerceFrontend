@@ -111,19 +111,21 @@ export default function DialogBar() {
 
   const groupCategoriesByStaticMainCategory = (categories) => {
     const groupedCategories = {};
-
+  
     categories.forEach((category) => {
       const { staticMainCategory } = category;
-
-      if (!groupedCategories[staticMainCategory]) {
-        groupedCategories[staticMainCategory] = [];
-      }
-
-      groupedCategories[staticMainCategory].push(category);
+  
+      staticMainCategory.forEach((staticCategory) => {
+        if (!groupedCategories[staticCategory]) {
+          groupedCategories[staticCategory] = [];
+        }
+  
+        groupedCategories[staticCategory].push(category);
+      });
     });
-
+  
     return groupedCategories;
-  };
+  };  
 
   // Assuming categories is an array of objects with staticMainCategory field
   const groupedCategories = groupCategoriesByStaticMainCategory(categories);
@@ -223,53 +225,6 @@ export default function DialogBar() {
                             </p>
                           </Link>
                         </div>
-                        {menu.map((item, index) => {
-                          return (
-                            <div className=" w-full relative " key={index}>
-                              {!item?.subItems.length > 0 ? (
-                                <Link
-                                  to={item.url}
-                                  onClick={() => {
-                                    SetIsMenuOpen(false);
-                                  }}
-                                  style={{ outline: "none" }}
-                                >
-                                  <p
-                                    className=" outline-none border-t-[0px] py-2.5 border-[#efefef] text-dark-500 dark:text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]"
-                                    key={index}
-                                  >
-                                    {item.title}
-                                  </p>
-                                </Link>
-                              ) : (
-                                <Menu>
-                                  <Menu.Button className=" w-full flex items-center justify-between border-t-[1px] py-2.5  border-[#efefef] capitalize dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px] ">
-                                    {item.title}
-                                    <ChevronDownIcon className=" w-[15px]" />
-                                  </Menu.Button>
-                                  <Menu.Items className="  flex flex-col  text-[13px] md:text-[13px] 2xl:text-[14px]  dark:text-dark-500 bg-white pl-2 gap-2 w-full ">
-                                    {item?.subItems?.map((e, index) => {
-                                      return (
-                                        <Link
-                                          autoFocus="off"
-                                          to={e.url}
-                                          key={index}
-                                        >
-                                          <p
-                                            className=" border-t-[1px] py-2.5 capitalize"
-                                            key={index}
-                                          >
-                                            {e.title}
-                                          </p>
-                                        </Link>
-                                      );
-                                    })}
-                                  </Menu.Items>
-                                </Menu>
-                              )}
-                            </div>
-                          );
-                        })}
 
                         {staticMainCategories.map(
                           (staticCategory, staticIndex) => (
