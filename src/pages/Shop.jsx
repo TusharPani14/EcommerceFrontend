@@ -75,6 +75,7 @@ const Shop = () => {
   const [openCategory, setOpenCategory] = useState(null);
   const [openSubcategory, setOpenSubcategory] = useState(null);
   const [openStaticCategory, setOpenStaticCategory] = useState(null);
+  const [groupedCategories, setGroupedCategories] = useState({});
   const staticMainCategories = [
     "Office",
     "Living Room",
@@ -182,24 +183,38 @@ const Shop = () => {
     }
   };
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      const grouped = groupCategoriesByStaticMainCategory(categories);
+      setGroupedCategories(grouped);
+    }
+  }, [categories]);
+
   const groupCategoriesByStaticMainCategory = (categories) => {
     const groupedCategories = {};
 
-    categories.forEach((category) => {
+    categories?.forEach((category) => {
       const { staticMainCategory } = category;
 
-      if (!groupedCategories[staticMainCategory]) {
-        groupedCategories[staticMainCategory] = [];
-      }
+      // Check if staticMainCategory exists and is an array
+      if (Array.isArray(staticMainCategory)) {
+        staticMainCategory.forEach((staticCategory) => {
+          if (!groupedCategories[staticCategory]) {
+            groupedCategories[staticCategory] = [];
+          }
 
-      groupedCategories[staticMainCategory].push(category);
+          groupedCategories[staticCategory].push(category);
+        });
+      } else {
+        console.warn(
+          `Category ${category} does not have a valid staticMainCategory.`
+        );
+        // Handle or log the situation where staticMainCategory is not an array
+      }
     });
 
     return groupedCategories;
   };
-
-  // Assuming categories is an array of objects with staticMainCategory field
-  const groupedCategories = groupCategoriesByStaticMainCategory(categories);
 
   return (
     <>
@@ -259,96 +274,148 @@ const Shop = () => {
                       leaveFrom="opacity-100 scale-100"
                       leaveTo="opacity-0 scale-95"
                     >
-                      <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                        {groupedCategories[staticCategory]?.map(
-                          (item, index) => (
-                            <div key={index}>
-                              {item.subcategories
-                                .filter(
-                                  (subcategory) =>
-                                    subcategory.collectionSelected
-                                )
-                                .map((subcategory, subIndex) => (
-                                  <Menu key={subIndex}>
-                                    <Menu.Button
-                                      className="w-full flex items-center justify-between capitalize py-2.5"
-                                      onClick={() =>
-                                        setOpenSubcategory(
-                                          openSubcategory === subIndex
-                                            ? null
-                                            : subIndex
-                                        )
-                                      }
-                                    >
-                                      <Link
-                                        to={`/product-category/${item.slug}/${subcategory.slug}`}
-                                        onClick={() => {
-                                          setOpenStaticCategory(null);
-                                          setOpenCategory(null);
-                                          setOpenSubcategory(null);
-                                        }}
-                                      >
-                                        {subcategory.name}
-                                      </Link>
-                                      <ChevronDownIcon
-                                        className="w-[15px]"
-                                        onClick={(e) => {
-                                          e.stopPropagation(); // Prevent parent menu from closing
-                                          setOpenSubcategory(
-                                            openSubcategory === subIndex
-                                              ? null
-                                              : subIndex
-                                          );
-                                        }}
-                                      />
-                                    </Menu.Button>
-                                    <Transition
-                                      show={openSubcategory === subIndex}
-                                      as={React.Fragment}
-                                      enter="transition ease-out duration-100 transform"
-                                      enterFrom="opacity-0 scale-95"
-                                      enterTo="opacity-100 scale-100"
-                                      leave="transition ease-in duration-75 transform"
-                                      leaveFrom="opacity-100 scale-100"
-                                      leaveTo="opacity-0 scale-95"
-                                    >
-                                      <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                                        {subcategory.series
-                                          .filter(
-                                            (seriesItem) =>
-                                              seriesItem.dialogSelected
-                                          )
-                                          .map((seriesItem, seriesIndex) => (
+                      <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 pl-2 gap-2 w-full">
+                        {groupedCategories[staticCategory]
+                          ?.filter((category) => category.collectionSelected)
+                          .map((category, categoryIndex) => (
+                            <div key={categoryIndex}>
+                              <Menu>
+                                <Menu.Button
+                                  className="w-full flex items-center justify-between capitalize py-2.5"
+                                  onClick={() =>
+                                    setOpenCategory(
+                                      openCategory === categoryIndex
+                                        ? null
+                                        : categoryIndex
+                                    )
+                                  }
+                                >
+                                  <Link
+                                    to={`/product-category/${category.slug}`}
+                                    onClick={() => {
+                                      setOpenStaticCategory(null);
+                                      setOpenCategory(null);
+                                    }}
+                                  >
+                                    {category.fileName}
+                                  </Link>
+                                  <ChevronDownIcon
+                                    className="w-[15px]"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setOpenCategory(
+                                        openCategory === categoryIndex
+                                          ? null
+                                          : categoryIndex
+                                      );
+                                    }}
+                                  />
+                                </Menu.Button>
+                                <Transition
+                                  show={openCategory === categoryIndex}
+                                  as={React.Fragment}
+                                  enter="transition ease-out duration-100 transform"
+                                  enterFrom="opacity-0 scale-95"
+                                  enterTo="opacity-100 scale-100"
+                                  leave="transition ease-in duration-75 transform"
+                                  leaveFrom="opacity-100 scale-100"
+                                  leaveTo="opacity-0 scale-95"
+                                >
+                                  <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
+                                    {category.subcategories
+                                      .filter(
+                                        (subcategory) =>
+                                          subcategory.collectionSelected
+                                      )
+                                      .map((subcategory, subIndex) => (
+                                        <Menu key={subIndex}>
+                                          <Menu.Button
+                                            className="w-full flex items-center justify-between capitalize py-2.5"
+                                            onClick={() =>
+                                              setOpenSubcategory(
+                                                openSubcategory === subIndex
+                                                  ? null
+                                                  : subIndex
+                                              )
+                                            }
+                                          >
                                             <Link
-                                              key={seriesIndex}
-                                              to={`/product-category/${encodeURIComponent(
-                                                item.slug
-                                              )}/${encodeURIComponent(
-                                                subcategory.slug
-                                              )}/${encodeURIComponent(
-                                                seriesItem.slug
-                                              )}`}
+                                              to={`/product-category/${category.slug}/${subcategory.slug}`}
                                               onClick={() => {
-                                                setCategories(
-                                                  item.fileName.toLowerCase()
-                                                );
                                                 setOpenStaticCategory(null);
                                                 setOpenCategory(null);
                                                 setOpenSubcategory(null);
                                               }}
                                             >
-                                              <p className="py-2.5 capitalize">
-                                                {seriesItem.name}
-                                              </p>
+                                              {subcategory.name}
                                             </Link>
-                                          ))}
-                                      </Menu.Items>
-                                    </Transition>
-                                  </Menu>
-                                ))}
+                                            <ChevronDownIcon
+                                              className="w-[15px]"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                setOpenSubcategory(
+                                                  openSubcategory === subIndex
+                                                    ? null
+                                                    : subIndex
+                                                );
+                                              }}
+                                            />
+                                          </Menu.Button>
+                                          <Transition
+                                            show={openSubcategory === subIndex}
+                                            as={React.Fragment}
+                                            enter="transition ease-out duration-100 transform"
+                                            enterFrom="opacity-0 scale-95"
+                                            enterTo="opacity-100 scale-100"
+                                            leave="transition ease-in duration-75 transform"
+                                            leaveFrom="opacity-100 scale-100"
+                                            leaveTo="opacity-0 scale-95"
+                                          >
+                                            <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
+                                              {subcategory.series
+                                                .filter(
+                                                  (seriesItem) =>
+                                                    seriesItem.dialogSelected
+                                                )
+                                                .map(
+                                                  (seriesItem, seriesIndex) => (
+                                                    <Link
+                                                      key={seriesIndex}
+                                                      to={`/product-category/${encodeURIComponent(
+                                                        category.slug
+                                                      )}/${encodeURIComponent(
+                                                        subcategory.slug
+                                                      )}/${encodeURIComponent(
+                                                        seriesItem.slug
+                                                      )}`}
+                                                      onClick={() => {
+                                                        setCategories(
+                                                          category.fileName.toLowerCase()
+                                                        );
+                                                        setOpenStaticCategory(
+                                                          null
+                                                        );
+                                                        setOpenCategory(null);
+                                                        setOpenSubcategory(
+                                                          null
+                                                        );
+                                                      }}
+                                                    >
+                                                      <p className="py-2.5 capitalize">
+                                                        {seriesItem.name}
+                                                      </p>
+                                                    </Link>
+                                                  )
+                                                )}
+                                            </Menu.Items>
+                                          </Transition>
+                                        </Menu>
+                                      ))}
+                                  </Menu.Items>
+                                </Transition>
+                              </Menu>
                             </div>
-                          )
-                        )}
+                          ))}
                       </Menu.Items>
                     </Transition>
                   </Menu>

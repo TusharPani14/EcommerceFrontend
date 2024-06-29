@@ -38,6 +38,7 @@ export default function DialogBar() {
   const [openCategory, setOpenCategory] = useState(null);
   const [openSubcategory, setOpenSubcategory] = useState(null);
   const [openStaticCategory, setOpenStaticCategory] = useState(null);
+  const [groupedCategories, setGroupedCategories] = useState({});
   const staticMainCategories = [
     "Office",
     "Living Room",
@@ -109,26 +110,38 @@ export default function DialogBar() {
     getSocialMedia();
   }, []);
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      const grouped = groupCategoriesByStaticMainCategory(categories);
+      setGroupedCategories(grouped);
+    }
+  }, [categories]);
+
   const groupCategoriesByStaticMainCategory = (categories) => {
     const groupedCategories = {};
-  
-    categories.forEach((category) => {
-      const { staticMainCategory } = category;
-  
-      staticMainCategory.forEach((staticCategory) => {
-        if (!groupedCategories[staticCategory]) {
-          groupedCategories[staticCategory] = [];
-        }
-  
-        groupedCategories[staticCategory].push(category);
-      });
-    });
-  
-    return groupedCategories;
-  };  
 
-  // Assuming categories is an array of objects with staticMainCategory field
-  const groupedCategories = groupCategoriesByStaticMainCategory(categories);
+    categories?.forEach((category) => {
+      const { staticMainCategory } = category;
+
+      // Check if staticMainCategory exists and is an array
+      if (Array.isArray(staticMainCategory)) {
+        staticMainCategory.forEach((staticCategory) => {
+          if (!groupedCategories[staticCategory]) {
+            groupedCategories[staticCategory] = [];
+          }
+
+          groupedCategories[staticCategory].push(category);
+        });
+      } else {
+        console.warn(
+          `Category ${category} does not have a valid staticMainCategory.`
+        );
+        // Handle or log the situation where staticMainCategory is not an array
+      }
+    });
+
+    return groupedCategories;
+  };
 
   return (
     <Transition.Root show={isMenuOpen} as={Fragment}>
@@ -254,8 +267,9 @@ export default function DialogBar() {
                                   leaveTo="opacity-0 scale-95"
                                 >
                                   <Menu.Items className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
-                                    {groupedCategories[staticCategory]?.map(
-                                      (item, index) => (
+                                    {groupedCategories[staticCategory]
+                                      ?.filter((item) => item.dialogSelected)
+                                      .map((item, index) => (
                                         <div key={index}>
                                           <Menu>
                                             <Menu.Button
@@ -280,7 +294,7 @@ export default function DialogBar() {
                                               <ChevronDownIcon
                                                 className="w-[15px]"
                                                 onClick={(e) => {
-                                                  e.stopPropagation(); // Prevent parent menu from closing
+                                                  e.stopPropagation();
                                                   setOpenCategory(
                                                     openCategory === index
                                                       ? null
@@ -413,8 +427,7 @@ export default function DialogBar() {
                                             </Transition>
                                           </Menu>
                                         </div>
-                                      )
-                                    )}
+                                      ))}
                                   </Menu.Items>
                                 </Transition>
                               </Menu>
