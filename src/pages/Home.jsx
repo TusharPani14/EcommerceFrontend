@@ -45,6 +45,55 @@ const box = [
 //   { icon: "/main/hm5.svg", text: "hospitality", param: "hospitality" },
 //   { icon: "/main/hm6.svg", text: "Outdoor", param: "outdoor" },
 // ];
+
+
+const sixcategories = [
+  {
+    fileName: "Dining Room",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/dining_room-category-1716524834919.jpg",
+    param: "Dining Room",
+    url: "/product-category/category-1"
+  },
+  {
+    fileName: "Hospitality",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/hospitality-category-1716524905990.jpg",
+    param: "Hospitality",
+    url: "/product-category/category-3"
+  },
+  {
+    fileName: "Living Room",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/living_room-category-1716524684097.jpg",
+    param: "Living Room",
+    url: "/product-category/category-4"
+  },
+  {
+    fileName: "Bedroom",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/bedroom-category-1716524778677.jpg",
+    param: "Bedroom",
+    url: "/product-category/category-5"
+  },
+  {
+    fileName: "Office",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/office-category-1716524860295.jpg",
+    param: "Office",
+    url: "/product-category/category-6"
+  },
+  {
+    fileName: "Outdoor",
+    selected: true,
+    imageLink: "https://cf.creativefurnituredxb.ae/images/outdoor-category-1716525677963.jpg",
+    param: "Outdoor",
+    url: "/product-category/category-7"
+  }
+];
+
+
+
 const feature = [
   {
     icon: <TiWorld className=" text-[19px] " />,
@@ -273,7 +322,7 @@ const Home = () => {
       {showModal && <PopupModal onClose={() => setShowModal(false)} />}
       <HeroSlider slider={slider} />
       <CategorySlider data={categories} />
-      <div className="w-full grid gap-3 grid-cols-2 md:grid-cols-3 px-[2%] mb-10">
+      {/* <div className="w-full grid gap-3 grid-cols-2 md:grid-cols-3 px-[2%] mb-10">
         {categories
           ?.filter((i) => {
             return i?.selected === true;
@@ -300,7 +349,38 @@ const Home = () => {
               </Link>
             );
           })}
+      </div> */}
+
+
+      <div className="w-full grid gap-3 grid-cols-2 md:grid-cols-3 px-[2%] mb-10">
+        {sixcategories
+          .filter((i) => i.selected)
+          .slice(0, 6)
+          .map((item, index) => (
+            <Link to={item.url} key={index}>
+              <div className=" pl-2 md:pl-2 pb-2 md:pb-2">
+                <div className=" relative shade_image">
+                  <p
+                    style={{ writingMode: "vertical-rl" }}
+                    className="text-[#353535] absolute -left-0 md:-left-0 top-4 rotate-180 plus-jakarta font-[600] text-[10px] md:text-2xl capitalize flex items-center justify-center"
+                  >
+                    {item.fileName}
+                  </p>
+                  <img
+                    className=" object-cover object-center h-[116px] lg:h-[302px] "
+                    src={item.imageLink}
+                    alt={item.param}
+                  />
+                </div>
+              </div>
+            </Link>
+
+
+          ))}
       </div>
+
+
+
 
       <div className=" dark:text-gray-400 flex flex-col items-center lg:grid xl:grid-cols-4 gap-6 px-[4%] xl:px-[8%] py-4 mt-5 ">
         <div className=" flex flex-col items-center col-span-4">

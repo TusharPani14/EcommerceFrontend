@@ -46,9 +46,8 @@ const App = () => {
         </div>
       ) : (
         <div
-          className={`${
-            isDarkMode ? "dark" : ""
-          }  off-white dark:text-gray-400 dark:bg-black`}
+          className={`${isDarkMode ? "dark" : ""
+            }  off-white dark:text-gray-400 dark:bg-black`}
         >
           <ToastContainer
             position="top-right"
@@ -109,7 +108,7 @@ const App = () => {
             <Route path="/admindashboard/*" element={<AdminDashboard />} />
           </Routes>
           <a
-            href="https://wa.me/971503126092"
+            href="https://wa.me/971566736852"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-16 right-4 w-16 h-16"

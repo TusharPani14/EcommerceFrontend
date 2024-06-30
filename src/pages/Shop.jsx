@@ -80,6 +80,7 @@ const Shop = () => {
     "Office",
     "Living Room",
     "BedRoom",
+    "Dining Room",
     "Kids Room Furniture",
     "Outdoor",
     "Hospitality",
@@ -472,8 +473,8 @@ const Shop = () => {
                       banners.find((banner) => banner.fileName === "Banner2")
                         ?.filePath
                         ? banners.find(
-                            (banner) => banner.fileName === "Banner2"
-                          ).filePath
+                          (banner) => banner.fileName === "Banner2"
+                        ).filePath
                         : "/Images/shop-banner.png"
                     }
                     alt="product-img"
@@ -483,52 +484,51 @@ const Shop = () => {
                       <div className="p-2">
                         {banners.find((banner) => banner.fileName === "Banner2")
                           .title && (
-                          <h2 className="text-xl md:text-2xl font-bold text-black">
-                            {
-                              banners.find(
-                                (banner) => banner.fileName === "Banner2"
-                              ).title
-                            }
-                          </h2>
-                        )}
+                            <h2 className="text-xl md:text-2xl font-bold text-black">
+                              {
+                                banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).title
+                              }
+                            </h2>
+                          )}
                         {banners.find((banner) => banner.fileName === "Banner2")
                           .description && (
-                          <p className="text-sm md:text-base text-black">
-                            {
-                              banners.find(
-                                (banner) => banner.fileName === "Banner2"
-                              ).description
-                            }
-                          </p>
-                        )}
+                            <p className="text-sm md:text-base text-black">
+                              {
+                                banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).description
+                              }
+                            </p>
+                          )}
                       </div>
                       {banners.find((banner) => banner.fileName === "Banner2")
                         .buttonContent && (
-                        <a
-                          href={
-                            banners
-                              .find((banner) => banner.fileName === "Banner2")
-                              .redirectUrl.startsWith("http")
-                              ? banners.find(
+                          <a
+                            href={
+                              banners
+                                .find((banner) => banner.fileName === "Banner2")
+                                .redirectUrl.startsWith("http")
+                                ? banners.find(
                                   (banner) => banner.fileName === "Banner2"
                                 ).redirectUrl
-                              : `${
-                                  banners.find(
-                                    (banner) => banner.fileName === "Banner2"
-                                  ).redirectUrl
+                                : `${banners.find(
+                                  (banner) => banner.fileName === "Banner2"
+                                ).redirectUrl
                                 }`
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
-                        >
-                          {
-                            banners.find(
-                              (banner) => banner.fileName === "Banner2"
-                            ).buttonContent
-                          }
-                        </a>
-                      )}
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-blue-600 text-white px-3 py-1 rounded shadow-md hover:bg-blue-700 transition duration-300"
+                          >
+                            {
+                              banners.find(
+                                (banner) => banner.fileName === "Banner2"
+                              ).buttonContent
+                            }
+                          </a>
+                        )}
                     </div>
                   )}
                 </div>
@@ -540,17 +540,15 @@ const Shop = () => {
                     onClick={() => {
                       setIsCard(true);
                     }}
-                    className={` text-[19px] cursor-pointer ${
-                      isCard && "text-[#F9BA48]"
-                    } `}
+                    className={` text-[19px] cursor-pointer ${isCard && "text-[#F9BA48]"
+                      } `}
                   />
                   <AiOutlineBars
                     onClick={() => {
                       setIsCard(false);
                     }}
-                    className={` text-[19px] cursor-pointer pointer ${
-                      !isCard && "text-[#F9BA48]"
-                    } `}
+                    className={` text-[19px] cursor-pointer pointer ${!isCard && "text-[#F9BA48]"
+                      } `}
                   />
                 </div>
                 <div className=" flex items-center justify-end pr-3 py-2.5 text-[#7A7A7A] font-[400] text-[12px] md:text-[13.5px] 2xl:text-[14px] ">
@@ -618,11 +616,10 @@ const Shop = () => {
                       .map((item, index) => (
                         <div
                           key={index}
-                          className={`relative ${
-                            isCard
+                          className={`relative ${isCard
                               ? "flex flex-col items-center justify-between"
                               : "col-span-2 gap-3 flex border border-gray-300 dark:border-gray-700 rounded-md p-3"
-                          } pb-7`}
+                            } pb-7`}
                         >
                           {wishlistedProducts.find(
                             (i) => i?.productId?._id === item._id
@@ -649,21 +646,19 @@ const Shop = () => {
                             className="w-full h-full"
                           >
                             <img
-                              className={`object-cover object-center w-full ${
-                                isCard
+                              className={`object-cover object-center w-full ${isCard
                                   ? "w-full h-[200px]"
                                   : "h-[150px] row-span-2 col-span-1"
-                              }`}
+                                }`}
                               src={item.mainImage}
                               alt="product-img"
                             />
                           </Link>
                           <div
-                            className={`w-full ${
-                              isCard
+                            className={`w-full ${isCard
                                 ? "text-center"
                                 : "flex flex-col justify-between"
-                            }`}
+                              }`}
                           >
                             <Link
                               to={`/product/${item?.title.replace(
@@ -679,11 +674,10 @@ const Shop = () => {
                               }}
                             >
                               <p
-                                className={`dark:text-gray-400 text-[#363F4D] ${
-                                  isCard
+                                className={`dark:text-gray-400 text-[#363F4D] ${isCard
                                     ? "font-[500] plus-jakarta my-2 text-[12px] md:text-[14px] 2xl:text-[14.5px]"
                                     : "font-[500] plus-jakarta my-2 text-[13px] md:text-[19px] 2xl:text-[16px]"
-                                }`}
+                                  }`}
                               >
                                 {item.title?.slice(0, 50)}
                               </p>
@@ -700,9 +694,8 @@ const Shop = () => {
                                 />
                               </div> */}
                               <div
-                                className={`flex items-center ${
-                                  isCard ? "justify-center" : ""
-                                } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
+                                className={`flex items-center ${isCard ? "justify-center" : ""
+                                  } text-[13px] md:text-[14.5px] 2xl:text-[15px] my-2`}
                               >
                                 <p className="font-[500] plus-jakarta dark:text-gray-400 text-[#A4A4A4]">
                                   {currency}{" "}
