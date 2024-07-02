@@ -6,76 +6,14 @@ import { IoMail } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MainAppContext } from "@/context/MainContext";
+import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
-const OrdersData = [
-  {
-    id: 1,
-    orderId: "257",
-    name: "kljhg",
-    email: "selem@hhh.com",
-    phone: "987654568764",
-    orders: 6,
-    verified: true,
-    date: "Mar 17, 2024",
-  },
-  {
-    id: 2,
-    orderId: "397",
-    name: "kljhg",
-    email: "minnadb@hhh.com",
-    phone: "987654568764",
-    orders: 6,
-    verified: false,
-    date: "Feb 27, 2024",
-  },
-  {
-    id: 3,
-    orderId: "437",
-    name: "kljhg",
-    email: "kaowihu@hhh.com",
-    phone: "987654568764",
-    orders: 6,
-    verified: true,
-    date: "Jan 01, 2024",
-  },
-  {
-    id: 4,
-    orderId: "397",
-    name: "kljhg",
-    email: "wirwnadb@hhh.com",
-    phone: "987654568764",
-    orders: 6,
-    verified: false,
-    date: "Nov 27, 2023",
-  },
-  {
-    id: 4,
-    orderId: "637",
-    name: "kljhg",
-    email: "fFewihu@hhh.com",
-    phone: "987654568764",
-    orders: 6,
-    verified: true,
-    date: "Dec 01, 2024",
-  },
-];
-const filterMethods = [
-  { id: 1, name: "See All", value: "" },
-  { id: 2, name: "level 2", value: "level 2" },
-  { id: 3, name: "level 1", value: "level 1" },
-  { id: 4, name: "level 3", value: "level 3" },
-];
 const Users = () => {
-  const [sortMethod, setSortMethod] = useState(2);
-  const [filterMethod, setFilterMethod] = useState("");
-  const [sortedArray, setSortedArray] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sortedArrayCount, setSortedArrayCount] = useState(OrdersData.length);
 
-  useEffect(() => {
-    setSortedArray(sortProducts(sortMethod, OrdersData));
-  }, [OrdersData, sortMethod]);
   const [dialog, setDialog] = useState(false);
+  const [userDetails, setUserDetails] = useState();
   const closeDialog = () => {
     return setDialog(false);
   };
@@ -96,7 +34,6 @@ const Users = () => {
         `${import.meta.env.VITE_SERVER_URL}/auth/getUsers`
       );
       setUsers(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -132,17 +69,26 @@ const Users = () => {
 
   const totalPages = Math.ceil(
     users?.filter((i) => {
-      if (filterMethod !== "") {
-        return i.status.toLowerCase() === filterMethod.toLowerCase();
-      } else {
-        return i;
-      }
+      return i;
     }).length / pageSize
   );
 
   // Function to handle changing the page
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleDeleteUser = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/admin/deleteUser/${id}`
+      );
+      toast.success(res.data.message);
+      fetchUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error("Error deleting user");
+    }
   };
   return (
     <div className=" w-full min-h-[100vh] h-fit bg-[#F8F9FA] dark:bg-black rounded-lg px-[2%] py-4 md:py-10">
@@ -175,77 +121,76 @@ const Users = () => {
                 </tr>
               </thead>
               <tbody className="">
-                {users
-                  ?.filter((i) => {
-                    if (filterMethod !== "") {
-                      return (
-                        i.status.toLowerCase() === filterMethod.toLowerCase()
-                      );
-                    } else {
-                      return i;
-                    }
-                  })
-                  .slice(startIndex, endIndex)
-                  .map((item, index) => {
-                    return (
-                      <tr key={index} className="">
-                        <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2 dark:text-gray-400 text-[#495058] font-[600] plus-jakarta plus-jakarta">
-                          #{item.orderId}
-                        </td>
-                        {dialog && (
-                          <VendorDetailsDialog
-                            close={closeDialog}
-                            data={item}
-                            heading={"Vendor Detail"}
-                          />
-                        )}
-                        <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2  dark:text-gray-400 text-[#495058]  font-[600] plus-jakarta plus-jakarta">
-                          {item.name}
-                        </td>
-                        <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2  text-[#FF7004] font-[600] plus-jakarta plus-jakarta">
-                          {item.email}
-                        </td>
-                        <td
-                          className={`text-center py-2 px-4 ${
-                            isSubscribed(item.email)
-                              ? "text-green-500"
-                              : "text-red-500"
-                          }`}
+                {users.slice(startIndex, endIndex).map((item, index) => {
+                  return (
+                    <tr key={index} className="">
+                      <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2 dark:text-gray-400 text-[#495058] font-[600] plus-jakarta plus-jakarta">
+                        #{item.orderId}
+                      </td>
+                      {dialog && (
+                        <VendorDetailsDialog
+                          close={closeDialog}
+                          data={userDetails}
+                          heading={`${userDetails.role} Details`}
+                        />
+                      )}
+                      <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2  dark:text-gray-400 text-[#495058]  font-[600] plus-jakarta plus-jakarta">
+                        {item.name}
+                      </td>
+                      <td className="text-center py-2 px-4 text-[13px] md:text-[15px] 2xl:text-[16px] my-2  text-[#FF7004] font-[600] plus-jakarta plus-jakarta">
+                        {item.email}
+                      </td>
+                      <td
+                        className={`text-center py-2 px-4 ${
+                          isSubscribed(item.email)
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        {isSubscribed(item.email)
+                          ? "Subscribed"
+                          : "Unsubscribed"}
+                      </td>
+                      <td className="text-center py-2 px-4 dark:text-gray-400 text-[#495058] my-1 text-[13px] md:text-[15px] 2xl:text-[16px]">
+                        {item?.phone}
+                      </td>
+                      <td className="text-center py-2 px-4 dark:text-gray-400 text-[#495058] my-1 text-[13px] md:text-[15px] 2xl:text-[16px]">
+                        {item?.orders}
+                      </td>
+                      {/* <td>{item?.isVerified ? "Verified" : "Not Verified"}</td> */}
+                      <td className="items-center gap-2 py-2 px-4 flex">
+                        <button
+                          onClick={() => {
+                            setDialog(true);
+                            setUserDetails(item);
+                          }}
+                          title="View details"
+                          className="bg-[#FF7004] px-4 py-2.5 my-1 w-[100px] sm:w-[150px] lg:w-full mx-auto font-medium text-[11.2px] md:text-[13px] text-white"
                         >
-                          {isSubscribed(item.email)
-                            ? "Subscribed"
-                            : "Unsubscribed"}
-                        </td>
-                        <td className="text-center py-2 px-4 dark:text-gray-400 text-[#495058] my-1 text-[13px] md:text-[15px] 2xl:text-[16px]">
-                          {item?.phone}
-                        </td>
-                        <td className="text-center py-2 px-4 dark:text-gray-400 text-[#495058] my-1 text-[13px] md:text-[15px] 2xl:text-[16px]">
-                          {item?.orders}
-                        </td>
-                        {/* <td>{item?.isVerified ? "Verified" : "Not Verified"}</td> */}
-                        <td className="  items-center gap-2 py-2 px-4">
+                          View
+                        </button>
+                        <td className="items-center gap-2 py-2 px-4 flex">
                           <button
-                            onClick={() => {
-                              setDialog(true);
-                            }}
-                            title="send email"
-                            className="bg-[#FF7004] px-4 py-2.5 my-1 w-[100px] sm:w-[150px] lg:w-full mx-auto font-medium text-[11.2px] md:text-[13px] text-white"
+                            onClick={() => handleDeleteUser(item._id)}
+                            title="Delete user"
+                            className="my-1 sm:w-[150px] lg:w-full mx-auto text-red-600 hover:text-red-800 transition-colors focus:outline-none"
                           >
-                            View
+                            <AiOutlineDelete className="text-xl" />
                           </button>
                         </td>
-                        <td className="  items-center gap-2 py-2 px-4">
-                          <Link
-                            to={`/admindashboard/newsletter?email=${item.email}`}
-                          >
-                            <button className=" px-4 py-2.5 my-1 text-[22px] mx-auto font-medium text-black  dark:text-white ">
-                              <IoMail />
-                            </button>
-                          </Link>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                      </td>
+                      <td className="  items-center gap-2 py-2 px-4">
+                        <Link
+                          to={`/admindashboard/newsletter?email=${item.email}`}
+                        >
+                          <button className=" px-4 py-2.5 my-1 text-[22px] mx-auto font-medium text-black  dark:text-white ">
+                            <IoMail />
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <div className="flex items-center justify-end gap-8">

@@ -5,14 +5,14 @@ import { IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 const VendorDetailsDialog = ({ close, data, heading }) => {
-  console.log(data);
   const [isEditOrder, setIsEditOrder] = useState(false);
-  const [editOrder, setEditOrder] = useState(data);
   const [customerDetails, setCustomerDetails] = useState({
-    id: data?.customer?._id,
-    name: data?.customer?.name || "",
-    email: data?.customer?.email || "",
-    address: data?.customer?.address || "",
+    id: data?._id,
+    name: data?.name || "",
+    email: data?.email || "",
+    address: data?.address || "",
+    password: null,
+    role: data?.role,
   });
 
   const updateDetails = async () => {
@@ -21,7 +21,6 @@ const VendorDetailsDialog = ({ close, data, heading }) => {
         `${import.meta.env.VITE_SERVER_URL}/admin/updateCustomer`,
         customerDetails
       );
-      // Handle the response accordingly
       console.log("Customer updated successfully:", response.data);
       toast.success(response.data.message);
       setIsEditOrder(false);
@@ -129,6 +128,40 @@ const VendorDetailsDialog = ({ close, data, heading }) => {
                     setCustomerDetails({
                       ...customerDetails,
                       address: e.target.value,
+                    })
+                  }
+                />
+              </p>
+              <p>
+                <span className=" text-sm md:text-md font-semibold mr-1">
+                  Password:
+                </span>
+                <input
+                  type="text"
+                  className=" border border-blue-500 disabled:border-none rounded-md py-2 px-4 disabled:bg-transparent bg-gray-200 mt-1"
+                  disabled={!isEditOrder}
+                  value={customerDetails.password}
+                  onChange={(e) =>
+                    setCustomerDetails({
+                      ...customerDetails,
+                      password: e.target.value,
+                    })
+                  }
+                />
+              </p>
+              <p>
+                <span className=" text-sm md:text-md font-semibold mr-1">
+                  Role:
+                </span>
+                <input
+                  type="text"
+                  className=" border border-blue-500 disabled:border-none rounded-md py-2 px-4 disabled:bg-transparent bg-gray-200 mt-1"
+                  disabled={!isEditOrder}
+                  value={customerDetails.role}
+                  onChange={(e) =>
+                    setCustomerDetails({
+                      ...customerDetails,
+                      role: e.target.value,
                     })
                   }
                 />
