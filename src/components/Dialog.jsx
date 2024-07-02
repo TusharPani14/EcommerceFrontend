@@ -49,7 +49,7 @@ export default function DialogBar() {
     "Hospitality",
     "University Furniture",
     "Study And Home Office",
-    "Washroom Furniture"
+    "Washroom Furniture",
   ];
 
   useEffect(() => {
@@ -242,7 +242,7 @@ export default function DialogBar() {
                           </Link>
                         </div>
 
-                        {staticMainCategories.map(
+                        {/* {staticMainCategories.map(
                           (staticCategory, staticIndex) => (
                             <div key={staticIndex} className="w-full relative">
                               <Menu>
@@ -434,6 +434,98 @@ export default function DialogBar() {
                                   </Menu.Items>
                                 </Transition>
                               </Menu>
+                            </div>
+                          )
+                        )} */}
+                        {staticMainCategories.map(
+                          (staticCategory, staticIndex) => (
+                            <div key={staticIndex} className="w-full relative">
+                              <div className="w-full flex items-center justify-between capitalize py-2.5 dark:text-dark-500 text-dark-500 font-[500] plus-jakarta text-[13px] md:text-[13px] 2xl:text-[14px]">
+                                {staticCategory}
+                              </div>
+                              <div className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 pl-2 gap-2 w-full">
+                                {groupedCategories[staticCategory]
+                                  ?.filter(
+                                    (category) =>
+                                      category.dialogSelected ||
+                                      category.subcategories.some(
+                                        (subcategory) =>
+                                          subcategory.dialogSelected
+                                      ) ||
+                                      category.subcategories.some(
+                                        (subcategory) =>
+                                          subcategory.series.some(
+                                            (seriesItem) =>
+                                              seriesItem.dialogSelected
+                                          )
+                                      )
+                                  )
+                                  .map((category, categoryIndex) => (
+                                    <div key={categoryIndex}>
+                                      {category.dialogSelected ? (
+                                        <div className="w-full flex items-center justify-between capitalize py-2.5">
+                                          <Link
+                                            to={`/product-category/${category.slug}`}
+                                          >
+                                            {category.fileName}
+                                          </Link>
+                                        </div>
+                                      ) : null}
+                                      <div className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 pl-2 gap-2 w-full">
+                                        {category.subcategories
+                                          .filter(
+                                            (subcategory) =>
+                                              subcategory.dialogSelected ||
+                                              subcategory.series.some(
+                                                (seriesItem) =>
+                                                  seriesItem.dialogSelected
+                                              )
+                                          )
+                                          .map((subcategory, subIndex) => (
+                                            <div key={subIndex}>
+                                              {subcategory.dialogSelected ? (
+                                                <div className="w-full flex items-center justify-between capitalize py-2.5">
+                                                  <Link
+                                                    to={`/product-category/${category.slug}/${subcategory.slug}`}
+                                                  >
+                                                    {subcategory.name}
+                                                  </Link>
+                                                </div>
+                                              ) : null}
+                                              <div className="flex flex-col text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-dark-600 bg-white pl-2 gap-2 w-full">
+                                                {subcategory.series
+                                                  .filter(
+                                                    (seriesItem) =>
+                                                      seriesItem.dialogSelected
+                                                  )
+                                                  .map(
+                                                    (
+                                                      seriesItem,
+                                                      seriesIndex
+                                                    ) => (
+                                                      <Link
+                                                        key={seriesIndex}
+                                                        to={`/product-category/${encodeURIComponent(
+                                                          category.slug
+                                                        )}/${encodeURIComponent(
+                                                          subcategory.slug
+                                                        )}/${encodeURIComponent(
+                                                          seriesItem.slug
+                                                        )}`}
+                                                      >
+                                                        <p className="py-2.5 capitalize">
+                                                          {seriesItem.name}
+                                                        </p>
+                                                      </Link>
+                                                    )
+                                                  )}
+                                              </div>
+                                            </div>
+                                          ))}
+                                      </div>
+                                    </div>
+                                  ))}
+                              </div>
                             </div>
                           )
                         )}

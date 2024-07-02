@@ -83,7 +83,7 @@ const TestimonialPage = () => {
         console.error("API response does not contain a valid testimonial data");
       }
 
-      setNewTestimonials([""]); // Reset dynamic input boxes
+      setNewTestimonials([""]);
     } catch (error) {
       console.error("Error adding testimonial:", error);
       toast.error("Failed to add testimonial");
