@@ -43,6 +43,7 @@ export default function DialogBar() {
     "Office",
     "Living Room",
     "BedRoom",
+    "Dining Room",
     "Kids Room Furniture",
     "Outdoor",
     "Hospitality",
