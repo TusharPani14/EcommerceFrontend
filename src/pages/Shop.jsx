@@ -84,6 +84,8 @@ const Shop = () => {
     "Outdoor",
     "Hospitality",
     "University Furniture",
+    "Study And Home Office",
+    "Washroom Furniture",
   ];
 
   // Handler to toggle main dropdown visibility

@@ -47,6 +47,8 @@ export default function DialogBar() {
     "Outdoor",
     "Hospitality",
     "University Furniture",
+    "Study And Home Office",
+    "Washroom Furniture"
   ];
 
   useEffect(() => {
